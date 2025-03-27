@@ -19,6 +19,39 @@
       color: #333;
       margin-top: 0.5rem;
     }
+
+    /* Spinner styles */
+    .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Loading state */
+    .auth-btn {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .auth-btn.loading span {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease;
+    }
+    .auth-btn.loading .spinner {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   </style>
 </head>
 <body>
@@ -36,7 +69,10 @@
     <input type="file" id="photo" accept="image/*" required />
     <img id="photoPreview" class="preview-img" src="#" alt="Photo Preview" style="display:none;" />
 
-    <button type="submit" class="auth-btn">Sign Up</button>
+    <button type="submit" class="auth-btn" id="submitBtn">
+      <div class="spinner"></div>
+      <span>Sign Up</span>
+    </button>
   </form>
 
   <div class="link-text">
@@ -65,6 +101,7 @@
   const signupForm = document.getElementById("signupForm");
   const photoInput = document.getElementById("photo");
   const photoPreview = document.getElementById("photoPreview");
+  const submitBtn = document.getElementById("submitBtn");
 
   // Show image preview
   photoInput.addEventListener("change", (e) => {
@@ -79,7 +116,7 @@
 
   // Upload to ImageBB
   async function uploadToImageBB(imageFile) {
-    const apiKey = "52f2894f6129f25dc68325351dc986db"; // your ImageBB API key
+    const apiKey = "52f2894f6129f25dc68325351dc986db"; // Replace with your real key
     const formData = new FormData();
     formData.append("image", imageFile);
 
@@ -98,6 +135,8 @@
 
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    submitBtn.classList.add("loading");
+    submitBtn.disabled = true;
 
     const fullName = document.getElementById("fullName").value.trim();
     const nmcNumber = document.getElementById("nmcNumber").value.trim();
@@ -108,11 +147,13 @@
 
     if (!photoFile) {
       alert("Please upload a profile photo.");
+      resetButton();
       return;
     }
 
     if (password !== confirmPassword) {
       alert("Passwords do not match.");
+      resetButton();
       return;
     }
 
@@ -134,8 +175,14 @@
     } catch (error) {
       alert("Signup failed: " + error.message);
       console.error("Signup error:", error);
+      resetButton();
     }
   });
+
+  function resetButton() {
+    submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
+  }
 </script>
 
 </body>
