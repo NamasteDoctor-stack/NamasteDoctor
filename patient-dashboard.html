@@ -60,43 +60,16 @@
   <div class="chat-shell">
     <div class="topbar">
       <div class="brand">NamasteDoctor</div>
-      <div class="points-wrap">
-        <span id="pointCount">0</span> Points
-        <button onclick="openModal()">+</button>
-      </div>
     </div>
 
     <div class="chat-body" id="chatMessages">
-      <div class="message system">Welcome! Please select a package to start chatting with a doctor.</div>
+      <div class="message system">Welcome! You can ask your health questions here. Our medical team will respond as soon as possible.</div>
     </div>
     <div id="typingIndicator" class="typing-indicator">Doctor is typing...</div>
 
     <div class="chat-footer">
-      <textarea id="chatInput" placeholder="Type your question..." disabled oninput="setTypingStatus(true)"></textarea>
-      <button onclick="sendMessage()" id="sendBtn" disabled>Send</button>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="modal">
-    <div class="modal">
-      <h2>Select a Package</h2>
-      <div class="plans">
-        <div class="plan-card">
-          <h4>Basic</h4>
-          <p>5 Questions</p>
-          <button onclick="buyPackage(5)">Buy – रु ५०</button>
-        </div>
-        <div class="plan-card highlighted">
-          <h4>Premium</h4>
-          <p>15 Questions</p>
-          <button onclick="buyPackage(15)">Buy – रु १००</button>
-        </div>
-        <div class="plan-card">
-          <h4>Elite</h4>
-          <p>Unlimited Questions</p>
-          <button onclick="buyPackage(-1)">Buy – रु २००</button>
-        </div>
-      </div>
+      <textarea id="chatInput" placeholder="Type your question..." oninput="setTypingStatus(true)"></textarea>
+      <button onclick="sendMessage()" id="sendBtn">Send</button>
     </div>
   </div>
 
@@ -125,8 +98,6 @@
     const chatMessages = document.getElementById("chatMessages");
     const chatInput = document.getElementById("chatInput");
     const sendBtn = document.getElementById("sendBtn");
-    const pointDisplay = document.getElementById("pointCount");
-    const modal = document.getElementById("modal");
     const typingIndicator = document.getElementById("typingIndicator");
     const doctorProfile = document.getElementById("doctorProfile");
     const doctorPhoto = document.getElementById("doctorPhoto");
@@ -136,20 +107,8 @@
     let patientId = localStorage.getItem("patientId") || "p-" + Math.random().toString(36).substr(2, 9);
     localStorage.setItem("patientId", patientId);
 
-    let points = 0;
-    let unlimited = false;
     let typingTimeout = null;
     let activeDoctor = null;
-
-    window.onload = openModal;
-
-    function openModal() {
-      modal.style.display = "flex";
-    }
-
-    function closeModal() {
-      modal.style.display = "none";
-    }
 
     function showDoctorProfile() {
       if (activeDoctor) {
@@ -174,70 +133,52 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    function buyPackage(val) {
-      points = val;
-      unlimited = val === -1;
-      pointDisplay.textContent = unlimited ? "∞" : points;
-      chatInput.disabled = false;
-      sendBtn.disabled = false;
-      chatMessages.innerHTML = '';
-      appendMessage("—— New Session ——", "system");
+    // Initialize chat session
+    db.ref("sessions/" + patientId).set({ doctorId: null, createdAt: Date.now() });
+    db.ref("messages/" + patientId).remove();
 
-      db.ref("sessions/" + patientId).set({ doctorId: null, createdAt: Date.now() });
-      db.ref("messages/" + patientId).remove();
-
-      db.ref("sessions/" + patientId).on("value", async (snap) => {
-        const session = snap.val();
-        if (session && session.doctorId) {
-          try {
-            const docRef = firestore.collection("users").doc(session.doctorId);
-            const docSnap = await docRef.get();
-            if (docSnap.exists) {
-              activeDoctor = docSnap.data();
-            }
-          } catch (err) {
-            console.error("Failed to fetch doctor from Firestore:", err);
+    db.ref("sessions/" + patientId).on("value", async (snap) => {
+      const session = snap.val();
+      if (session && session.doctorId) {
+        try {
+          const docRef = firestore.collection("users").doc(session.doctorId);
+          const docSnap = await docRef.get();
+          if (docSnap.exists) {
+            activeDoctor = docSnap.data();
           }
-
-          db.ref("messages/" + patientId).off();
-          db.ref("messages/" + patientId).on("child_added", (snapshot) => {
-            const msg = snapshot.val();
-            if (msg.sender === "doctor") {
-              appendMessage(msg.text, "doctor", msg.timestamp);
-            }
-          });
+        } catch (err) {
+          console.error("Failed to fetch doctor from Firestore:", err);
         }
-      });
 
-      db.ref("typing/" + patientId).on("value", (snap) => {
-        typingIndicator.style.display = snap.val() ? "block" : "none";
-      });
+        db.ref("messages/" + patientId).off();
+        db.ref("messages/" + patientId).on("child_added", (snapshot) => {
+          const msg = snapshot.val();
+          if (msg.sender === "doctor") {
+            appendMessage(msg.text, "doctor", msg.timestamp);
+          }
+        });
+      }
+    });
 
-      closeModal();
-    }
+    db.ref("typing/" + patientId).on("value", (snap) => {
+      typingIndicator.style.display = snap.val() ? "block" : "none";
+    });
 
     function sendMessage() {
       const text = chatInput.value.trim();
       if (!text) return;
 
-      if (!unlimited && points <= 0) {
-        appendMessage("You've used all your questions. Please purchase more to continue chatting.", "system");
-        chatInput.disabled = true;
-        sendBtn.disabled = true;
-        return;
-      }
-
       const timestamp = Date.now();
       db.ref("messages/" + patientId).push({ sender: "patient", text, timestamp });
-
-      if (!unlimited) {
-        points--;
-        pointDisplay.textContent = points;
-      }
 
       chatInput.value = "";
       appendMessage(text, "patient", timestamp);
       setTypingStatus(false);
+      
+      // Add automatic response
+      setTimeout(() => {
+        appendMessage("Your message has been received and will be answered as soon as possible by our medical staff.", "system");
+      }, 1000);
     }
 
     chatInput.addEventListener("keydown", (e) => {
@@ -254,10 +195,6 @@
         db.ref("typing/" + patientId).set(false);
       }, 2000);
     }
-
-    modal.addEventListener('click', function (e) {
-      if (e.target === modal) closeModal();
-    });
   </script>
 </body>
 </html>
