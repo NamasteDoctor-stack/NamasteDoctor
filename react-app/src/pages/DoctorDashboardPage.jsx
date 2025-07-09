@@ -29,6 +29,8 @@ const DoctorDashboardPage = () => {
   const [showInputRow, setShowInputRow] = useState(false);
   const chatMessagesRef = useRef(null);
   const navigate = useNavigate();
+  // Add a state to control mobile chat/sidebar view
+  const [mobileShowChat, setMobileShowChat] = useState(false);
 
   // Scroll to bottom on new message
   useEffect(() => {
@@ -126,6 +128,8 @@ const DoctorDashboardPage = () => {
     }
     setSelectedConversationId(patientId);
     localStorage.setItem('selectedConversationId', patientId);
+    // Show chat only on mobile
+    if (window.innerWidth <= 600) setMobileShowChat(true);
   };
 
   // Send a message
@@ -151,10 +155,20 @@ const DoctorDashboardPage = () => {
     }
   };
 
+  // Add a back button handler for mobile
+  const handleMobileBack = () => {
+    setMobileShowChat(false);
+    setSelectedConversationId(null);
+    localStorage.removeItem('selectedConversationId');
+    setChatHeader(null);
+    setChatMessages([]);
+    setShowInputRow(false);
+  };
+
   return (
     <>
       <div className="dashboard-container">
-        <aside className="sidebar">
+        <aside className={"sidebar" + (mobileShowChat ? " hide-mobile" : "")}>
           <div className="sidebar-header">
             <input
               type="text"
@@ -189,8 +203,12 @@ const DoctorDashboardPage = () => {
             ))}
           </ul>
         </aside>
-        <main className="chat-main">
+        <main className={"chat-main" + (mobileShowChat ? " show-mobile" : "")}>
           <div className="chat-header" id="chatHeader">
+            {/* Mobile back button */}
+            {mobileShowChat && (
+              <button onClick={handleMobileBack} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', marginRight: 10, cursor: 'pointer' }}>&larr;</button>
+            )}
             {chatHeader && (
               <>
                 <img
