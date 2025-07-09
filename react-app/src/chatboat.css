@@ -1,0 +1,221 @@
+/* ===================== NAMASTE DOCTOR CHATBOT PAGE STYLES ===================== */
+
+/* Main chatbot container */
+.nd-chatbot-outer {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #c2e1fc;
+}
+
+.nd-chatbot-container {
+  width: 100%;
+  max-width: 500px;
+  height: 80vh;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Chatbot title */
+.nd-chatbot-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FF4081;
+  margin: 1.5rem 0 1rem 0;
+  background: #fff;
+  z-index: 2;
+}
+
+/* Messages container */
+.nd-chat-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1.5rem 1rem 1rem 1rem;
+  background: #F4F6FA;
+  border-radius: 0 0 18px 18px;
+  min-height: 0;
+  max-height: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Message styles */
+.nd-chat-message.bot {
+  background: #e6f0fa;
+  align-self: flex-start;
+  color: #222;
+  border-radius: 18px;
+  padding: 10px 16px;
+  margin-bottom: 0.2rem;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.nd-chat-message.user {
+  background: #e63971;
+  color: #fff;
+  align-self: flex-end;
+  border-radius: 18px;
+  padding: 10px 16px;
+  margin-bottom: 0.2rem;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+/* Input row */
+.nd-chatbot-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1rem 1.2rem;
+  background: #fff;
+  border-top: 1px solid #eee;
+  position: relative;
+  width: 100%;
+  z-index: 10;
+  box-sizing: border-box;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* Input field */
+.nd-chatbot-input-row input {
+  flex: 1;
+  padding: 0.9rem 1.2rem;
+  border-radius: 20px;
+  border: 1.5px solid #ddd;
+  font-size: 1.08rem;
+  outline: none;
+  background: #F4F6FA;
+  transition: border 0.2s, box-shadow 0.2s;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+.nd-chatbot-input-row input:focus {
+  border: 1.5px solid #FF4081;
+  box-shadow: 0 0 0 2px #ff40813a;
+}
+
+/* Send button */
+.nd-chatbot-input-row button {
+  background: #FF4081;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(255,64,129,0.08);
+  min-width: 44px;
+  min-height: 44px;
+  margin-left: 0.2rem;
+}
+
+.nd-chatbot-input-row button:hover, 
+.nd-chatbot-input-row button:focus {
+  background: #e63971;
+  box-shadow: 0 4px 16px rgba(255,64,129,0.13);
+}
+
+/* Stop generating button */
+#nd-stopGeneratingBtn {
+  position: absolute;
+  right: 2.2rem;
+  bottom: 4.2rem;
+  z-index: 20;
+  background: #e63971;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  box-shadow: 0 2px 8px rgba(230,57,113,0.13);
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+#nd-stopGeneratingBtn:hover, 
+#nd-stopGeneratingBtn:focus {
+  background: #c92a5c;
+  box-shadow: 0 4px 16px rgba(230,57,113,0.18);
+}
+
+/* Loading indicator */
+#nd-chatLoading {
+  position: absolute;
+  left: 50%;
+  bottom: 5.5rem;
+  transform: translateX(-50%);
+  z-index: 21;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.2rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .nd-chatbot-container {
+    max-width: 100vw;
+    border-radius: 0;
+  }
+  
+  .nd-chatbot-title {
+    font-size: 1.3rem;
+  }
+  
+  .nd-chatbot-input-row {
+    padding: 0.5rem;
+    border-radius: 0 0 18px 18px;
+  }
+  
+  .nd-chat-message {
+    font-size: 0.98rem;
+    max-width: 98vw;
+  }
+  
+  #nd-stopGeneratingBtn {
+    right: 1.2rem;
+  }
+} 
+
+.nd-chat-message.bot strong, .nd-chat-message.bot b {
+  font-weight: bold;
+}
+.nd-chat-message.bot em, .nd-chat-message.bot i {
+  font-style: italic;
+}
+.nd-chat-message.bot p {
+  margin: 0 0 0.5em 0;
+}
+.nd-chat-message.bot ul, .nd-chat-message.bot ol {
+  margin: 0.5em 0 0.5em 1.5em;
+}
+.nd-chat-message.bot {
+  white-space: pre-line; /* for line breaks */
+} 
