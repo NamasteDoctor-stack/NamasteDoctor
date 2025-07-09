@@ -32,18 +32,15 @@ const PrivacyPolicyPage = () => (
 
         <h2>1. Information We Collect</h2>
         <ul>
-          <li><strong>Personal Identifiable Information (PII):</strong> Includes your full name, email address, phone number, and optionally, your gender and date of birth.</li>
-          <li><strong>Health-Related Information:</strong> Such as your health-related questions, symptoms, and any details shared during consultations with doctors or the chatbot.</li>
+           <li><strong>Health-Related Information:</strong> Such as your health-related questions, symptoms, and any details shared during consultations with doctors or the chatbot.</li>
           <li><strong>Session and Usage Data:</strong> Information regarding your interaction with the platform, such as the IP address, browser type, time zone settings, device type, operating system, and any usage data collected through cookies and analytics tools.</li>
-          <li><strong>Payment Information:</strong> Securely processed by third-party platforms such as Stripe, PayPal, and other payment processors. Namaste Doctor does not store credit or debit card information on our servers.</li>
-        </ul>
+           </ul>
 
         <h2>2. Use of Information</h2>
         <ul>
           <li>Providing and enhancing our consultation services, including doctor consultations and chatbot assistance.</li>
           <li>Communicating important updates, consultation confirmations, reminders, and service-related messages.</li>
           <li>Customizing your experience to offer tailored advice and relevant content.</li>
-          <li>Processing payments and managing invoices.</li>
           <li>Ensuring compliance with applicable legal and regulatory requirements.</li>
           <li>Improving platform functionality and user experience through data analytics.</li>
         </ul>
@@ -51,8 +48,7 @@ const PrivacyPolicyPage = () => (
         <h2>3. Data Sharing and Third Parties</h2>
         <ul>
           <li>With verified medical professionals who provide consultations, ensuring they adhere to confidentiality agreements.</li>
-          <li>With third-party payment processors to complete transactions securely.</li>
-          <li>With legal authorities if required by law, to comply with legal obligations.</li>
+           <li>With legal authorities if required by law, to comply with legal obligations.</li>
           <li>With our trusted partners and service providers, with your explicit consent.</li>
           <li>We do not sell your personal information to advertisers or third-party marketing agencies.</li>
         </ul>
