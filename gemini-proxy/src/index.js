@@ -31,7 +31,13 @@ export default {
     try {
       body = await request.json();
     } catch (err) {
-      return new Response("Invalid JSON", { status: 400 });
+      return new Response("Invalid JSON", { 
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
     }
 
     if (!body.message) {
