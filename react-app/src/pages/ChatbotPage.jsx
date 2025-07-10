@@ -11,7 +11,6 @@ Maintain a professional, supportive, and inclusive tone at all times.
 If a question requires medical diagnosis, treatment, or involves an emergency, recommend consulting a qualified healthcare provider. Keep all responses clear, concise, and non-judgmental.`;
 
 
-
 const FALLBACK_RESPONSES = {
   greetings: [
     "Hello! I'm here to help with your sexual health questions. What would you like to know?",
