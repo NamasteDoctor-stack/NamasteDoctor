@@ -41,7 +41,13 @@ export default {
     }
 
     if (!body.message) {
-      return new Response("Message is required", { status: 400 });
+      return new Response("Message is required", { 
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
     }
 
     // Gemini API endpoint with correct model name
@@ -72,7 +78,10 @@ export default {
           details: errorText 
         }), { 
           status: 500,
-          headers: { "Content-Type": "application/json" }
+          headers: { 
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
         });
       }
 
@@ -99,7 +108,10 @@ export default {
         details: error.message 
       }), { 
         status: 500,
-        headers: { "Content-Type": "application/json" }
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
       });
     }
   }
