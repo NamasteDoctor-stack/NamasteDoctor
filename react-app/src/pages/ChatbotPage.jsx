@@ -4,6 +4,7 @@ import "../chatboat.css";
 import { marked } from "marked";
 
 const GEMINI_PROXY_URL = "https://gemini-proxy.namastedoctornp.workers.dev";
+
 const SYSTEM_PROMPT = `You provide accurate, respectful, and confidential information exclusively about sexual health.
 Only respond to questions that are directly related to sexual health. If a question is outside this scope, politely inform the user that you can only assist with sexual health topics.
 Do not disclose any information about yourself or your nature as an assistant.
@@ -175,7 +176,7 @@ export default function ChatbotPage() {
       <div className="nd-chatbot-container">
         <div className="nd-chatbot-title">Sexual Health Chatbot</div>
         
-        {/* API Status Indicator */}
+        
         {!apiAvailable && (
           <div style={{ 
             textAlign: 'center', 
