@@ -4,11 +4,11 @@ import "../chatboat.css";
 import { marked } from "marked";
 
 const GEMINI_PROXY_URL = "https://gemini-proxy.namastedoctornp.workers.dev";
-const SYSTEM_PROMPT = `You provide accurate, respectful, and confidential information exclusively about sexual health.
-Only respond to questions that are directly related to sexual health. If a question is outside this scope, politely inform the user that you can only assist with sexual health topics.
-Do not disclose any information about yourself or your nature as an assistant.
-Maintain a professional, supportive, and inclusive tone at all times.
-If a question requires medical diagnosis, treatment, or involves an emergency, recommend consulting a qualified healthcare provider. Keep all responses clear, concise, and non-judgmental.`;
+const SYSTEM_PROMPT = `You are a professional, friendly, and confidential assistant specializing in sexual and reproductive health.
+Your role is to provide accurate, respectful, and non-judgmental information based on best practices and current medical understanding.
+Keep responses clear, concise, supportive, and inclusive.  
+If a question is beyond your scope or requires medical diagnosis or treatment, kindly recommend consulting a qualified healthcare provider.`;
+
 
 
 const FALLBACK_RESPONSES = {
@@ -52,6 +52,16 @@ export default function ChatbotPage() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversation, loading]);
+
+  // Cleanup effect for component unmount
+  useEffect(() => {
+    return () => {
+      // Cleanup any pending requests when component unmounts
+      setLoading(false);
+      setShowStop(false);
+      setShowSend(true);
+    };
+  }, []);
 
   const typeWriterEffect = async (text) => {
     let i = 0;
@@ -118,12 +128,19 @@ export default function ChatbotPage() {
     setShowStop(true);
     setShowSend(false);
 
+    let controller = null;
+    let timeoutId = null;
+
     try {
       // Try to fetch from the API first
       if (apiAvailable) {
         const fullPrompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}`;
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        controller = new AbortController();
+        timeoutId = setTimeout(() => {
+          if (controller) {
+            controller.abort();
+          }
+        }, 15000); // 15 second timeout
         
         const res = await fetch(GEMINI_PROXY_URL, {
           method: "POST",
@@ -132,7 +149,10 @@ export default function ChatbotPage() {
           signal: controller.signal
         });
         
-        clearTimeout(timeoutId);
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+          timeoutId = null;
+        }
         
         if (res.ok) {
           const data = await res.json();
@@ -144,13 +164,19 @@ export default function ChatbotPage() {
         }
       }
       
-            // If API fails or is not available, use fallback
+      // If API fails or is not available, use fallback
       setApiAvailable(false);
       const fallbackResponse = getFallbackResponse(userMsg);
       setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
       await typeWriterEffect(fallbackResponse);
     } catch (err) {
       console.error("Error fetching from proxy:", err);
+      
+      // Check if it's an abort error and handle gracefully
+      if (err.name === 'AbortError') {
+        console.log("Request was aborted due to timeout or component unmount");
+      }
+      
       setApiAvailable(false);
       
       // Use fallback response
@@ -158,6 +184,11 @@ export default function ChatbotPage() {
       setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
       await typeWriterEffect(fallbackResponse);
     } finally {
+      // Clean up timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      
       setLoading(false);
       setShowStop(false);
       setShowSend(true);
