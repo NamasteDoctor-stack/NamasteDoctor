@@ -38,7 +38,7 @@ const HomePage = () => {
             <Link to="/chatbot" className="btn primary-btn">
               <i className="fas fa-robot" style={{ marginRight: "0.4em" }}></i>Ask Our AI
             </Link>
-            <Link to="/ask-doctor" className="btn primary-btn">
+            <Link to="/patient-dashboard" className="btn primary-btn">
               <i className="fas fa-user-md" style={{ marginRight: "0.4em" }}></i>Ask a Doctor
             </Link>
           </div>
