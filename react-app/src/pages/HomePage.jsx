@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../Navbar";
 import "../mainstyle.css";
 import { Link, useLocation } from "react-router-dom";
@@ -8,12 +8,12 @@ import imgMasturbation from '../Images/MASTURBATION.png';
 import imgDoctor1 from '../Images/Doctor-1.png';
 import imgDoctor2 from '../Images/Doctor-2.png';
 import imgHow from '../Images/how.png';
-import { useEffect } from "react";
 
 const HomePage = () => {
   const location = useLocation();
+
   useEffect(() => {
-    document.title = "Namaste Doctor - Home";
+    document.title = "Namaste Doctor - Learn About Your Body";
     if (location.state?.scrollTo) {
       const section = document.getElementById(location.state.scrollTo);
       if (section) {
@@ -26,128 +26,130 @@ const HomePage = () => {
     <>
       <Navbar />
 
+      {/* Hero Section */}
       <section className="hero">
         <div className="hero-image fade-in">
-          <img src={imgHero} alt="HelloDoctor Doctors" />
+          <img src={imgHero} alt="Namaste Doctor Hero" />
         </div>
         <div className="hero-text fade-in">
-          <h1>Consult Verified Doctors<br /> Anytime, Anywhere</h1>
-          <p>Your health, our priority! Get answers from certified professionals.</p>
+          <h1>Understanding Your Body<br /> Starts with the Right Questions</h1>
+          <p>Namaste Doctor is a safe, anonymous space where adolescents can explore trusted, doctor-reviewed information about sexual and reproductive health.</p>
           <div className="hero-buttons">
-            <Link to="/patient-dashboard" className="btn primary-btn">Ask a Doctor Now</Link>
-            <Link to="/chatbot" className="btn primary-btn"><i className="fas fa-robot" style={{ marginRight: "0.4em" }}></i>Chat with AI</Link>
+            <Link to="/chatbot" className="btn primary-btn">
+              <i className="fas fa-robot" style={{ marginRight: "0.4em" }}></i>Ask Our AI
+            </Link>
+            <Link to="/articles" className="btn primary-btn">Explore Topics</Link>
           </div>
         </div>
       </section>
 
+      {/* Features Section */}
       <section className="offers-container fade-in">
-        <h2 className="section-title">What We Offer</h2>
+        <h2 className="section-title">Why Namaste Doctor?</h2>
         <section className="features">
           <div className="feature fade-in">
-            <h3>🔒 Anonymous & Secure</h3>
-            <p>Private consultations that keep your identity safe and secure with end-to-end encryption.</p>
+            <h3>🛡️ Anonymous & Non-Judgmental</h3>
+            <p>No logins, no identity tracking—just honest answers to your most personal questions.</p>
           </div>
           <div className="feature fade-in">
-            <h3>🩺 Verified Doctors</h3>
-            <p>Consult qualified professionals and top medical students, all thoroughly verified.</p>
+            <h3>🧠 Science-Backed Education</h3>
+            <p>Our content is reviewed by certified doctors and crafted to be accurate, inclusive, and youth-friendly.</p>
           </div>
           <div className="feature fade-in">
-            <h3>🌐 Multi-Language Support</h3>
-            <p>Available in English and Nepali to reach as many people as possible.</p>
+            <h3>🗣️ In Your Language</h3>
+            <p>Available in both English and Nepali to ensure comfort and clarity for everyone.</p>
           </div>
           <div className="feature fade-in">
-            <h3>🤖 Advanced Chatbot</h3>
-            <p>Your intelligent sexual health assistant, ready to provide reliable information and support.</p>
+            <h3>💬 AI Learning Companion</h3>
+            <p>Ask questions any time. Our AI assistant gives you medically-reviewed information in an accessible way—no prescriptions or diagnoses, just education.</p>
           </div>
         </section>
       </section>
 
       {/* About Section */}
       <section id="about-section" className="section-container fade-in">
-        <h2 className="section-title">About NamasteDoctor</h2>
+        <h2 className="section-title">Our Mission</h2>
         <p className="about-description">
-          Namaste Doctor is a youth-led initiative founded by an adolescent, with a vision to empower fellow adolescents by addressing a critical yet often overlooked aspect of their well-being—sexual and reproductive health. In Nepal, cultural taboos and social stigma frequently create barriers to open discussion on these topics, leading many young people to rely on misinformation or unsafe practices.
+          Namaste Doctor was started by a young person for young people—with a vision to remove the fear, shame, and misinformation surrounding sexual and reproductive health. In Nepal and many parts of the world, topics like puberty, menstruation, masturbation, or wet dreams are rarely talked about honestly. This silence creates confusion and anxiety for many adolescents.
           <br /><br />
-          At Namaste Doctor, we believe that sexuality is a natural and essential part of human life. Treating it as a taboo only deepens the cycle of ignorance and poor health outcomes. To break this silence, our platform was established with the guidance and support of licensed medical professionals in Nepal.
+          Our platform addresses this by offering free, reliable, and verified information about what’s happening in your body and mind as you grow. We do not provide medical consultations, prescriptions, or diagnoses. Instead, our purpose is **education and prevention**—so that every young person feels confident in understanding their development.
           <br /><br />
-          We offer a safe, confidential, and judgment-free space where adolescents can directly consult qualified, verified doctors. All consultations are conducted with the utmost discretion, and users have the option to communicate in either English or Nepali, based on their comfort. Even while remaining anonymous, users can trust the credentials, integrity, and dedication of the healthcare professionals they interact with.
-          <br /><br />
-          Namaste Doctor is committed to providing accurate, evidence-based information and fostering an environment of trust and empowerment. Our goal is to help young people make informed decisions and take control of their sexual and reproductive health with confidence and clarity.
-          <br /><br />
-          Take the first step—because your health, dignity, and knowledge matter.
+          All responses from our AI chatbot are reviewed by real doctors during our early phase to ensure the highest quality. We collect feedback to improve and personalize the educational experience even further.
         </p>
       </section>
 
-      {/* Our Posts Section */}
+      {/* Articles Section */}
       <section id="posts-section" className="section-container fade-in">
-        <h2 className="section-title">Our Latest Posts</h2>
+        <h2 className="section-title">Explore Educational Topics</h2>
         <div className="posts-grid">
           <Link to="/post-1" className="post-card">
-            <img src={imgCramp1} alt="Post 1" />
-            <h4>Period Cramps</h4>
-            <p>Understanding Period Cramps: Why They Happen and How to Feel Better</p>
+            <img src={imgCramp1} alt="Period Cramps" />
+            <h4>Understanding Period Cramps</h4>
+            <p>Why they happen, what’s normal, and how to manage them safely—without panic or shame.</p>
           </Link>
           <Link to="/post-2" className="post-card">
-            <img src={imgMasturbation} alt="Post 2" />
-            <h4>Masturbation</h4>
-            <p>Understanding Masturbation: What's Normal, Common Myths, and When to Seek Help</p>
+            <img src={imgMasturbation} alt="Masturbation Myths" />
+            <h4>Masturbation & Guilt</h4>
+            <p>Is it harmful? Is it okay? Let’s break the myths and look at what science says.</p>
           </Link>
         </div>
       </section>
 
+      {/* Medical Review Section */}
       <section className="doctors-container section-container fade-in">
-        <h2 className="section-title">Meet Our Doctors</h2>
+        <h2 className="section-title">Verified by Professionals</h2>
         <div className="doctors-card">
           <div className="doctors-grid">
             <div className="doctor-card fade-in">
-              <img src={imgDoctor1} alt="Doctor 1" />
+              <img src={imgDoctor1} alt="Dr. Sagar Panthi" />
               <h3>Dr. Sagar Panthi</h3>
-              <p>MBBS</p>
-              <p>BPKHS</p>
+              <p>MBBS, BPKHS</p>
+              <p>Medical Content Reviewer</p>
             </div>
             <div className="doctor-card fade-in">
-              <img src={imgDoctor2} alt="Doctor 2" />
+              <img src={imgDoctor2} alt="Dr. Rochana Acharya" />
               <h3>Dr. Rochana Acharya</h3>
-              <p>MBBS</p>
-              <p>BPKHS</p>
+              <p>MBBS, BPKHS</p>
+              <p>Medical Content Reviewer</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* How It Works */}
       <section id="how-it-works" className="section-container fade-in">
         <h2 className="section-title">How It Works</h2>
         <div className="how-it-works-content">
           <div className="how-image">
-            <img src={imgHow} alt="How it Works" />
+            <img src={imgHow} alt="How Namaste Doctor Works" />
           </div>
           <div className="how-text">
-            <h3>Submit Your Question – No Sign-Up Required</h3>
-            <p>Simply submit your query, and verified medical professionals will provide answers. For instant responses, our advanced chatbot is available to assist you promptly.</p>
+            <h3>No Appointments. No Judgment. Just Answers.</h3>
+            <p>Just visit the chatbot and type your question. It could be about periods, erections, acne, discharge—anything you're confused or anxious about. Our AI will reply with accurate info reviewed by doctors. It's fast, free, and anonymous.</p>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ */}
       <section id="faq-section" className="section-container fade-in">
         <h2 className="section-title">Frequently Asked Questions</h2>
         <div className="faq-grid">
           <div className="faq-card">
-            <h4>How do I consult a doctor?</h4>
-            <p>Submit your question directly and receive a quick response from a verified doctor, no sign up or plans required.</p>
+            <h4>Is Namaste Doctor a medical service?</h4>
+            <p>No. We don’t diagnose or prescribe. We focus on education, awareness, and prevention.</p>
           </div>
           <div className="faq-card">
-            <h4>Are my consultations private?</h4>
-            <p>Yes, we ensure end-to-end encryption for secure and confidential conversations.</p>
+            <h4>Is my identity safe?</h4>
+            <p>Yes. You can ask anything anonymously. We don’t store names, emails, or any identifying data.</p>
           </div>
           <div className="faq-card">
-            <h4>Do you provide prescriptions?</h4>
-            <p>Yes, verified doctors can provide e-prescriptions when applicable.</p>
+            <h4>Can I trust the information?</h4>
+            <p>Absolutely. Our team of licensed doctors reviews the answers and content regularly to ensure accuracy.</p>
           </div>
         </div>
       </section>
 
+      {/* Footer */}
       <footer className="site-footer" style={{ background: "#f8f8f8", color: "#333", textAlign: "center", padding: "1.2rem 0", marginTop: "2rem", fontSize: "1rem", borderTop: "1px solid #eee" }}>
         <span>&copy; 2024 Namaste Doctor. All rights reserved. | <Link to="/privacy-policy" style={{ color: "#1976d2", textDecoration: "underline" }}>Privacy Policy</Link></span>
       </footer>
@@ -155,4 +157,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage; 
+export default HomePage;
