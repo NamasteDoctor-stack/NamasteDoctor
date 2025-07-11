@@ -56,8 +56,8 @@ export default {
       });
     }
 
-    // Gemini API endpoint with Gemini 2.5 Flash
-    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${env.GEMINI_API_KEY_V2}`;
+    // Gemini API endpoint with Gemini 2.5 Flash-Lite Preview 06-17
+    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite-preview-06-17:generateContent?key=${env.GEMINI_API_KEY_V2}`;
 
     try {
       // Prepare the request to Gemini
