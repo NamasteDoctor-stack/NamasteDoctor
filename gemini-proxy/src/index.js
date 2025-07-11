@@ -56,8 +56,8 @@ export default {
       });
     }
 
-    // Gemini API endpoint with correct model name
-    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GEMINI_API_KEY_V2}`;
+    // Gemini API endpoint with Gemini 2.5 Flash
+    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${env.GEMINI_API_KEY_V2}`;
 
     try {
       // Prepare the request to Gemini
@@ -70,8 +70,26 @@ export default {
             temperature: 0.7,
             topK: 40,
             topP: 0.95,
-            maxOutputTokens: 1024,
-          }
+            maxOutputTokens: 2048,
+          },
+          safetySettings: [
+            {
+              category: "HARM_CATEGORY_HARASSMENT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_HATE_SPEECH",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+              threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            }
+          ]
         })
       });
 
