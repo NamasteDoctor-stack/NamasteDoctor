@@ -60,6 +60,7 @@ export default function ChatbotPage() {
       setLoading(false);
       setShowStop(false);
       setShowSend(true);
+      setApiAvailable(false); // Force offline mode on unmount
     };
   }, []);
 
@@ -128,39 +129,41 @@ export default function ChatbotPage() {
     setShowStop(true);
     setShowSend(false);
 
-    let controller = null;
-    let timeoutId = null;
-
     try {
       // Try to fetch from the API first
       if (apiAvailable) {
         const fullPrompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}`;
-        controller = new AbortController();
-        timeoutId = setTimeout(() => {
-          if (controller) {
-            controller.abort();
-          }
-        }, 15000); // 15 second timeout
         
-        const res = await fetch(GEMINI_PROXY_URL, {
+        // Use Promise.race to handle timeout without AbortController
+        const fetchPromise = fetch(GEMINI_PROXY_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: fullPrompt }),
-          signal: controller.signal
+          body: JSON.stringify({ message: fullPrompt })
         });
         
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-          timeoutId = null;
-        }
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Request timeout')), 15000);
+        });
         
-        if (res.ok) {
-          const data = await res.json();
-          if (data.answer) {
-            setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
-            await typeWriterEffect(data.answer);
-            return;
+        try {
+          const res = await Promise.race([fetchPromise, timeoutPromise]);
+          
+          if (res.ok) {
+            const data = await res.json();
+            if (data.answer) {
+              setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
+              await typeWriterEffect(data.answer);
+              return;
+            }
           }
+        } catch (fetchError) {
+          // Handle timeout and other fetch errors
+          if (fetchError.message === 'Request timeout') {
+            console.log("Request timed out - switching to offline mode");
+          } else {
+            console.log("Fetch error - switching to offline mode");
+          }
+          throw fetchError; // Re-throw to be caught by outer catch
         }
       }
       
@@ -172,23 +175,14 @@ export default function ChatbotPage() {
     } catch (err) {
       console.error("Error fetching from proxy:", err);
       
-      // Check if it's an abort error and handle gracefully
-      if (err.name === 'AbortError') {
-        console.log("Request was aborted due to timeout or component unmount");
-      }
-      
+      // Switch to offline mode for any error
       setApiAvailable(false);
       
-      // Use fallback response
+      // Use fallback response for any error
       const fallbackResponse = getFallbackResponse(userMsg);
       setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
       await typeWriterEffect(fallbackResponse);
     } finally {
-      // Clean up timeout
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      
       setLoading(false);
       setShowStop(false);
       setShowSend(true);
