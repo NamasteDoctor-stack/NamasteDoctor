@@ -73,15 +73,18 @@ const HomePage = () => {
 
       {/* About Section */}
       <section id="about-section" className="section-container fade-in">
-        <h2 className="section-title">Our Mission</h2>
-        <p className="about-description">
-          Namaste Doctor was started by a young person for young people—with a vision to remove the fear, shame, and misinformation surrounding sexual and reproductive health. In Nepal and many parts of the world, topics like puberty, menstruation, masturbation, or wet dreams are rarely talked about honestly. This silence creates confusion and anxiety for many adolescents.
-          <br /><br />
-          Our platform addresses this by offering free, reliable, and verified information about what’s happening in your body and mind as you grow. We do not provide medical consultations, prescriptions, or diagnoses. Instead, our purpose is education and prevention—so that every young person feels confident in understanding their development.
-          <br /><br />
-          All responses from our AI chatbot are reviewed by real doctors during our early phase to ensure the highest quality. We collect feedback to improve and personalize the educational experience even further.
-        </p>
-      </section>
+  <h2 className="section-title">Our Mission</h2>
+  <p className="about-description">
+    <strong>Namaste Doctor</strong> is a youth-led, non-profit platform developed by an adolescent — for adolescents. It was created with the goal of breaking the silence, stigma, and confusion surrounding sexual and reproductive health topics among young people in Nepal and beyond.
+    <br /><br />
+    In many communities, natural experiences like puberty, menstruation, masturbation, and wet dreams are often considered taboo and left unspoken. This lack of open, accurate information can lead to fear, shame, and harmful misconceptions.
+    <br /><br />
+    Namaste Doctor exists to change that. We provide a safe, anonymous space where adolescents can ask honest questions and receive clear, respectful, and medically accurate answers. Our platform is strictly educational — we do not offer consultations, diagnoses, or prescriptions of any kind.
+    <br /><br />
+    Every answer is written or verified by qualified medical students and doctors to ensure scientific accuracy and age-appropriate guidance. Our aim is to empower young people to understand their bodies, make informed choices, and grow up with confidence and dignity.
+  </p>
+</section>
+
 
       {/* Articles Section */}
       <section id="posts-section" className="section-container fade-in">
