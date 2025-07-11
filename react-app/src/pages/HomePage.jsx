@@ -81,7 +81,7 @@ const HomePage = () => {
     <br /><br />
     Namaste Doctor exists to change that. We provide a safe, anonymous space where adolescents can ask honest questions and receive clear, respectful, and medically accurate answers. Our platform is strictly educational — we do not offer consultations, diagnoses, or prescriptions of any kind.
     <br /><br />
-    Every answer is written or verified by qualified medical students and doctors to ensure scientific accuracy and age-appropriate guidance. Our aim is to empower young people to understand their bodies, make informed choices, and grow up with confidence and dignity.
+    Every answer is written or verified by qualified doctors to ensure scientific accuracy and age-appropriate guidance. Our aim is to empower young people to understand their bodies, make informed choices, and grow up with confidence and dignity.
   </p>
 </section>
 
