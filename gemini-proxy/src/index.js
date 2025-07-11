@@ -56,8 +56,23 @@ export default {
       });
     }
 
-    // Gemini API endpoint with Gemini 2.5 Flash-Lite Preview 06-17
-    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite-preview-06-17:generateContent?key=${env.GEMINI_API_KEY_V2}`;
+    // Gemini API endpoint with Gemini 2.0 Flash
+    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${env.GEMINI_API_KEY_V2}`;
+
+    // Debug: Check if API key is available
+    if (!env.GEMINI_API_KEY_V2) {
+      console.error("GEMINI_API_KEY_V2 is not set");
+      return new Response(JSON.stringify({ 
+        error: "API key not configured", 
+        details: "GEMINI_API_KEY_V2 environment variable is missing"
+      }), { 
+        status: 500,
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
 
     try {
       // Prepare the request to Gemini
@@ -97,9 +112,12 @@ export default {
       if (!geminiRes.ok) {
         const errorText = await geminiRes.text();
         console.error("Gemini API error:", errorText);
+        console.error("Response status:", geminiRes.status);
+        console.error("Response headers:", Object.fromEntries(geminiRes.headers.entries()));
         return new Response(JSON.stringify({ 
           error: "Gemini API error", 
-          details: errorText 
+          details: errorText,
+          status: geminiRes.status
         }), { 
           status: 500,
           headers: { 
