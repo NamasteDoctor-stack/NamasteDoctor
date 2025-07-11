@@ -33,13 +33,18 @@ const HomePage = () => {
         </div>
         <div className="hero-text fade-in">
           <h1>Understanding Your Body<br /> Starts with the Right Questions</h1>
-          <p>Namaste Doctor is a safe, anonymous space where adolescents can explore trusted, doctor-reviewed information about sexual and reproductive health.</p>
+          <p>Namaste Doctor is a safe, anonymous platform where adolescents can learn about sexual and reproductive health through verified, easy-to-understand information.</p>
           <div className="hero-buttons">
             <Link to="/chatbot" className="btn primary-btn">
               <i className="fas fa-robot" style={{ marginRight: "0.4em" }}></i>Ask Our AI
             </Link>
-            <Link to="/articles" className="btn primary-btn">Explore Topics</Link>
+            <Link to="/ask-doctor" className="btn primary-btn">
+              <i className="fas fa-user-md" style={{ marginRight: "0.4em" }}></i>Ask a Doctor
+            </Link>
           </div>
+          <p style={{ fontSize: "0.9rem", marginTop: "0.7rem", color: "#555" }}>
+            Both options are private, anonymous, and educational only. No prescriptions, no consultations.
+          </p>
         </div>
       </section>
 
