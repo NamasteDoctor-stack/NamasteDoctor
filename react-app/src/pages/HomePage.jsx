@@ -77,7 +77,7 @@ const HomePage = () => {
         <p className="about-description">
           Namaste Doctor was started by a young person for young people—with a vision to remove the fear, shame, and misinformation surrounding sexual and reproductive health. In Nepal and many parts of the world, topics like puberty, menstruation, masturbation, or wet dreams are rarely talked about honestly. This silence creates confusion and anxiety for many adolescents.
           <br /><br />
-          Our platform addresses this by offering free, reliable, and verified information about what’s happening in your body and mind as you grow. We do not provide medical consultations, prescriptions, or diagnoses. Instead, our purpose is **education and prevention**—so that every young person feels confident in understanding their development.
+          Our platform addresses this by offering free, reliable, and verified information about what’s happening in your body and mind as you grow. We do not provide medical consultations, prescriptions, or diagnoses. Instead, our purpose is education and prevention—so that every young person feels confident in understanding their development.
           <br /><br />
           All responses from our AI chatbot are reviewed by real doctors during our early phase to ensure the highest quality. We collect feedback to improve and personalize the educational experience even further.
         </p>
