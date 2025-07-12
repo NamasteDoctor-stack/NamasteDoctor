@@ -375,12 +375,14 @@ body.no-scroll {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
   .doctors-grid {
     flex-direction: row;
     justify-content: center;
+    align-items: stretch;
   }
 }
 
@@ -389,6 +391,7 @@ body.no-scroll {
   border-radius: 15px;
   padding: 2rem;
   max-width: 300px;
+  width: 100%;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -843,6 +846,16 @@ footer {
   .faq-card {
     max-width: 100%;
     width: 100%;
+  }
+  
+  .doctor-card {
+    max-width: 280px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .doctors-grid {
+    gap: 1.5rem;
   }
 }
 
