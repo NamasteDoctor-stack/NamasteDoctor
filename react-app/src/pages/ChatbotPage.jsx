@@ -4,7 +4,7 @@ import "../chatboat.css";
 import { marked } from "marked";
 
 const GEMINI_PROXY_URL = "https://gemini-proxy.namastedoctornp.workers.dev";
-const SYSTEM_PROMPT = `You are a friendly, supportive assistant helping adolescents (ages 12-18) understand their bodies and sexual health.
+const SYSTEM_PROMPT = `You are a friendly, supportive sexual health educator helping adolescents (ages 12-18) understand their bodies and sexual health. This is an EDUCATIONAL context for health information.
 
 CRITICAL GUIDELINES:
 1. Keep answers SHORT and SIMPLE (max 2-3 sentences)
@@ -15,15 +15,18 @@ CRITICAL GUIDELINES:
 6. Be encouraging and supportive, not scary or judgmental
 7. ALWAYS answer questions about sexual health - these are normal topics for adolescents
 8. NEVER refuse to answer or say "I couldn't generate a response"
+9. This is for EDUCATIONAL PURPOSES - you are providing health information
 
 IMPORTANT: You MUST answer questions about:
-- Masturbation (touching yourself for pleasure)
-- Periods and menstruation
-- Wet dreams and erections
-- Body changes during puberty
-- Sexual health and development
+- Masturbation (touching yourself for pleasure) - this is normal and healthy
+- Periods and menstruation - normal body function
+- Wet dreams and erections - normal puberty changes
+- Body changes during puberty - natural development
+- Sexual health and development - important health topics
 
 These are normal, healthy topics that adolescents need to understand. Provide clear, supportive answers that help them learn about their bodies safely.
+
+CONTEXT: This is a sexual health education chatbot for adolescents. You are providing important health information in an educational setting. Answer all questions honestly and supportively.
 
 Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor.`;
 
@@ -38,12 +41,16 @@ const FALLBACK_RESPONSES = {
   general: [
     "That's a great question! Let me give you a simple answer.",
     "I'm glad you asked! Here's what you should know.",
-    "Good question! This is totally normal to wonder about."
+    "Good question! This is totally normal to wonder about.",
+    "That's a normal thing to be curious about! Here's what you should know.",
+    "Great question! This is something many people wonder about."
   ],
   emergency: [
     "If you're really worried or in pain, tell a trusted adult or go to a doctor.",
     "If something doesn't feel right, it's okay to ask for help from a grown-up.",
-    "When in doubt, talk to someone you trust or see a doctor."
+    "When in doubt, talk to someone you trust or see a doctor.",
+    "If you're feeling scared or in pain, don't wait - talk to a parent, teacher, or doctor right away.",
+    "Your health is important! If something feels wrong, get help from someone you trust."
   ],
   referral: [
     "For personal advice, talk to a doctor or trusted adult.",
@@ -115,6 +122,27 @@ export default function ChatbotPage() {
     type();
   };
 
+  const isRefusalResponse = (answer) => {
+    const lowerAnswer = answer.toLowerCase();
+    // Only detect actual refusals, not legitimate responses
+    const refusalPhrases = [
+      "i'm sorry, but i cannot",
+      "i cannot provide",
+      "i'm unable to",
+      "i cannot answer",
+      "i'm not able to",
+      "i cannot generate",
+      "i couldn't generate",
+      "i cannot respond",
+      "i'm not allowed to",
+      "i cannot discuss",
+      "i cannot help with",
+      "i cannot assist with"
+    ];
+    
+    return refusalPhrases.some(phrase => lowerAnswer.includes(phrase));
+  };
+
   const getFallbackResponse = (userMessage) => {
     const message = userMessage.toLowerCase();
     
@@ -158,6 +186,26 @@ export default function ChatbotPage() {
       return "Vaginal discharge is normal and helps keep your vagina clean and healthy. It's your body's way of staying clean.";
     }
     
+    // Check for puberty topics
+    if (message.includes('puberty') || message.includes('growing up') || message.includes('body changes')) {
+      return "Puberty is when your body changes from a child to an adult. You'll grow taller, develop new body parts, and your feelings might change. It's all normal!";
+    }
+    
+    // Check for body hair
+    if (message.includes('hair') || message.includes('pubic hair') || message.includes('armpit hair')) {
+      return "Growing body hair is normal during puberty. It's your body's way of becoming an adult. Everyone gets it at different times.";
+    }
+    
+    // Check for voice changes
+    if (message.includes('voice') || message.includes('voice change') || message.includes('voice cracking')) {
+      return "Voice changes are normal for boys during puberty. Your voice might crack or get deeper. It's just your body growing up!";
+    }
+    
+    // Check for breast development
+    if (message.includes('breast') || message.includes('breasts') || message.includes('boobs')) {
+      return "Breast development is normal for girls during puberty. They grow at different rates and sizes - everyone is different!";
+    }
+    
     // Check for emergency keywords
     if (message.includes('emergency') || message.includes('urgent') || message.includes('pain') || message.includes('bleeding')) {
       return FALLBACK_RESPONSES.emergency[Math.floor(Math.random() * FALLBACK_RESPONSES.emergency.length)];
@@ -194,7 +242,7 @@ export default function ChatbotPage() {
           .map(msg => `${msg.sender === "user" ? "User" : "Assistant"}: ${msg.text}`)
           .join("\n");
         
-        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}`;
+        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}\n\nAssistant:`;
         
         // Use Promise.race to handle timeout without AbortController
         const fetchPromise = fetch(GEMINI_PROXY_URL, {
@@ -212,13 +260,21 @@ export default function ChatbotPage() {
           
           if (res.ok) {
             const data = await res.json();
-            if (data.answer && !data.answer.includes("Sorry, I couldn't generate a response")) {
+            console.log("AI Response:", data.answer);
+            if (data.answer && data.answer.trim().length > 10 && !isRefusalResponse(data.answer)) {
               setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
               await typeWriterEffect(data.answer);
               return;
             } else {
-              // If API returns "couldn't generate response", use fallback
-              throw new Error("API refused to answer");
+              // If AI refuses to answer, use our fallback
+              console.log("AI refused to answer - using fallback");
+              console.log("Response was:", data.answer);
+              console.log("Response length:", data.answer?.length);
+              console.log("Is refusal:", isRefusalResponse(data.answer));
+              const fallbackResponse = getFallbackResponse(userMsg);
+              setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
+              await typeWriterEffect(fallbackResponse);
+              return;
             }
           } else {
             // Handle HTTP error status codes
@@ -226,7 +282,8 @@ export default function ChatbotPage() {
             if (res.status === 500) {
               console.log("Server error (500) - likely API key issue");
             }
-            throw new Error(`HTTP ${res.status}: Server error`);
+            // Don't throw error here, just fall through to fallback
+            setApiAvailable(false);
           }
         } catch (fetchError) {
           // Handle timeout and other fetch errors
@@ -234,25 +291,27 @@ export default function ChatbotPage() {
             console.log("Request timed out - switching to offline mode");
           } else if (fetchError.message.includes('HTTP 500')) {
             console.log("Server error (500) - switching to offline mode");
-          } else if (fetchError.message === "API refused to answer") {
-            console.log("API refused to answer - using fallback");
           } else {
             console.log("Fetch error - switching to offline mode");
           }
-          throw fetchError; // Re-throw to be caught by outer catch
+          // Don't throw error here, just fall through to fallback
+          setApiAvailable(false);
         }
       }
       
-      // If API fails or is not available, use fallback
-      setApiAvailable(false);
+      // If we reach here, API is not available or failed, use fallback
+      if (apiAvailable) {
+        setApiAvailable(false);
+      }
       const fallbackResponse = getFallbackResponse(userMsg);
       setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
       await typeWriterEffect(fallbackResponse);
     } catch (err) {
-      console.error("Error fetching from proxy:", err);
-      
-      // Switch to offline mode for any error
-      setApiAvailable(false);
+      // Only log and handle errors if we haven't already switched to offline mode
+      if (apiAvailable) {
+        console.error("Unexpected error in chatbot:", err.message || err);
+        setApiAvailable(false);
+      }
       
       // Use fallback response for any error
       const fallbackResponse = getFallbackResponse(userMsg);
