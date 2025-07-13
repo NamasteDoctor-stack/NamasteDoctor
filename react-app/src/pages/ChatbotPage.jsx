@@ -2,38 +2,52 @@ import React, { useState, useRef, useEffect } from "react";
 import "../mainstyle.css"; 
 import "../chatboat.css";
 import { marked } from "marked";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, where, serverTimestamp } from "firebase/firestore";
+import app from "../firebaseConfig";
 
 const GEMINI_PROXY_URL = "https://gemini-proxy.namastedoctornp.workers.dev";
-const SYSTEM_PROMPT = `You are a friendly, respectful, and confidential assistant that provides accurate and age-appropriate information about adolescent sexual and reproductive health.
-You must only answer questions within the scope of sexual and reproductive health education—such as puberty, menstruation, erections, wet dreams, masturbation, safe practices, consent, body changes, and anatomy.
-Do not answer questions outside this domain. If asked anything unrelated, gently explain that you are only designed to support sexual and reproductive health learning.
-Do not disclose or suggest anything about your identity, form, source, creators, or how you work. Avoid all references to being an AI, bot, model, or being powered by any system or organization.
-Never store, infer, or refer to the user's identity or personal data. Always respond with complete confidentiality and respect for privacy.
-If a question requires clinical evaluation, diagnosis, or treatment, politely recommend speaking to a licensed healthcare provider.
-Always keep responses clear, concise, inclusive, non-judgmental, and scientifically accurate. Avoid slang or explicit phrasing unless necessary for clarity and empowerment.`;
+const SYSTEM_PROMPT = `You are a friendly, supportive assistant helping adolescents (ages 12-18) understand their bodies and sexual health.
+
+CRITICAL GUIDELINES:
+1. Keep answers SHORT and SIMPLE (max 2-3 sentences)
+2. Use language a 6th grader can understand - NO medical jargon
+3. Be direct but gentle - adolescents need clear, honest answers
+4. Focus on what's normal and healthy
+5. Use simple, everyday words instead of medical terms
+6. Be encouraging and supportive, not scary or judgmental
+7. If you need to use a medical term, explain it in simple words
+
+EXAMPLES:
+"Menstruation is the monthly shedding of the uterine endometrium"
+"Periods are when your body gets rid of blood and tissue from your uterus each month"
+
+"Masturbation is a normal physiological response"
+"Touching yourself is normal and healthy - it's your body's way of feeling good"
+
+Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor.`;
 
 
 
 const FALLBACK_RESPONSES = {
   greetings: [
-    "Hello! I'm here to help with your sexual health questions. What would you like to know?",
-    "Hi there! I'm your sexual health assistant. Feel free to ask me anything - your questions are confidential.",
-    "Welcome! I'm here to provide accurate, non-judgmental information about sexual and reproductive health."
+    "Hey! I'm here to help with your body questions. What's on your mind?",
+    "Hi! Ask me anything about your body - it's totally normal to be curious!",
+    "Hello! I'm here to answer your questions about growing up and your body."
   ],
   general: [
-    "That's a great question about sexual health. While I can provide general information, it's always best to consult with a healthcare provider for personalized advice.",
-    "I understand your concern. This is a common question, and I'd be happy to share some general information with you.",
-    "Thank you for asking this important question. Let me provide you with some helpful information about this topic."
+    "That's a great question! Let me give you a simple answer.",
+    "I'm glad you asked! Here's what you should know.",
+    "Good question! This is totally normal to wonder about."
   ],
   emergency: [
-    "If you're experiencing a medical emergency, please contact emergency services immediately or visit the nearest hospital.",
-    "For urgent medical concerns, please seek immediate medical attention from a healthcare provider.",
-    "If this is an emergency situation, please call emergency services right away."
+    "If you're really worried or in pain, tell a trusted adult or go to a doctor.",
+    "If something doesn't feel right, it's okay to ask for help from a grown-up.",
+    "When in doubt, talk to someone you trust or see a doctor."
   ],
   referral: [
-    "For personalized medical advice, I recommend consulting with a qualified healthcare provider who can assess your specific situation.",
-    "While I can provide general information, your healthcare provider will be able to give you the most appropriate advice for your situation.",
-    "It's always a good idea to discuss these matters with a healthcare professional who knows your medical history."
+    "For personal advice, talk to a doctor or trusted adult.",
+    "A doctor can give you better advice for your specific situation.",
+    "It's always good to talk to a grown-up you trust about these things."
   ]
 };
 
@@ -41,7 +55,7 @@ export default function ChatbotPage() {
   const [conversation, setConversation] = useState([
     {
       sender: "bot",
-      text: "Hi! I am your sexual health assistant. Ask me anything about sexual and reproductive health. Your questions are anonymous and confidential."
+      text: "Hey! I'm here to help with your body questions. Growing up can be confusing - ask me anything! Everything is private and anonymous."
     }
   ]);
   const [input, setInput] = useState("");
@@ -135,7 +149,13 @@ export default function ChatbotPage() {
     try {
       // Try to fetch from the API first
       if (apiAvailable) {
-        const fullPrompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}`;
+        // Build conversation history for context
+        const conversationHistory = conversation
+          .filter(msg => msg.sender === "user" || msg.sender === "bot")
+          .map(msg => `${msg.sender === "user" ? "User" : "Assistant"}: ${msg.text}`)
+          .join("\n");
+        
+        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}`;
         
         // Use Promise.race to handle timeout without AbortController
         const fetchPromise = fetch(GEMINI_PROXY_URL, {
@@ -158,11 +178,20 @@ export default function ChatbotPage() {
               await typeWriterEffect(data.answer);
               return;
             }
+          } else {
+            // Handle HTTP error status codes
+            console.log(`Server responded with status: ${res.status}`);
+            if (res.status === 500) {
+              console.log("Server error (500) - likely API key issue");
+            }
+            throw new Error(`HTTP ${res.status}: Server error`);
           }
         } catch (fetchError) {
           // Handle timeout and other fetch errors
           if (fetchError.message === 'Request timeout') {
             console.log("Request timed out - switching to offline mode");
+          } else if (fetchError.message.includes('HTTP 500')) {
+            console.log("Server error (500) - switching to offline mode");
           } else {
             console.log("Fetch error - switching to offline mode");
           }
@@ -198,10 +227,52 @@ export default function ChatbotPage() {
     setShowSend(true);
   };
 
+  const clearChat = () => {
+    setConversation([
+      {
+        sender: "bot",
+        text: "Hey! I'm here to help with your body questions. Growing up can be confusing - ask me anything! Everything is private and anonymous."
+      }
+    ]);
+  };
+
   return (
     <div className="nd-chatbot-outer">
       <div className="nd-chatbot-container">
-        <div className="nd-chatbot-title">Sexual Health Chatbot</div>
+        <div className="nd-chatbot-title">
+          Sexual Health Chatbot
+          {conversation.length > 1 && (
+            <button 
+              onClick={clearChat}
+              style={{
+                float: 'right',
+                background: '#ff6b6b',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                padding: '0.3rem 0.8rem',
+                fontSize: '0.8rem',
+                cursor: 'pointer',
+                marginTop: '0.2rem'
+              }}
+              title="Clear conversation"
+            >
+              🗑️ Clear Chat
+            </button>
+          )}
+        </div>
+        
+        {/* Conversation Memory Indicator */}
+        <div style={{ 
+          textAlign: 'center', 
+          padding: '0.5rem', 
+          background: '#e8f5e8', 
+          color: '#2e7d32', 
+          fontSize: '0.9rem',
+          borderBottom: '1px solid #c8e6c9'
+        }}>
+          💬 AI remembers our conversation - feel free to ask follow-up questions!
+        </div>
         
         {/* API Status Indicator */}
         {!apiAvailable && (
@@ -213,7 +284,7 @@ export default function ChatbotPage() {
             fontSize: '0.9rem',
             borderBottom: '1px solid #ffeaa7'
           }}>
-            ⚠️ Currently using offline mode - AI service temporarily unavailable
+            ⚠️ Currently using offline mode - AI service temporarily unavailable. You can still ask questions and get helpful responses.
           </div>
         )}
         
