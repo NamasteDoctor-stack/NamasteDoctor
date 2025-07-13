@@ -140,7 +140,6 @@ export default function ChatbotPage() {
     e.preventDefault();
     if (!input.trim()) return;
     const userMsg = input.trim();
-    setConversation((prev) => [...prev, { sender: "user", text: userMsg }]);
     setInput("");
     setLoading(true);
     setShowStop(true);
@@ -149,13 +148,17 @@ export default function ChatbotPage() {
     try {
       // Try to fetch from the API first
       if (apiAvailable) {
-        // Build conversation history for context
-        const conversationHistory = conversation
+        // Build conversation history for context (including the new user message)
+        const updatedConversation = [...conversation, { sender: "user", text: userMsg }];
+        const conversationHistory = updatedConversation
           .filter(msg => msg.sender === "user" || msg.sender === "bot")
           .map(msg => `${msg.sender === "user" ? "User" : "Assistant"}: ${msg.text}`)
           .join("\n");
         
-        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}`;
+        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}`;
+        
+        // Add user message to conversation state
+        setConversation((prev) => [...prev, { sender: "user", text: userMsg }]);
         
         // Use Promise.race to handle timeout without AbortController
         const fetchPromise = fetch(GEMINI_PROXY_URL, {
