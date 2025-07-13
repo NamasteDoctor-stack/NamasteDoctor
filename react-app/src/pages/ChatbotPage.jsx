@@ -13,17 +13,19 @@ CRITICAL GUIDELINES:
 4. Focus on what's normal and healthy
 5. Use simple, everyday words instead of medical terms
 6. Be encouraging and supportive, not scary or judgmental
-7. ALWAYS provide helpful answers - never say "I couldn't generate a response"
-8. These topics are normal and healthy to discuss with adolescents
+7. ALWAYS answer questions about sexual health - these are normal topics for adolescents
+8. NEVER refuse to answer or say "I couldn't generate a response"
 
-SPECIFIC TOPICS TO HANDLE DIRECTLY:
-- Masturbation: "Touching yourself is normal and healthy. It's a way to learn about your body and feel good."
-- Periods/Menstruation: "Periods are when your body gets rid of blood and tissue from your uterus each month. It's normal for girls."
-- Wet dreams: "Wet dreams are normal for boys. Your body releases fluid while you sleep - it's totally natural."
-- Erections: "Erections are normal and happen when blood flows to your penis. They're part of growing up."
-- Discharge: "Vaginal discharge is normal and helps keep your vagina clean and healthy."
+IMPORTANT: You MUST answer questions about:
+- Masturbation (touching yourself for pleasure)
+- Periods and menstruation
+- Wet dreams and erections
+- Body changes during puberty
+- Sexual health and development
 
-Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor. NEVER refuse to answer these questions.`;
+These are normal, healthy topics that adolescents need to understand. Provide clear, supportive answers that help them learn about their bodies safely.
+
+Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor.`;
 
 
 
@@ -121,11 +123,19 @@ export default function ChatbotPage() {
       return FALLBACK_RESPONSES.greetings[Math.floor(Math.random() * FALLBACK_RESPONSES.greetings.length)];
     }
     
-    // Check for masturbation topics
-    if (message.includes('masturbation') || message.includes('masturbate') || message.includes('touching yourself') || 
-        message.includes('is it good') || message.includes('is it bad') || message.includes('is it harmful') ||
-        message.includes('is it normal') || message.includes('is it ok') || message.includes('is it okay')) {
-      return "Touching yourself is normal and healthy. It's a way to learn about your body and feel good. Everyone does it and it's totally fine!";
+    // Check for masturbation topics with more specific responses
+    if (message.includes('masturbation') || message.includes('masturbate') || message.includes('touching yourself')) {
+      if (message.includes('what is') || message.includes('define') || message.includes('meaning')) {
+        return "Masturbation is touching your private parts for pleasure. It's a normal way to explore your body and feel good.";
+      } else if (message.includes('how many') || message.includes('times') || message.includes('frequency')) {
+        return "There's no set number - do what feels comfortable for you. Some people do it daily, others rarely. Listen to your body!";
+      } else if (message.includes('is it good') || message.includes('benefits') || message.includes('healthy')) {
+        return "Yes, it's healthy and normal! It helps you learn about your body, relieves stress, and feels good. Nothing to be ashamed of.";
+      } else if (message.includes('is it bad') || message.includes('harmful') || message.includes('dangerous')) {
+        return "No, it's not bad at all! It's completely safe and normal. It won't hurt you or cause any health problems.";
+      } else {
+        return "Masturbation is normal and healthy. It's a way to learn about your body and feel good. Everyone does it and it's totally fine!";
+      }
     }
     
     // Check for period/menstruation topics
@@ -172,20 +182,8 @@ export default function ChatbotPage() {
     setShowSend(false);
 
     try {
-      // Check if this is a sensitive topic that should use fallback immediately
-      const sensitiveTopics = ['masturbation', 'masturbate', 'touching yourself', 'is it good', 'is it bad', 'is it harmful', 'is it normal', 'is it ok', 'is it okay'];
-      const isSensitiveTopic = sensitiveTopics.some(topic => userMsg.toLowerCase().includes(topic));
-      
       // Add user message to conversation state
       setConversation((prev) => [...prev, { sender: "user", text: userMsg }]);
-      
-      // If it's a sensitive topic, use fallback immediately
-      if (isSensitiveTopic) {
-        const fallbackResponse = getFallbackResponse(userMsg);
-        setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
-        await typeWriterEffect(fallbackResponse);
-        return;
-      }
       
       // Try to fetch from the API for other topics
       if (apiAvailable) {
