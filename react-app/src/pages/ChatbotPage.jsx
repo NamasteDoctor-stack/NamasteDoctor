@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import "../mainstyle.css"; 
 import "../chatboat.css";
 import { marked } from "marked";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, where, serverTimestamp } from "firebase/firestore";
-import app from "../firebaseConfig";
 
 const GEMINI_PROXY_URL = "https://gemini-proxy.namastedoctornp.workers.dev";
 const SYSTEM_PROMPT = `You are a friendly, supportive assistant helping adolescents (ages 12-18) understand their bodies and sexual health.
