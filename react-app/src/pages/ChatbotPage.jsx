@@ -13,16 +13,17 @@ CRITICAL GUIDELINES:
 4. Focus on what's normal and healthy
 5. Use simple, everyday words instead of medical terms
 6. Be encouraging and supportive, not scary or judgmental
-7. If you need to use a medical term, explain it in simple words
+7. ALWAYS provide helpful answers - never say "I couldn't generate a response"
+8. These topics are normal and healthy to discuss with adolescents
 
-EXAMPLES:
-"Menstruation is the monthly shedding of the uterine endometrium"
-"Periods are when your body gets rid of blood and tissue from your uterus each month"
+SPECIFIC TOPICS TO HANDLE DIRECTLY:
+- Masturbation: "Touching yourself is normal and healthy. It's a way to learn about your body and feel good."
+- Periods/Menstruation: "Periods are when your body gets rid of blood and tissue from your uterus each month. It's normal for girls."
+- Wet dreams: "Wet dreams are normal for boys. Your body releases fluid while you sleep - it's totally natural."
+- Erections: "Erections are normal and happen when blood flows to your penis. They're part of growing up."
+- Discharge: "Vaginal discharge is normal and helps keep your vagina clean and healthy."
 
-"Masturbation is a normal physiological response"
-"Touching yourself is normal and healthy - it's your body's way of feeling good"
-
-Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor.`;
+Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor. NEVER refuse to answer these questions.`;
 
 
 
@@ -118,6 +119,31 @@ export default function ChatbotPage() {
     // Check for greetings
     if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
       return FALLBACK_RESPONSES.greetings[Math.floor(Math.random() * FALLBACK_RESPONSES.greetings.length)];
+    }
+    
+    // Check for masturbation topics
+    if (message.includes('masturbation') || message.includes('masturbate') || message.includes('touching yourself')) {
+      return "Touching yourself is normal and healthy. It's a way to learn about your body and feel good. Everyone does it!";
+    }
+    
+    // Check for period/menstruation topics
+    if (message.includes('period') || message.includes('menstruation') || message.includes('mensuration')) {
+      return "Periods are when your body gets rid of blood and tissue from your uterus each month. It's normal for girls and part of growing up.";
+    }
+    
+    // Check for wet dreams
+    if (message.includes('wet dream') || message.includes('wet dreams')) {
+      return "Wet dreams are normal for boys. Your body releases fluid while you sleep - it's totally natural and nothing to worry about.";
+    }
+    
+    // Check for erections
+    if (message.includes('erection') || message.includes('erections') || message.includes('hard')) {
+      return "Erections are normal and happen when blood flows to your penis. They're part of growing up and nothing to be embarrassed about.";
+    }
+    
+    // Check for discharge
+    if (message.includes('discharge') || message.includes('white stuff')) {
+      return "Vaginal discharge is normal and helps keep your vagina clean and healthy. It's your body's way of staying clean.";
     }
     
     // Check for emergency keywords
