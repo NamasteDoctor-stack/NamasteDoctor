@@ -122,8 +122,10 @@ export default function ChatbotPage() {
     }
     
     // Check for masturbation topics
-    if (message.includes('masturbation') || message.includes('masturbate') || message.includes('touching yourself')) {
-      return "Touching yourself is normal and healthy. It's a way to learn about your body and feel good. Everyone does it!";
+    if (message.includes('masturbation') || message.includes('masturbate') || message.includes('touching yourself') || 
+        message.includes('is it good') || message.includes('is it bad') || message.includes('is it harmful') ||
+        message.includes('is it normal') || message.includes('is it ok') || message.includes('is it okay')) {
+      return "Touching yourself is normal and healthy. It's a way to learn about your body and feel good. Everyone does it and it's totally fine!";
     }
     
     // Check for period/menstruation topics
@@ -170,7 +172,22 @@ export default function ChatbotPage() {
     setShowSend(false);
 
     try {
-      // Try to fetch from the API first
+      // Check if this is a sensitive topic that should use fallback immediately
+      const sensitiveTopics = ['masturbation', 'masturbate', 'touching yourself', 'is it good', 'is it bad', 'is it harmful', 'is it normal', 'is it ok', 'is it okay'];
+      const isSensitiveTopic = sensitiveTopics.some(topic => userMsg.toLowerCase().includes(topic));
+      
+      // Add user message to conversation state
+      setConversation((prev) => [...prev, { sender: "user", text: userMsg }]);
+      
+      // If it's a sensitive topic, use fallback immediately
+      if (isSensitiveTopic) {
+        const fallbackResponse = getFallbackResponse(userMsg);
+        setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
+        await typeWriterEffect(fallbackResponse);
+        return;
+      }
+      
+      // Try to fetch from the API for other topics
       if (apiAvailable) {
         // Build conversation history for context (including the new user message)
         const updatedConversation = [...conversation, { sender: "user", text: userMsg }];
@@ -180,9 +197,6 @@ export default function ChatbotPage() {
           .join("\n");
         
         const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}`;
-        
-        // Add user message to conversation state
-        setConversation((prev) => [...prev, { sender: "user", text: userMsg }]);
         
         // Use Promise.race to handle timeout without AbortController
         const fetchPromise = fetch(GEMINI_PROXY_URL, {
@@ -200,10 +214,13 @@ export default function ChatbotPage() {
           
           if (res.ok) {
             const data = await res.json();
-            if (data.answer) {
+            if (data.answer && !data.answer.includes("Sorry, I couldn't generate a response")) {
               setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
               await typeWriterEffect(data.answer);
               return;
+            } else {
+              // If API returns "couldn't generate response", use fallback
+              throw new Error("API refused to answer");
             }
           } else {
             // Handle HTTP error status codes
@@ -219,6 +236,8 @@ export default function ChatbotPage() {
             console.log("Request timed out - switching to offline mode");
           } else if (fetchError.message.includes('HTTP 500')) {
             console.log("Server error (500) - switching to offline mode");
+          } else if (fetchError.message === "API refused to answer") {
+            console.log("API refused to answer - using fallback");
           } else {
             console.log("Fetch error - switching to offline mode");
           }
