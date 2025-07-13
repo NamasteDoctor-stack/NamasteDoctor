@@ -228,51 +228,13 @@ export default function ChatbotPage() {
     setShowSend(true);
   };
 
-  const clearChat = () => {
-    setConversation([
-      {
-        sender: "bot",
-        text: "Hey! I'm here to help with your body questions. Growing up can be confusing - ask me anything! Everything is private and anonymous."
-      }
-    ]);
-  };
+
 
   return (
     <div className="nd-chatbot-outer">
       <div className="nd-chatbot-container">
         <div className="nd-chatbot-title">
           Sexual Health Chatbot
-          {conversation.length > 1 && (
-            <button 
-              onClick={clearChat}
-              style={{
-                float: 'right',
-                background: '#ff6b6b',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                padding: '0.3rem 0.8rem',
-                fontSize: '0.8rem',
-                cursor: 'pointer',
-                marginTop: '0.2rem'
-              }}
-              title="Clear conversation"
-            >
-              🗑️ Clear Chat
-            </button>
-          )}
-        </div>
-        
-        {/* Conversation Memory Indicator */}
-        <div style={{ 
-          textAlign: 'center', 
-          padding: '0.5rem', 
-          background: '#e8f5e8', 
-          color: '#2e7d32', 
-          fontSize: '0.9rem',
-          borderBottom: '1px solid #c8e6c9'
-        }}>
-          💬 AI remembers our conversation - feel free to ask follow-up questions!
         </div>
         
         {/* API Status Indicator */}
