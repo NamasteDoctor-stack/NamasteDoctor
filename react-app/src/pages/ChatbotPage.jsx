@@ -557,19 +557,6 @@ export default function ChatbotPage() {
           </div>
         )}
         
-        {/* Stop button */}
-        {showStop && (
-          <button
-            id="nd-stopGeneratingBtn"
-            type="button"
-            onClick={handleStopTypewriter}
-            title="Stop generating"
-            style={{ marginLeft: showSend ? '0.5rem' : 0 }}
-          >
-            ■
-          </button>
-        )}
-        
         {/* Input form */}
         <form onSubmit={handleSubmit} className="nd-chatbot-input-row">
           <input
@@ -586,6 +573,17 @@ export default function ChatbotPage() {
               title="Send message"
             >
               ➤
+            </button>
+          )}
+          {showStop && (
+            <button
+              id="nd-stopGeneratingBtn"
+              type="button"
+              onClick={handleStopTypewriter}
+              title="Stop generating"
+              style={{ marginLeft: showSend ? '0.5rem' : 0 }}
+            >
+              ■
             </button>
           )}
         </form>
