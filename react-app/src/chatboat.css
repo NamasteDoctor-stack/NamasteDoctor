@@ -127,7 +127,11 @@
   box-shadow: 0 2px 8px rgba(255,64,129,0.08);
   min-width: 44px;
   min-height: 44px;
-  margin-left: 0.2rem;
+  margin-left: 0;
+}
+
+.nd-chatbot-input-row button + button {
+  margin-left: 0.5rem;
 }
 
 .nd-chatbot-input-row button:hover, 
@@ -138,23 +142,21 @@
 
 /* Stop generating button */
 #nd-stopGeneratingBtn {
-  position: absolute;
-  right: 2.2rem;
-  bottom: 4.2rem;
-  z-index: 20;
+  position: static;
   background: #e63971;
   color: #fff;
   border: none;
   border-radius: 50%;
   width: 44px;
   height: 44px;
-  display: block;
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.35rem;
   box-shadow: 0 2px 8px rgba(230,57,113,0.13);
   transition: background 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  margin-left: 0;
 }
 
 #nd-stopGeneratingBtn:hover, 
@@ -170,12 +172,13 @@
   bottom: 5.5rem;
   transform: translateX(-50%);
   z-index: 21;
-  background: #fff;
+  background: rgba(255,255,255,0.7);
   border-radius: 10px;
   padding: 0.2rem 1rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   font-size: 0.9rem;
   color: #666;
+  backdrop-filter: blur(2px);
 }
 
 /* Responsive design */
