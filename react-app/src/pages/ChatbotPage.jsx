@@ -493,10 +493,18 @@ export default function ChatbotPage() {
     }
   };
 
+  // Replace handleStopTypewriter with a new function that clears the last bot message
   const handleStopTypewriter = () => {
     setStopTypewriter(true);
     setShowStop(false);
     setShowSend(true);
+    // Remove the last bot message if it is being typed out
+    setConversation((prev) => {
+      if (prev.length > 0 && prev[prev.length - 1].sender === "bot" && prev[prev.length - 1].text !== "") {
+        return prev.slice(0, -1);
+      }
+      return prev;
+    });
   };
 
 
@@ -576,6 +584,17 @@ export default function ChatbotPage() {
               title="Send message"
             >
               ➤
+            </button>
+          )}
+          {showStop && (
+            <button
+              id="nd-stopGeneratingBtn"
+              type="button"
+              onClick={handleStopTypewriter}
+              title="Stop generating"
+              style={{ marginLeft: showSend ? '0.5rem' : 0 }}
+            >
+              ■
             </button>
           )}
         </form>
