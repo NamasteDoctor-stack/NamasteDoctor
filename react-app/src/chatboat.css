@@ -289,3 +289,93 @@
     max-width: 220px;
   }
 } 
+
+/* Info Page Styles */
+.nd-info-outer {
+  min-height: 100vh;
+  width: 100vw;
+  background: #f4f6fa;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 3.5rem;
+  padding-bottom: 2.5rem;
+  box-sizing: border-box;
+}
+
+.nd-info-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+  max-width: 600px;
+  width: 100%;
+  padding: 2.2rem 2.2rem 2rem 2.2rem;
+  margin: 0 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.nd-info-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #FF4081;
+  margin-bottom: 0.7rem;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.nd-info-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+.nd-info-lead {
+  font-size: 1.13rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.2rem;
+}
+
+.nd-info-container p {
+  font-size: 1.01rem;
+  color: #444;
+  line-height: 1.7;
+  margin: 0 0 0.5rem 0;
+}
+
+.nd-info-list {
+  margin: 0.2rem 0 0.7rem 1.2rem;
+  padding-left: 1.1rem;
+  font-size: 1.01rem;
+  color: #444;
+  line-height: 1.7;
+  list-style: disc inside;
+}
+
+@media (max-width: 600px) {
+  .nd-info-outer {
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+  .nd-info-container {
+    padding: 1.1rem 0.7rem 1.1rem 0.7rem;
+    max-width: 98vw;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .nd-info-title {
+    font-size: 1.3rem;
+  }
+  .nd-info-section-title {
+    font-size: 1.05rem;
+  }
+  .nd-info-lead, .nd-info-container p, .nd-info-list {
+    font-size: 0.97rem;
+  }
+} 
