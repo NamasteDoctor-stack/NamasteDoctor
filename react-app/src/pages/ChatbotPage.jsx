@@ -588,28 +588,13 @@ export default function ChatbotPage() {
           )}
         </form>
       </div>
-      {/* Feedback Button */}
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '1.5rem 0 0.5rem 0' }}>
+      {/* Feedback Button at the very bottom, always visible */}
+      <div className="nd-feedback-btn-wrapper nd-feedback-btn-fixed">
         <a
           href="https://forms.gle/cWbRFZ1NsBNu86Zv7"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            background: '#FF4081',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '24px',
-            padding: '0.85rem 2.2rem',
-            fontSize: '1.08rem',
-            fontWeight: 600,
-            textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(255,64,129,0.10)',
-            transition: 'background 0.2s',
-            cursor: 'pointer',
-            letterSpacing: '0.02em',
-            textAlign: 'center',
-            display: 'inline-block',
-          }}
+          className="nd-feedback-btn"
         >
           Give Feedback
         </a>
