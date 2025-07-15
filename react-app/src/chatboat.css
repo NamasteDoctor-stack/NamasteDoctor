@@ -222,3 +222,61 @@
 .nd-chat-message.bot {
   white-space: pre-line; /* for line breaks */
 } 
+
+/* Feedback button styles */
+.nd-feedback-btn {
+  background: #FF4081;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 0.85rem 2.2rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(255,64,129,0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  text-align: center;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.nd-feedback-btn:hover, .nd-feedback-btn:focus {
+  background: #e63971;
+  box-shadow: 0 4px 16px rgba(255,64,129,0.13);
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+}
+
+.nd-feedback-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 0.5rem 0;
+} 
+
+.nd-feedback-btn-fixed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background: transparent;
+  z-index: 100;
+  padding: 0.7rem 0 0.7rem 0;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .nd-feedback-btn-fixed {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    padding: 0.5rem 0 0.5rem 0;
+    box-shadow: 0 -1px 8px rgba(0,0,0,0.08);
+  }
+} 
