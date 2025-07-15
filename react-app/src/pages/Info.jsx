@@ -9,10 +9,20 @@ export default function Info() {
         <div className="nd-info-container">
           <h1 className="nd-info-title">About Namaste Doctor</h1>
           <p className="nd-info-lead">
-            Namaste Doctor is a non-profit, youth-led platform committed to advancing sexual and reproductive health awareness among adolescents in Nepal. Initiated by a teenager with firsthand experience of the confusion and silence surrounding these issues, the platform is designed specifically to meet the needs of young people seeking trustworthy and judgment-free information.
+            Puberty doesn’t come with a manual.<br/>
+            And for many adolescents in Nepal, neither does access to trusted, judgment-free information about their changing bodies.
           </p>
           <p>
-            In many parts of Nepal, natural experiences such as puberty, menstruation, and emotional development are rarely discussed openly. As a result, adolescents are often left to deal with these important changes in isolation. Namaste Doctor aims to break that silence — offering a private, supportive space where young people can ask honest questions and receive accurate, age-appropriate answers verified by medical professionals.
+            Namaste Doctor is a youth-led, non-profit platform dedicated to improving adolescent sexual and reproductive health literacy in Nepal. Created by a teenager who experienced firsthand the confusion and silence surrounding these topics, the platform was built by adolescents, for adolescents — to fill a gap that too many young people face alone.
+          </p>
+          <p>
+            In many communities, natural experiences like menstruation, puberty, emotional changes, and sexual identity are still considered taboo. As a result, adolescents often feel isolated, ashamed, or afraid to ask even the most basic questions.
+          </p>
+          <p>
+            Namaste Doctor offers a different path — a safe, anonymous, and medically reviewed space where teens can ask real questions and receive accurate, age-appropriate answers.
+          </p>
+          <p>
+            Because no young person should have to choose between curiosity and shame — and every adolescent deserves to grow up informed, confident, and heard.
           </p>
 
           <h2 className="nd-info-section-title">How It Started</h2>
@@ -44,18 +54,18 @@ export default function Info() {
           <p>
             Namaste Doctor is committed to making sexual and reproductive health education more accessible, inclusive, and empowering for all young people in Nepal.
           </p>
+          {/* Volunteer Button at the very bottom of the page content */}
+          <div className="nd-volunteer-btn-wrapper" style={{ marginTop: '2.5rem', marginBottom: '0.5rem' }}>
+            <a
+              href="https://forms.gle/1ymRMimp6qHqk8xy9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nd-volunteer-btn"
+            >
+              Become a Volunteer
+            </a>
+          </div>
         </div>
-      </div>
-      {/* Volunteer Button at the very bottom, always visible */}
-      <div className="nd-volunteer-btn-wrapper nd-volunteer-btn-fixed">
-        <a
-          href="https://forms.gle/1ymRMimp6qHqk8xy9"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="nd-volunteer-btn"
-        >
-          Become a Volunteer
-        </a>
       </div>
     </>
   );
