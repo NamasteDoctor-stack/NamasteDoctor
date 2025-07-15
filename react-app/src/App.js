@@ -13,6 +13,7 @@ import Post1Page from "./pages/Post1Page";
 import Post2Page from "./pages/Post2Page";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import SignupPage from "./pages/SignupPage";
+import Info from "./pages/Info";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -42,6 +43,7 @@ function App() {
         <Route path="/post-2" element={<Post2Page />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/info" element={<Info />} />
       </Routes>
     </Router>
   );
