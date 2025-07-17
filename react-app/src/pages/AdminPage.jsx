@@ -173,6 +173,13 @@ const AdminPage = () => {
                 <p><strong>Full Name:</strong> {doc.fullName || "—"}</p>
                 <p><strong>Email:</strong> {doc.email}</p>
                 <p><strong>NMC Number:</strong> {doc.nmc || "Not Provided"}</p>
+                {doc.certificate && (
+                  <p><strong>Equivalent Certificate:</strong><br />
+                    <a href={doc.certificate} target="_blank" rel="noopener noreferrer">
+                      <img src={doc.certificate} alt="Certificate" style={{ width: '120px', height: '120px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #aaa', marginTop: '0.5rem' }} />
+                    </a>
+                  </p>
+                )}
                 <button className="auth-btn" onClick={() => approveDoctor(doc.id)}>Approve</button>
                 <button className="auth-btn" style={{ backgroundColor: "#d9534f", marginLeft: "1rem" }} onClick={() => rejectDoctor(doc.id)}>Reject</button>
               </div>
