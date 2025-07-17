@@ -17,6 +17,8 @@ const SignupPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [certificate, setCertificate] = useState(null);
+  const [certificatePreview, setCertificatePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -28,6 +30,17 @@ const SignupPage = () => {
       setPhotoPreview(URL.createObjectURL(file));
     } else {
       setPhotoPreview(null);
+    }
+  };
+
+  // Show certificate preview
+  const handleCertificateChange = (e) => {
+    const file = e.target.files[0];
+    setCertificate(file);
+    if (file) {
+      setCertificatePreview(URL.createObjectURL(file));
+    } else {
+      setCertificatePreview(null);
     }
   };
 
@@ -56,6 +69,11 @@ const SignupPage = () => {
       setLoading(false);
       return;
     }
+    if (!nmcNumber && !certificate) {
+      alert("Please provide either your NMC Number or upload your Equivalent Certificate.");
+      setLoading(false);
+      return;
+    }
     if (password !== confirmPassword) {
       alert("Passwords do not match.");
       setLoading(false);
@@ -63,6 +81,7 @@ const SignupPage = () => {
     }
     try {
       const imageUrl = await uploadToImageBB(photo);
+      const certificateUrl = await uploadToImageBB(certificate);
       const userCred = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCred.user;
       await setDoc(doc(db, "users", user.uid), {
@@ -70,6 +89,7 @@ const SignupPage = () => {
         nmc: nmcNumber,
         email,
         photo: imageUrl,
+        certificate: certificateUrl,
         role: "doctor",
         approved: false
       });
@@ -87,7 +107,7 @@ const SignupPage = () => {
         <h2>Doctor Signup</h2>
         <form id="signupForm" onSubmit={handleSubmit}>
           <input type="text" id="fullName" placeholder="Enter your Full Name" value={fullName} onChange={e => setFullName(e.target.value)} required />
-          <input type="text" id="nmcNumber" placeholder="Enter your NMC Number" value={nmcNumber} onChange={e => setNmcNumber(e.target.value)} required />
+          <input type="text" id="nmcNumber" placeholder="Enter your NMC Number" value={nmcNumber} onChange={e => setNmcNumber(e.target.value)} />
           <input type="email" id="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} required />
           <input type="password" id="password" placeholder="Create a password" value={password} onChange={e => setPassword(e.target.value)} required />
           <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
@@ -95,6 +115,10 @@ const SignupPage = () => {
           <label className="upload-label">Upload Profile Photo</label>
           <input type="file" id="photo" accept="image/*" onChange={handlePhotoChange} required />
           {photoPreview && <img className="preview-img" src={photoPreview} alt="Profile preview" style={{ display: "block" }} />}
+
+          <label className="upload-label">Upload Equivalent Certificate</label>
+          <input type="file" id="certificate" accept="image/*" onChange={handleCertificateChange} />
+          {certificatePreview && <img className="preview-img" src={certificatePreview} alt="Certificate preview" style={{ display: "block" }} />}
 
           <button type="submit" className={`auth-btn${loading ? " loading" : ""}`} id="submitBtn" disabled={loading}>
             <div className="spinner" style={{ display: loading ? "block" : "none" }}></div>
