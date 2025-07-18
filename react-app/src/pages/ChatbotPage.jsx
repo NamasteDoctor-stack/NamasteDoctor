@@ -4,6 +4,7 @@ import "../chatboat.css";
 import { marked } from "marked";
 
 const GEMINI_PROXY_URL = "https://gemini-proxy.namastedoctornp.workers.dev";
+
 // --- SYSTEM_PROMPT: Enhanced safety, language, and medical awareness ---
 const SYSTEM_PROMPT = `You are a friendly, supportive sexual health educator helping adolescents (ages 12-18) understand their bodies and sexual health. This is an EDUCATIONAL context for health information.
 
@@ -56,10 +57,10 @@ Remember: You're talking to young people who are confused and need simple, hones
 const FALLBACK_RESPONSES = {
   greetings: {
     en: [
-    "Hey! I'm here to help with your body questions. What's on your mind?",
-    "Hi! Ask me anything about your body - it's totally normal to be curious!",
-    "Hello! I'm here to answer your questions about growing up and your body."
-  ],
+      "Hey! I'm here to help with your body questions. What's on your mind?",
+      "Hi! Ask me anything about your body - it's totally normal to be curious!",
+      "Hello! I'm here to answer your questions about growing up and your body."
+    ],
     ne: [
       "Hey! Ma hajur ko sharir bareka prashna haru ma madat garna yaha chu. Ke sochdai hunuhuncha?",
       "Hi! Hajur ko sharir bare kehi pani sodhnus - jigyasu hunu samanya kura ho!",
@@ -68,12 +69,12 @@ const FALLBACK_RESPONSES = {
   },
   general: {
     en: [
-    "That's a great question! Let me give you a simple answer.",
-    "I'm glad you asked! Here's what you should know.",
-    "Good question! This is totally normal to wonder about.",
-    "That's a normal thing to be curious about! Here's what you should know.",
-    "Great question! This is something many people wonder about."
-  ],
+      "That's a great question! Let me give you a simple answer.",
+      "I'm glad you asked! Here's what you should know.",
+      "Good question! This is totally normal to wonder about.",
+      "That's a normal thing to be curious about! Here's what you should know.",
+      "Great question! This is something many people wonder about."
+    ],
     ne: [
       "Yo ekdam ramro prashna ho! Ma hajurlai sajilo uttar dinchu.",
       "Ma khusi chu hajur le sodhnubhayo! Yo kura thaha paunu parchha.",
@@ -84,12 +85,12 @@ const FALLBACK_RESPONSES = {
   },
   emergency: {
     en: [
-    "If you're really worried or in pain, tell a trusted adult or go to a doctor right away.",
-    "If something doesn't feel right, it's okay to ask for help from a grown-up you trust.",
-    "When in doubt, talk to someone you trust or see a doctor immediately.",
-    "If you're feeling scared or in pain, don't wait - talk to a parent, teacher, or doctor right away.",
-    "Your health is important! If something feels wrong, get help from someone you trust immediately."
-  ],
+      "If you're really worried or in pain, tell a trusted adult or go to a doctor right away.",
+      "If something doesn't feel right, it's okay to ask for help from a grown-up you trust.",
+      "When in doubt, talk to someone you trust or see a doctor immediately.",
+      "If you're feeling scared or in pain, don't wait - talk to a parent, teacher, or doctor right away.",
+      "Your health is important! If something feels wrong, get help from someone you trust immediately."
+    ],
     ne: [
       "Yadi hajur dherai chintit hunuhuncha wa dukhai ma hunuhuncha, bharosa garne thulo manis lai bhannus wa doctor kaha janus.",
       "Yadi kehi thik lagena bhane, ekjana thulo manis sanga madat magnus.",
@@ -112,9 +113,9 @@ const FALLBACK_RESPONSES = {
   },
   referral: {
     en: [
-    "For personal advice about your specific situation, it's best to talk to a doctor or trusted adult.",
-    "A doctor can give you better advice for your individual needs.",
-    "It's always good to talk to a grown-up you trust about these important things."
+      "For personal advice about your specific situation, it's best to talk to a doctor or trusted adult.",
+      "A doctor can give you better advice for your individual needs.",
+      "It's always good to talk to a grown-up you trust about these important things."
     ],
     ne: [
       "Hajur ko byaktigat awastha ko lagi, doctor wa bharosa garne thulo manis sanga kura garnu ramro.",
@@ -124,34 +125,57 @@ const FALLBACK_RESPONSES = {
   }
 };
 
-// --- Enhanced language detection for Roman Nepali ---
+// --- FIXED: Enhanced language detection for Roman Nepali ---
 const isRomanNepali = (text) => {
-  const lowerText = text.toLowerCase();
+  const lowerText = text.toLowerCase().trim();
+  
+  // If text is very short (1-2 words), be more conservative
+  if (lowerText.split(' ').length <= 2) {
+    const strongNepaliIndicators = [
+      'ke chha', 'k cha', 'k xa', 'kese chha', 'kasto chha',
+      'mero', 'mera', 'hajur', 'tapai', 'malai', 'timilai',
+      'huncha', 'hunchha', 'garchu', 'thik', 'ramro',
+      'sharir', 'prashna', 'madat', 'help garnus'
+    ];
+    return strongNepaliIndicators.some(indicator => lowerText.includes(indicator));
+  }
+  
+  // For longer text, use comprehensive detection
   const nepaliPatterns = [
+    // Common phrases
     'ke chha', 'kese chha', 'kasto chha', 'k cha', 'k xa',
+    // Pronouns
     'mero', 'mera', 'tapai', 'hajur', 'hami', 'hamilai',
+    'malai', 'timilai', 'uslai', 'hamlai', 'uniharu',
+    // Common words
     'ghar', 'khana', 'pani', 'paani', 'khane', 'jaane',
     'huncha', 'hunchha', 'garchu', 'garnu', 'garne',
     'thik', 'ramro', 'naamro', 'sajilo', 'garo',
     'kura', 'kaam', 'samay', 'din', 'raat', 'bihaan',
     'cha', 'chha', 'xa', 'ho', 'hola', 'hoina', 'haina',
-    'malai', 'timilai', 'uslai', 'hamlai', 'uniharu',
+    // Location words
     'yaha', 'tyaha', 'kaha', 'kahaa', 'katai',
+    // Question words
     'kina', 'kinaki', 'kasto', 'kati', 'kun',
+    // Possessive
     'afno', 'afnai', 'hamro', 'timro', 'usko',
+    // Quantity
     'dherai', 'ali', 'thorai', 'sab', 'sabai',
+    // Time
     'aaja', 'bholi', 'hijo', 'parsi', 'ahile',
     'paila', 'pachhi', 'agadi', 'paxadi',
+    // Health/body terms
     'sharir', 'ang', 'samashya', 'prashna', 'jawab',
-    'normal', 'samanya', 'thik', 'galat', 'ramro',
-    'badhne', 'badhdai', 'hurdai', 'dekhdai',
+    'normal', 'samanya', 'galat', 'badhne', 'badhdai',
     'period', 'mahawari', 'blood', 'ragat',
     'breast', 'stan', 'penis', 'youn', 'ling',
     'masturbation', 'haath', 'chune', 'chhune',
     'doctor', 'daktar', 'hospital', 'aushadhi',
     'dukhi', 'khusi', 'dar', 'darr', 'chinta',
-    'sathi', 'sahara', 'madat', 'help'
+    'sathi', 'sahara', 'madat'
   ];
+  
+  // Phonetic patterns common in Roman Nepali
   const phoneticPatterns = [
     /[aeiou]h/, /[iaou]i/, /au/, /ou/, /ai/, /ei/,
     /ch/, /jh/, /th/, /dh/, /ph/, /bh/, /sh/, /gh/, /kh/,
@@ -159,10 +183,22 @@ const isRomanNepali = (text) => {
     /nch/, /ngh/, /ndh/, /mph/, /mbh/,
     /aa/, /ee/, /oo/, /uu/
   ];
-  const hasNepaliWords = nepaliPatterns.some(pattern => lowerText.includes(pattern));
-  const hasPhoneticPatterns = phoneticPatterns.some(pattern => pattern.test(lowerText));
-  const hasDevanagariTransliteration = /[aeiou]{2,}|[bcdfghjklmnpqrstvwxyz]{2,}h/.test(lowerText);
-  return hasNepaliWords || (hasPhoneticPatterns && hasDevanagariTransliteration);
+  
+  // Count matches
+  const nepaliWordMatches = nepaliPatterns.filter(pattern => lowerText.includes(pattern)).length;
+  const phoneticMatches = phoneticPatterns.filter(pattern => pattern.test(lowerText)).length;
+  
+  // Scoring system
+  const totalWords = lowerText.split(' ').length;
+  const nepaliScore = nepaliWordMatches / totalWords;
+  const phoneticScore = phoneticMatches / Math.max(totalWords, 5);
+  
+  // Decision logic
+  if (nepaliWordMatches >= 2) return true; // Strong Nepali indicators
+  if (nepaliScore > 0.3) return true; // High ratio of Nepali words
+  if (phoneticMatches >= 3 && phoneticScore > 0.2) return true; // Phonetic patterns
+  
+  return false;
 };
 
 // --- Enhanced crisis detection ---
@@ -193,17 +229,40 @@ const detectCrisis = (message) => {
   };
 };
 
-// --- Enhanced getFallbackResponse with PCOS/body hair, crisis, gender, language ---
+// --- FIXED: Updated Nepal helpline numbers ---
+const getRelevantHelplines = (type, lang = 'en') => {
+  if (type === 'abuse') {
+    return lang === 'ne'
+      ? `\n\nMahatwapurna madat ko number haru (Nepal):\n- Emergency/Police: 100, 112 (24 ghanta)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (samvedanshil sahayog)\n- Suicide Prevention: 1166 (8am-8pm)\n- Mental Health Helpline: 1660-0133666 (8am-8pm)`
+      : `\n\nImportant help numbers (Nepal):\n- Emergency/Police: 100, 112 (24hr)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (emotional support)\n- Suicide Prevention: 1166 (8am-8pm)\n- Mental Health Helpline: 1660-0133666 (8am-8pm)`;
+  }
+  if (type === 'mentalHealth') {
+    return lang === 'ne'
+      ? `\n\nMahatwapurna mental health madat (Nepal):\n- आत्महत्या रोकथाम हेल्पलाइन: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24 ghanta)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005\n- Mental Health Promotion Center: +977-01-441264`
+      : `\n\nImportant mental health help (Nepal):\n- National Suicide Prevention Helpline: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24hr)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005\n- Mental Health Promotion Center: +977-01-441264`;
+  }
+  if (type === 'emergency') {
+    return lang === 'ne'
+      ? `\n\nNepal Emergency Hotline: 100, 112 (24 ghanta)`
+      : `\n\nNepal Emergency Hotline: 100, 112 (24hr)`;
+  }
+  if (type === 'generalMental') {
+    return lang === 'ne'
+      ? `\n\nManosamajik madat (Nepal):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`
+      : `\n\nPsychosocial support (Nepal):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`;
+  }
+  return '';
+};
+
+// --- FIXED: Enhanced getFallbackResponse with better language detection ---
 const getFallbackResponse = (userMessage) => {
-  // --- Language detection: English vs Roman Nepali ---
+  // --- FIXED: Better language detection ---
   const isNepali = isRomanNepali(userMessage);
   const lang = isNepali ? 'ne' : 'en';
   const message = userMessage.toLowerCase();
   const crisis = detectCrisis(message);
 
-  // Ensure fallback always uses correct language
-  // All direct string responses and array lookups use lang
-
+  // Crisis responses with updated helplines
   if (crisis.abuse) {
     return (isNepali
       ? "Ma hajur ko bare ma dherai chintit chu. Yo hajur ko galti hoina. Kripaya bharosa garne thulo manis - parent, teacher, counselor, wa police sanga turantai kura garnus. Hajur lai madat chahiye ra hajur ekai hunuhunna." + getRelevantHelplines('abuse', 'ne')
@@ -219,12 +278,13 @@ const getFallbackResponse = (userMessage) => {
       ? "Online ma dekhine video haru real life jastai hudaina. Healthy relationship ma respect ra consent huncha. Kripaya bharosa garne thulo manis sanga yo kura bare ma kura garnus."
       : "Videos online don't show what real, healthy relationships are like. Real intimacy involves respect and consent. Please talk to a trusted adult about healthy relationships.");
   }
+
   // Greetings
   if (message.includes('hello') || message.includes('hi') || message.includes('hey') || message.includes('namaste')) {
     return FALLBACK_RESPONSES.greetings[lang][Math.floor(Math.random() * FALLBACK_RESPONSES.greetings[lang].length)];
   }
 
-  // Masturbation (example)
+  // Masturbation responses
   if (message.includes('masturbation') || message.includes('masturbate') || message.includes('touching yourself') || message.includes('afule chune')) {
     if (isNepali) {
       if (message.includes('k ho') || message.includes('arth')) {
@@ -253,19 +313,19 @@ const getFallbackResponse = (userMessage) => {
     }
   }
 
-  // Periods and menstruation
-  if (message.includes('period') || message.includes('menstruation') || message.includes('mensuration')) {
+  // Period responses
+  if (message.includes('period') || message.includes('menstruation') || message.includes('mensuration') || message.includes('mahawari')) {
     if (isNepali) {
-      return "Periods are when your body gets rid of blood and tissue from your uterus each month. It's normal for girls and part of growing up.";
+      return "Period bhanne ke ho bhane hajur ko uterus bata har mahina ragat ra tissue niskine process ho. Yo keti haru ko lagi samanya ho ra badhne process ko bhag ho.";
     } else {
       return "Periods are when your body gets rid of blood and tissue from your uterus each month. It's normal for girls and part of growing up.";
     }
   }
 
   // Wet dreams
-  if (message.includes('wet dream') || message.includes('wet dreams')) {
+  if (message.includes('wet dream') || message.includes('wet dreams') || message.includes('night discharge')) {
     if (isNepali) {
-      return "Wet dreams are normal for boys. Your body releases fluid while you sleep - it's totally natural and nothing to worry about.";
+      return "Wet dreams keta haru ko lagi samanya ho. Sutda hajur ko sharir bata fluid niskine ho - yo bilkul natural ho ra chinta garne kura hoina.";
     } else {
       return "Wet dreams are normal for boys. Your body releases fluid while you sleep - it's totally natural and nothing to worry about.";
     }
@@ -274,21 +334,21 @@ const getFallbackResponse = (userMessage) => {
   // Erections
   if (message.includes('erection') || message.includes('erections') || message.includes('hard')) {
     if (isNepali) {
-      return "Erections are normal and happen when blood flows to your penis. They're part of growing up and nothing to be embarrassed about.";
+      return "Erections samanya ho ra penis ma ragat jane waqt huncha. Yo badhne process ko bhag ho ra lajjit hunu parne kura hoina.";
     } else {
       return "Erections are normal and happen when blood flows to your penis. They're part of growing up and nothing to be embarrassed about.";
     }
   }
 
   // Penis size questions
-  if (message.includes('penis') || message.includes('penis size') || message.includes('small penis')) {
+  if (message.includes('penis') || message.includes('penis size') || message.includes('small penis') || message.includes('ling')) {
     if (isNepali) {
       if (message.includes('ideal') || message.includes('average') || message.includes('normal size')) {
-        return "There's no 'ideal' penis size! Penises come in all shapes and sizes. What matters is being healthy and comfortable with your body. Size doesn't determine anything important.";
-      } else if (message.includes('small') || message.includes('problem')) {
-        return "Small penises are completely normal! Many guys worry about size, but it doesn't matter for health or relationships. Your body is perfect just the way it is.";
+        return "Koi 'ideal' penis size hudaina! Penis sabai shape ra size ma huncha. Mahatwapurna kura healthy hunu ra afno sharir sanga comfortable hunu ho. Size le kei important kura nirdharit gardaina.";
+      } else if (message.includes('small') || message.includes('problem') || message.includes('sano')) {
+        return "Sano penis bilkul samanya ho! Dherai keta haru size ko chinta garchan, tara yo health wa relationship ko lagi mahatwa rakhdaina. Hajur ko sharir perfect cha jasto cha!";
       } else {
-        return "Penis size varies a lot between people. There's no 'right' size - everyone is different and that's totally normal!";
+        return "Penis size dherai farak huncha manche haru ma. Koi 'right' size hudaina - sabai different chan ra yo bilkul samanya ho!";
       }
     } else {
       if (message.includes('ideal') || message.includes('average') || message.includes('normal size')) {
@@ -301,56 +361,56 @@ const getFallbackResponse = (userMessage) => {
     }
   }
 
-  // Discharge
-  if (message.includes('discharge') || message.includes('white stuff')) {
+  // Breast development
+  if (message.includes('breast') || message.includes('breasts') || message.includes('boobs') || message.includes('stan')) {
     if (isNepali) {
-      return "Vaginal discharge is normal and helps keep your vagina clean and healthy. It's your body's way of staying clean.";
+      if (message.includes('small') || message.includes('big') || message.includes('size') || message.includes('sano') || message.includes('thulo')) {
+        return "Breast size dherai farak huncha! Kehi keti haru ko sano breast huncha, aru ko thulo. Duitai bilkul samanya ra sundara ho. Hajur ko size hajur ko lagi perfect cha!";
+      } else if (message.includes('bigger') || message.includes('grow') || message.includes('badhne')) {
+        return "Breast size mostly genes le nirdharit garcha. Hajur le tiniharulai thulo banaauna sakdaina, tara yo bilkul thik cha! Sano breast thulo jasti nai samanya ra sundara ho.";
+      } else {
+        return "Breast development keti haru ko lagi puberty ko time ma samanya ho. Tiniharuko growth rate ra size different huncha - sabai different chan!";
+      }
+    } else {
+      if (message.includes('small') || message.includes('big') || message.includes('size')) {
+        return "Breast size varies a lot! Some girls have small breasts, others have big ones. Both are completely normal and beautiful. Your size is perfect for you!";
+      } else if (message.includes('bigger') || message.includes('grow')) {
+        return "Breast size is mostly determined by your genes. You can't really make them bigger, but that's totally fine! Small breasts are just as normal and beautiful as big ones.";
+      } else {
+        return "Breast development is normal for girls during puberty. They grow at different rates and sizes - everyone is different!";
+      }
+    }
+  }
+
+  // Discharge
+  if (message.includes('discharge') || message.includes('white stuff') || message.includes('safed paani')) {
+    if (isNepali) {
+      return "Vaginal discharge samanya ho ra hajur ko vagina lai sapha ra swasthya rakhna madat garcha. Yo hajur ko sharir ko sapha rahne tarika ho.";
     } else {
       return "Vaginal discharge is normal and helps keep your vagina clean and healthy. It's your body's way of staying clean.";
     }
   }
 
   // Puberty topics
-  if (message.includes('puberty') || message.includes('growing up') || message.includes('body changes')) {
+  if (message.includes('puberty') || message.includes('growing up') || message.includes('body changes') || message.includes('badhne')) {
     if (isNepali) {
-      return "Puberty is when your body changes from a child to an adult. You'll grow taller, develop new body parts, and your feelings might change. It's all normal!";
+      return "Puberty hajur ko sharir bachha dekhi adult ma change hune time ho. Hajur lambai badhchha, naya body parts develop hunchha, ra hajur ko feelings pani change huna sakcha. Yo sabai samanya ho!";
     } else {
       return "Puberty is when your body changes from a child to an adult. You'll grow taller, develop new body parts, and your feelings might change. It's all normal!";
     }
   }
 
   // Voice changes
-  if (message.includes('voice') || message.includes('voice change') || message.includes('voice cracking')) {
+  if (message.includes('voice') || message.includes('voice change') || message.includes('voice cracking') || message.includes('awaz')) {
     if (isNepali) {
-      return "Voice changes are normal for boys during puberty. Your voice might crack or get deeper. It's just your body growing up!";
+      return "Voice changes keta haru ko lagi puberty ko time ma samanya ho. Hajur ko awaz crack huna sakcha wa gahiro huna sakcha. Yo hajur ko sharir badhne process ho!";
     } else {
       return "Voice changes are normal for boys during puberty. Your voice might crack or get deeper. It's just your body growing up!";
-    }
-  }
-
-  // Breast development
-  if (message.includes('breast') || message.includes('breasts') || message.includes('boobs')) {
-    if (isNepali) {
-      if (message.includes('small') || message.includes('big') || message.includes('size')) {
-        return "Breast size varies a lot! Some girls have small breasts, others have big ones. Both are completely normal and beautiful. Your size is perfect for you!";
-      } else if (message.includes('bigger') || message.includes('grow')) {
-        return "Breast size is mostly determined by your genes. You can't really make them bigger, but that's totally fine! Small breasts are just as normal and beautiful as big ones.";
-      } else {
-        return "Breast development is normal for girls during puberty. They grow at different rates and sizes - everyone is different!";
-      }
-    } else {
-      if (message.includes('small') || message.includes('big') || message.includes('size')) {
-        return "Breast size varies a lot! Some girls have small breasts, others have big ones. Both are completely normal and beautiful. Your size is perfect for you!";
-      } else if (message.includes('bigger') || message.includes('grow')) {
-        return "Breast size is mostly determined by your genes. You can't really make them bigger, but that's totally fine! Small breasts are just as normal and beautiful as big ones.";
-      } else {
-        return "Breast development is normal for girls during puberty. They grow at different rates and sizes - everyone is different!";
-      }
     }
   }
 
   // Emergency keywords
-  if (message.includes('emergency') || message.includes('urgent') || message.includes('pain') || message.includes('bleeding')) {
+  if (message.includes('emergency') || message.includes('urgent') || message.includes('pain') || message.includes('bleeding') || message.includes('dukhai')) {
     return FALLBACK_RESPONSES.emergency[lang][Math.floor(Math.random() * FALLBACK_RESPONSES.emergency[lang].length)];
   }
 
@@ -361,31 +421,6 @@ const getFallbackResponse = (userMessage) => {
 
   // Default general response
   return FALLBACK_RESPONSES.general[lang][Math.floor(Math.random() * FALLBACK_RESPONSES.general[lang].length)];
-};
-
-// --- Nepal-specific helpline selection by crisis type ---
-const getRelevantHelplines = (type, lang = 'en') => {
-  if (type === 'abuse') {
-    return lang === 'ne'
-      ? `\n\nMahatwapurna madat ko number haru (Nepal):\n- Emergency/Police: 100, 112 (24 ghanta)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (samvedanshil sahayog)\n- Suicide Prevention: 1166 (8am-8pm)`
-      : `\n\nImportant help numbers (Nepal):\n- Emergency/Police: 100, 112 (24hr)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (emotional support)\n- Suicide Prevention: 1166 (8am-8pm)`;
-  }
-  if (type === 'mentalHealth') {
-    return lang === 'ne'
-      ? `\n\nMahatwapurna mental health madat (Nepal):\n- Suicide Prevention Helpline: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24 ghanta)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005`
-      : `\n\nImportant mental health help (Nepal):\n- Suicide Prevention Helpline: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24hr)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005`;
-  }
-  if (type === 'emergency') {
-    return lang === 'ne'
-      ? `\n\nNepal Emergency Hotline: 100, 112 (24 ghanta)`
-      : `\n\nNepal Emergency Hotline: 100, 112 (24hr)`;
-  }
-  if (type === 'generalMental') {
-    return lang === 'ne'
-      ? `\n\nManosamajik madat (Nepal):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`
-      : `\n\nPsychosocial support (Nepal):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`;
-  }
-  return '';
 };
 
 export default function ChatbotPage() {
@@ -588,8 +623,6 @@ export default function ChatbotPage() {
       return prev;
     });
   };
-
-
 
   return (
     <div className="nd-chatbot-outer">
