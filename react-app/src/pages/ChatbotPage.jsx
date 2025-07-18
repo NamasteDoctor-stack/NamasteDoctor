@@ -53,9 +53,6 @@ These are normal, healthy topics that adolescents need to understand. Provide cl
 
 Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor, but know when to recommend professional help.`;
 
-// --- Nepal-specific helpline numbers ---
-const NEPAL_HELPLINES = `\n\nNepal Mental Health & Emergency Helplines:\n- National Suicide Prevention Helpline (TPO Nepal): 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24hr)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Nepal Emergency Hotline: 100, 112 (24hr)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)\n- CMC Hotline: 16600185080`;
-
 const FALLBACK_RESPONSES = {
   greetings: {
     en: [
