@@ -53,7 +53,8 @@ These are normal, healthy topics that adolescents need to understand. Provide cl
 
 Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor, but know when to recommend professional help.`;
 
-
+// --- Nepal-specific helpline numbers ---
+const NEPAL_HELPLINES = `\n\nNepal Mental Health & Emergency Helplines:\n- National Suicide Prevention Helpline (TPO Nepal): 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24hr)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Nepal Emergency Hotline: 100, 112 (24hr)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)\n- CMC Hotline: 16600185080`;
 
 const FALLBACK_RESPONSES = {
   greetings: {
@@ -197,47 +198,30 @@ const detectCrisis = (message) => {
 
 // --- Enhanced getFallbackResponse with PCOS/body hair, crisis, gender, language ---
 const getFallbackResponse = (userMessage) => {
+  // --- Language detection: English vs Roman Nepali ---
   const isNepali = isRomanNepali(userMessage);
   const lang = isNepali ? 'ne' : 'en';
   const message = userMessage.toLowerCase();
   const crisis = detectCrisis(message);
+
+  // Ensure fallback always uses correct language
+  // All direct string responses and array lookups use lang
+
   if (crisis.abuse) {
-    if (isNepali) {
-      return "Ma hajur ko bare ma dherai chintit chu. Yo hajur ko galti hoina. Kripaya bharosa garne thulo manis - parent, teacher, counselor, wa police sanga turantai kura garnus. Hajur lai madat chahiye ra hajur ekai hunuhunna. Crisis helpline: 1660 01 13 22 71";
-    } else {
-      return "I'm very concerned about you. This is NOT your fault. Please talk to a trusted adult - parent, teacher, counselor, or police immediately. You deserve help and you're not alone. Crisis helpline: 1660 01 13 22 71";
-    }
+    return (isNepali
+      ? "Ma hajur ko bare ma dherai chintit chu. Yo hajur ko galti hoina. Kripaya bharosa garne thulo manis - parent, teacher, counselor, wa police sanga turantai kura garnus. Hajur lai madat chahiye ra hajur ekai hunuhunna." + getRelevantHelplines('abuse', 'ne')
+      : "I'm very concerned about you. This is NOT your fault. Please talk to a trusted adult - parent, teacher, counselor, or police immediately. You deserve help and you're not alone." + getRelevantHelplines('abuse', 'en'));
   }
   if (crisis.mentalHealth) {
-    if (isNepali) {
-      return "Ma hajur ko bare ma dherai chintit chu. Hajur ko jindagi mahatwapurna chha. Kripaya bharosa garne manis sanga turantai kura garnus wa crisis helpline ma call garnus: 1660 01 13 22 71. Hajur ekai hunuhunna ra madat paunu sakchha.";
-    } else {
-      return "I'm very worried about you. Your life is valuable and important. Please talk to someone you trust right away or call a crisis helpline: 1660 01 13 22 71. You're not alone and help is available.";
-    }
+    return (isNepali
+      ? "Ma hajur ko bare ma dherai chintit chu. Hajur ko jindagi mahatwapurna chha. Kripaya bharosa garne manis sanga turantai kura garnus wa suicide prevention helpline ma call garnus. Hajur ekai hunuhunna ra madat paunu sakchha." + getRelevantHelplines('mentalHealth', 'ne')
+      : "I'm very worried about you. Your life is valuable and important. Please talk to someone you trust right away or call a suicide prevention helpline. You're not alone and help is available." + getRelevantHelplines('mentalHealth', 'en'));
   }
   if (crisis.pornInfluence) {
-    if (isNepali) {
-      return "Online ma dekhine video haru real life jastai hudaina. Healthy relationship ma respect ra consent huncha. Kripaya bharosa garne thulo manis sanga yo kura bare ma kura garnus.";
-    } else {
-      return "Videos online don't show what real, healthy relationships are like. Real intimacy involves respect and consent. Please talk to a trusted adult about healthy relationships.";
-    }
+    return (isNepali
+      ? "Online ma dekhine video haru real life jastai hudaina. Healthy relationship ma respect ra consent huncha. Kripaya bharosa garne thulo manis sanga yo kura bare ma kura garnus."
+      : "Videos online don't show what real, healthy relationships are like. Real intimacy involves respect and consent. Please talk to a trusted adult about healthy relationships.");
   }
-  if (message.includes('hair') || message.includes('pubic hair') || message.includes('armpit hair') || message.includes('chest hair') || message.includes('body hair')) {
-    if (isNepali) {
-      if (message.includes('chest') || message.includes('pet') || message.includes('mukh') || message.includes('thick') || message.includes('dark')) {
-        return "Body hair during puberty normal ho. Tara girls ma chest, pet, wa mukh ma thick, dark hair excessive bhayo bhane doctor sanga check garnu parchha - yo PCOS ko sign huna sakchha.";
-      } else {
-        return "Body hair during puberty normal ho. Yo hajur ko body adult hunudai chha ko sign ho. Sabai lai alag alag time ma aunchha.";
-      }
-    } else {
-      if (message.includes('chest') || message.includes('abdomen') || message.includes('lip') || message.includes('thick') || message.includes('dark') || message.includes('excessive')) {
-        return "Body hair during puberty is normal. However, if girls notice thick, dark, excessive hair on chest, lower abdomen, or upper lip, it's good to check with a doctor - it could be a sign of PCOS.";
-      } else {
-        return "Growing body hair is normal during puberty. It's your body's way of becoming an adult. Everyone gets it at different times.";
-      }
-    }
-  }
-
   // Greetings
   if (message.includes('hello') || message.includes('hi') || message.includes('hey') || message.includes('namaste')) {
     return FALLBACK_RESPONSES.greetings[lang][Math.floor(Math.random() * FALLBACK_RESPONSES.greetings[lang].length)];
@@ -382,11 +366,36 @@ const getFallbackResponse = (userMessage) => {
   return FALLBACK_RESPONSES.general[lang][Math.floor(Math.random() * FALLBACK_RESPONSES.general[lang].length)];
 };
 
+// --- Nepal-specific helpline selection by crisis type ---
+const getRelevantHelplines = (type, lang = 'en') => {
+  if (type === 'abuse') {
+    return lang === 'ne'
+      ? `\n\nMahatwapurna madat ko number haru (Nepal):\n- Emergency/Police: 100, 112 (24 ghanta)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (samvedanshil sahayog)\n- Suicide Prevention: 1166 (8am-8pm)`
+      : `\n\nImportant help numbers (Nepal):\n- Emergency/Police: 100, 112 (24hr)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (emotional support)\n- Suicide Prevention: 1166 (8am-8pm)`;
+  }
+  if (type === 'mentalHealth') {
+    return lang === 'ne'
+      ? `\n\nMahatwapurna mental health madat (Nepal):\n- Suicide Prevention Helpline: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24 ghanta)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005`
+      : `\n\nImportant mental health help (Nepal):\n- Suicide Prevention Helpline: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24hr)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005`;
+  }
+  if (type === 'emergency') {
+    return lang === 'ne'
+      ? `\n\nNepal Emergency Hotline: 100, 112 (24 ghanta)`
+      : `\n\nNepal Emergency Hotline: 100, 112 (24hr)`;
+  }
+  if (type === 'generalMental') {
+    return lang === 'ne'
+      ? `\n\nManosamajik madat (Nepal):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`
+      : `\n\nPsychosocial support (Nepal):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`;
+  }
+  return '';
+};
+
 export default function ChatbotPage() {
   const [conversation, setConversation] = useState([
     {
       sender: "bot",
-      text: "Hey! I'm here to help with your body questions. Growing up can be confusing - ask me anything! Everything is private and anonymous."
+      text: "Hey! I'm here to help with your body questions. Growing up can be confusing - ask me anything! Everything is private and anonymous. If you need immediate help or are in crisis, please call 1660 01 13 22 71 (for Nepal)."
     }
   ]);
   const [input, setInput] = useState("");
