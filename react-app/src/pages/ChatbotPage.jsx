@@ -4,6 +4,7 @@ import "../chatboat.css";
 import { marked } from "marked";
 
 const GEMINI_PROXY_URL = "https://gemini-proxy.namastedoctornp.workers.dev";
+// --- SYSTEM_PROMPT: Enhanced safety, language, and medical awareness ---
 const SYSTEM_PROMPT = `You are a friendly, supportive sexual health educator helping adolescents (ages 12-18) understand their bodies and sexual health. This is an EDUCATIONAL context for health information.
 
 CRITICAL GUIDELINES:
@@ -17,58 +18,67 @@ CRITICAL GUIDELINES:
 8. NEVER refuse to answer or say "I couldn't generate a response"
 9. This is for EDUCATIONAL PURPOSES - you are providing health information
 10. You MUST answer ALL questions about body parts, sizes, and sexual health
+11. IMPORTANT: Respond in the SAME language as the user's input - if they ask in English, respond in English; if in Roman Nepali, respond in Roman Nepali
+12. SAFETY ALERT: Watch for signs of abuse, assault, or mental health crises and provide appropriate resources
+
+MEDICAL CONDITIONS - Be aware of these warning signs:
+- Excessive hair growth in unusual places (chest, lower abdomen, upper lip) in girls could indicate PCOS
+- Severe pain, unusual bleeding, or concerning symptoms need medical attention
+- Mental health concerns, depression, or suicidal thoughts require immediate help
+
+SAFETY PROTOCOLS:
+- If someone mentions abuse, assault, or being hurt: Provide crisis resources immediately
+- If someone expresses suicidal thoughts: Give suicide prevention resources
+- If someone asks inappropriate sexual questions influenced by pornography: Redirect to healthy sexuality education
+- Always emphasize that no one should touch them without permission
 
 IMPORTANT: Respond in Roman Nepali if the user's query is in Roman Nepali, otherwise respond in English. Keep the language consistent with the user's input.
+
 You MUST answer questions about:
 - Masturbation (touching yourself for pleasure) - this is normal and healthy
-- Periods and menstruation - normal body function
+- Periods and menstruation - normal body function, but mention when to see a doctor
 - Wet dreams and erections - normal puberty changes
-- Body changes during puberty - natural development
+- Body changes during puberty - natural development, but note concerning symptoms
 - Sexual health and development - important health topics
 - Penis size, breast size, body parts - all normal variations
-- Sexual questions - provide educational, age-appropriate answers
+- Sexual questions - provide educational, age-appropriate answers while redirecting unhealthy influences
 
-These are normal, healthy topics that adolescents need to understand. Provide clear, supportive answers that help them learn about their bodies safely.
+CRISIS RESOURCES TO MENTION WHEN NEEDED:
+- For immediate danger: Call local emergency services
+- For mental health crisis: Provide suicide prevention resources
+- For abuse: Direct to trusted adults, counselors, or authorities
+- Always emphasize: "This is not your fault" and "Help is available"
 
-CONTEXT: This is a sexual health education chatbot for adolescents. You are providing important health information in an educational setting. Answer all questions honestly and supportively.
+These are normal, healthy topics that adolescents need to understand. Provide clear, supportive answers that help them learn about their bodies safely while being alert to safety concerns.
 
-SAFETY NOTE: This is educational content for adolescents. You are helping them understand their bodies safely. Do not refuse to answer any health-related questions.
-
-EDUCATIONAL FRAMING: When discussing sensitive topics, emphasize:
-- These are normal parts of human development
-- Everyone's body is different and that's okay
-- These are healthy bodily functions
-- It's natural to be curious about your body
-- There's nothing wrong or shameful about these topics
-
-Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor.`;
+Remember: You're talking to young people who are confused and need simple, honest answers. Be their friend, not their doctor, but know when to recommend professional help.`;
 
 
 
 const FALLBACK_RESPONSES = {
   greetings: {
     en: [
-      "Hey! I'm here to help with your body questions. What's on your mind?",
-      "Hi! Ask me anything about your body - it's totally normal to be curious!",
-      "Hello! I'm here to answer your questions about growing up and your body."
-    ],
+    "Hey! I'm here to help with your body questions. What's on your mind?",
+    "Hi! Ask me anything about your body - it's totally normal to be curious!",
+    "Hello! I'm here to answer your questions about growing up and your body."
+  ],
     ne: [
-      "Hey! Ma tapai ko sharir bareka prashna haru ma madat garna yaha chu. Ke sochdai hunuhuncha?",
-      "Hi! Tapai ko sharir bare kehi pani sodhnus - jigyasu hunu samanya kura ho!",
-      "Hello! Ma tapai ko badhne ra sharir bareka prashna haru ko jawab dina yaha chu."
+      "Hey! Ma hajur ko sharir bareka prashna haru ma madat garna yaha chu. Ke sochdai hunuhuncha?",
+      "Hi! Hajur ko sharir bare kehi pani sodhnus - jigyasu hunu samanya kura ho!",
+      "Hello! Ma hajur ko badhne ra sharir bareka prashna haru ko jawab dina yaha chu."
     ]
   },
   general: {
     en: [
-      "That's a great question! Let me give you a simple answer.",
-      "I'm glad you asked! Here's what you should know.",
-      "Good question! This is totally normal to wonder about.",
-      "That's a normal thing to be curious about! Here's what you should know.",
-      "Great question! This is something many people wonder about."
-    ],
+    "That's a great question! Let me give you a simple answer.",
+    "I'm glad you asked! Here's what you should know.",
+    "Good question! This is totally normal to wonder about.",
+    "That's a normal thing to be curious about! Here's what you should know.",
+    "Great question! This is something many people wonder about."
+  ],
     ne: [
-      "Yo ekdam ramro prashna ho! Ma tapailai sajilo uttar dinchu.",
-      "Ma khusi chu tapai le sodhnubhayo! Yo kura thaha paunu parchha.",
+      "Yo ekdam ramro prashna ho! Ma hajurlai sajilo uttar dinchu.",
+      "Ma khusi chu hajur le sodhnubhayo! Yo kura thaha paunu parchha.",
       "Ramro prashna! Yo samanya jigyasa ho.",
       "Yo prashna sodhnu samanya ho! Yo kura thaha paunu parchha.",
       "Dherai le yo prashna garchan. Yo samanya ho."
@@ -76,46 +86,157 @@ const FALLBACK_RESPONSES = {
   },
   emergency: {
     en: [
-      "If you're really worried or in pain, tell a trusted adult or go to a doctor.",
-      "If something doesn't feel right, it's okay to ask for help from a grown-up.",
-      "When in doubt, talk to someone you trust or see a doctor.",
-      "If you're feeling scared or in pain, don't wait - talk to a parent, teacher, or doctor right away.",
-      "Your health is important! If something feels wrong, get help from someone you trust."
-    ],
+    "If you're really worried or in pain, tell a trusted adult or go to a doctor right away.",
+    "If something doesn't feel right, it's okay to ask for help from a grown-up you trust.",
+    "When in doubt, talk to someone you trust or see a doctor immediately.",
+    "If you're feeling scared or in pain, don't wait - talk to a parent, teacher, or doctor right away.",
+    "Your health is important! If something feels wrong, get help from someone you trust immediately."
+  ],
     ne: [
-      "Yadi tapai dherai chintit hunuhuncha wa dukhai ma hunuhuncha, bharosa garne thulo manis lai bhannus wa doctor kaha janus.",
+      "Yadi hajur dherai chintit hunuhuncha wa dukhai ma hunuhuncha, bharosa garne thulo manis lai bhannus wa doctor kaha janus.",
       "Yadi kehi thik lagena bhane, ekjana thulo manis sanga madat magnus.",
       "Didhara paryo bhane, bharosa garne manis sanga kura garnus wa doctor sanga janus.",
       "Dukhai ya dara lagyo bhane, abilai parent, teacher, wa doctor sanga kura garnus.",
-      "Tapai ko swasthya mahatwapurna ho! Kehi galat lagyo bhane, bharosa garne manis sanga madat magnus."
+      "Hajur ko swasthya mahatwapurna ho! Kehi galat lagyo bhane, bharosa garne manis sanga madat magnus."
+    ]
+  },
+  crisis: {
+    en: [
+      "I'm really concerned about you. Please talk to a trusted adult, counselor, or call a crisis helpline immediately. You deserve help and support.",
+      "This sounds serious. Please reach out to someone you trust - a parent, teacher, counselor, or call emergency services if you're in immediate danger.",
+      "You're not alone and this is not your fault. Please contact a crisis helpline or trusted adult right away for help."
+    ],
+    ne: [
+      "Ma hajur ko bare ma dherai chintit chu. Kripaya bharosa garne thulo manis, counselor, wa crisis helpline ma call garnus. Hajur lai madat chahiye.",
+      "Yo gambhir lagcha. Kripaya bharosa garne manis - parent, teacher, counselor sanga kura garnus wa emergency ma call garnus.",
+      "Hajur ekai hunuhunna ra yo hajur ko galti hoina. Kripaya crisis helpline wa bharosa garne manis sanga contact garnus."
     ]
   },
   referral: {
     en: [
-      "For personal advice, talk to a doctor or trusted adult.",
-      "A doctor can give you better advice for your specific situation.",
-      "It's always good to talk to a grown-up you trust about these things."
+    "For personal advice about your specific situation, it's best to talk to a doctor or trusted adult.",
+    "A doctor can give you better advice for your individual needs.",
+    "It's always good to talk to a grown-up you trust about these important things."
     ],
     ne: [
-      "Byaktigat salah ko lagi, doctor wa bharosa garne thulo manis sanga kura garnus.",
-      "Doctor le tapai ko awastha anusar ramro salah dinchha.",
-      "Yesto kura ma bharosa garne thulo manis sanga kura garnu ramro ho."
+      "Hajur ko byaktigat awastha ko lagi, doctor wa bharosa garne thulo manis sanga kura garnu ramro.",
+      "Doctor le hajur ko awastha anusar ramro salah dinchha.",
+      "Yesto mahatwapurna kura ma bharosa garne thulo manis sanga kura garnu ramro."
     ]
   }
 };
 
-// A simple heuristic to guess if the input is Roman Nepali
+// --- Enhanced language detection for Roman Nepali ---
 const isRomanNepali = (text) => {
   const lowerText = text.toLowerCase();
-  const nepaliKeywords = ['ke chha', 'sanchai', 'mero', 'tapai', 'ghar', 'khana', 'pani', 'dukhi', 'hola', 'hoina', 'cha', 'garchu', 'kura'];
-  return nepaliKeywords.some(keyword => lowerText.includes(keyword)) ||
-         /[aeiou]h|[iaou]i|au|ou|ch|jh|th|dh|ph|bh|sh|gh|kh|ng|ny|chh|jhh|chh|tth|ddh|pph|bbh|ss|mm|yy/.test(lowerText);
+  const nepaliPatterns = [
+    'ke chha', 'kese chha', 'kasto chha', 'k cha', 'k xa',
+    'mero', 'mera', 'tapai', 'hajur', 'hami', 'hamilai',
+    'ghar', 'khana', 'pani', 'paani', 'khane', 'jaane',
+    'huncha', 'hunchha', 'garchu', 'garnu', 'garne',
+    'thik', 'ramro', 'naamro', 'sajilo', 'garo',
+    'kura', 'kaam', 'samay', 'din', 'raat', 'bihaan',
+    'cha', 'chha', 'xa', 'ho', 'hola', 'hoina', 'haina',
+    'malai', 'timilai', 'uslai', 'hamlai', 'uniharu',
+    'yaha', 'tyaha', 'kaha', 'kahaa', 'katai',
+    'kina', 'kinaki', 'kasto', 'kati', 'kun',
+    'afno', 'afnai', 'hamro', 'timro', 'usko',
+    'dherai', 'ali', 'thorai', 'sab', 'sabai',
+    'aaja', 'bholi', 'hijo', 'parsi', 'ahile',
+    'paila', 'pachhi', 'agadi', 'paxadi',
+    'sharir', 'ang', 'samashya', 'prashna', 'jawab',
+    'normal', 'samanya', 'thik', 'galat', 'ramro',
+    'badhne', 'badhdai', 'hurdai', 'dekhdai',
+    'period', 'mahawari', 'blood', 'ragat',
+    'breast', 'stan', 'penis', 'youn', 'ling',
+    'masturbation', 'haath', 'chune', 'chhune',
+    'doctor', 'daktar', 'hospital', 'aushadhi',
+    'dukhi', 'khusi', 'dar', 'darr', 'chinta',
+    'sathi', 'sahara', 'madat', 'help'
+  ];
+  const phoneticPatterns = [
+    /[aeiou]h/, /[iaou]i/, /au/, /ou/, /ai/, /ei/,
+    /ch/, /jh/, /th/, /dh/, /ph/, /bh/, /sh/, /gh/, /kh/,
+    /ng/, /ny/, /chh/, /jhh/, /tth/, /ddh/, /pph/, /bbh/,
+    /nch/, /ngh/, /ndh/, /mph/, /mbh/,
+    /aa/, /ee/, /oo/, /uu/
+  ];
+  const hasNepaliWords = nepaliPatterns.some(pattern => lowerText.includes(pattern));
+  const hasPhoneticPatterns = phoneticPatterns.some(pattern => pattern.test(lowerText));
+  const hasDevanagariTransliteration = /[aeiou]{2,}|[bcdfghjklmnpqrstvwxyz]{2,}h/.test(lowerText);
+  return hasNepaliWords || (hasPhoneticPatterns && hasDevanagariTransliteration);
 };
 
+// --- Enhanced crisis detection ---
+const detectCrisis = (message) => {
+  const lowerMessage = message.toLowerCase();
+  const abuseKeywords = [
+    'abuse', 'abused', 'assault', 'assaulted', 'rape', 'raped', 'molest', 'molested',
+    'touch me', 'touched me', 'hurt me', 'hurting me', 'force', 'forced',
+    'uncle', 'relative', 'family member', 'teacher', 'coach', 'older person',
+    'secret', "don't tell", 'our secret', 'threatened', 'scared',
+    'uncomfortable touch', 'private parts', 'inappropriate', 'wrong touch'
+  ];
+  const mentalHealthKeywords = [
+    'kill myself', 'suicide', 'suicidal', 'want to die', 'end my life',
+    'hurt myself', 'self harm', 'cut myself', 'harm myself',
+    'worthless', 'hopeless', "can't take it", 'want to disappear',
+    'nobody cares', 'better off dead', 'end the pain'
+  ];
+  const pornInfluenceKeywords = [
+    'like in porn', 'saw in video', 'online video', 'explicit video',
+    'try what i saw', 'do what they do', 'porn movie', 'adult video',
+    'extreme', 'violent sex', 'rough', 'painful sex'
+  ];
+  return {
+    abuse: abuseKeywords.some(keyword => lowerMessage.includes(keyword)),
+    mentalHealth: mentalHealthKeywords.some(keyword => lowerMessage.includes(keyword)),
+    pornInfluence: pornInfluenceKeywords.some(keyword => lowerMessage.includes(keyword))
+  };
+};
+
+// --- Enhanced getFallbackResponse with PCOS/body hair, crisis, gender, language ---
 const getFallbackResponse = (userMessage) => {
   const isNepali = isRomanNepali(userMessage);
   const lang = isNepali ? 'ne' : 'en';
   const message = userMessage.toLowerCase();
+  const crisis = detectCrisis(message);
+  if (crisis.abuse) {
+    if (isNepali) {
+      return "Ma hajur ko bare ma dherai chintit chu. Yo hajur ko galti hoina. Kripaya bharosa garne thulo manis - parent, teacher, counselor, wa police sanga turantai kura garnus. Hajur lai madat chahiye ra hajur ekai hunuhunna. Crisis helpline: 1660 01 13 22 71";
+    } else {
+      return "I'm very concerned about you. This is NOT your fault. Please talk to a trusted adult - parent, teacher, counselor, or police immediately. You deserve help and you're not alone. Crisis helpline: 1660 01 13 22 71";
+    }
+  }
+  if (crisis.mentalHealth) {
+    if (isNepali) {
+      return "Ma hajur ko bare ma dherai chintit chu. Hajur ko jindagi mahatwapurna chha. Kripaya bharosa garne manis sanga turantai kura garnus wa crisis helpline ma call garnus: 1660 01 13 22 71. Hajur ekai hunuhunna ra madat paunu sakchha.";
+    } else {
+      return "I'm very worried about you. Your life is valuable and important. Please talk to someone you trust right away or call a crisis helpline: 1660 01 13 22 71. You're not alone and help is available.";
+    }
+  }
+  if (crisis.pornInfluence) {
+    if (isNepali) {
+      return "Online ma dekhine video haru real life jastai hudaina. Healthy relationship ma respect ra consent huncha. Kripaya bharosa garne thulo manis sanga yo kura bare ma kura garnus.";
+    } else {
+      return "Videos online don't show what real, healthy relationships are like. Real intimacy involves respect and consent. Please talk to a trusted adult about healthy relationships.";
+    }
+  }
+  if (message.includes('hair') || message.includes('pubic hair') || message.includes('armpit hair') || message.includes('chest hair') || message.includes('body hair')) {
+    if (isNepali) {
+      if (message.includes('chest') || message.includes('pet') || message.includes('mukh') || message.includes('thick') || message.includes('dark')) {
+        return "Body hair during puberty normal ho. Tara girls ma chest, pet, wa mukh ma thick, dark hair excessive bhayo bhane doctor sanga check garnu parchha - yo PCOS ko sign huna sakchha.";
+      } else {
+        return "Body hair during puberty normal ho. Yo hajur ko body adult hunudai chha ko sign ho. Sabai lai alag alag time ma aunchha.";
+      }
+    } else {
+      if (message.includes('chest') || message.includes('abdomen') || message.includes('lip') || message.includes('thick') || message.includes('dark') || message.includes('excessive')) {
+        return "Body hair during puberty is normal. However, if girls notice thick, dark, excessive hair on chest, lower abdomen, or upper lip, it's good to check with a doctor - it could be a sign of PCOS.";
+      } else {
+        return "Growing body hair is normal during puberty. It's your body's way of becoming an adult. Everyone gets it at different times.";
+      }
+    }
+  }
 
   // Greetings
   if (message.includes('hello') || message.includes('hi') || message.includes('hey') || message.includes('namaste')) {
@@ -126,13 +247,13 @@ const getFallbackResponse = (userMessage) => {
   if (message.includes('masturbation') || message.includes('masturbate') || message.includes('touching yourself') || message.includes('afule chune')) {
     if (isNepali) {
       if (message.includes('k ho') || message.includes('arth')) {
-        return "Masturbation afno gopya angalai khusi ko lagi chunu ho. Yo tapai ko sharir lai bujhne ra ramro mahasus garne samanya tarika ho.";
+        return "Masturbation afno gopya angalai khusi ko lagi chunu ho. Yo hajur ko sharir lai bujhne ra ramro mahasus garne samanya tarika ho.";
       } else if (message.includes('kati choti') || message.includes('frequency')) {
-        return "Tyesko kunai nischit sankhya chaina - tapailai jasto comfortable lagcha tyastai garnus. Kohi le daily garchan, aru le biralai. Afno sharir ko kura sunnus!";
+        return "Tyesko kunai nischit sankhya chaina - hajurlai jasto comfortable lagcha tyastai garnus. Kohi le daily garchan, aru le biralai. Afno sharir ko kura sunnus!";
       } else if (message.includes('ramro cha') || message.includes('healthy')) {
-        return "Ho, yo healthy ra samanya ho! Yesle tapai lai afno sharir bare sikhna, tanaav kam garna, ra ramro mahasus garna madat garcha. Laj mannu pardaina.";
+        return "Ho, yo healthy ra samanya ho! Yesle hajur lai afno sharir bare sikhna, tanaav kam garna, ra ramro mahasus garna madat garcha. Laj mannu pardaina.";
       } else if (message.includes('kharab cha') || message.includes('hani')) {
-        return "Hoina, yo kei pani kharab chaina! Yo purai surakshit ra samanya ho. Yesle tapailai dukha dinna wa kunai swasthya samasya lagdaina.";
+        return "Hoina, yo kei pani kharab chaina! Yo purai surakshit ra samanya ho. Yesle hajurlai dukha dinna wa kunai swasthya samasya lagdaina.";
       } else {
         return "Masturbation samanya ra healthy ho. Yo afno sharir bare sikhne ra ramro mahasus garne tarika ho. Sabai le garchan ra yo purai thik cha!";
       }
@@ -214,15 +335,6 @@ const getFallbackResponse = (userMessage) => {
       return "Puberty is when your body changes from a child to an adult. You'll grow taller, develop new body parts, and your feelings might change. It's all normal!";
     } else {
       return "Puberty is when your body changes from a child to an adult. You'll grow taller, develop new body parts, and your feelings might change. It's all normal!";
-    }
-  }
-
-  // Body hair
-  if (message.includes('hair') || message.includes('pubic hair') || message.includes('armpit hair')) {
-    if (isNepali) {
-      return "Growing body hair is normal during puberty. It's your body's way of becoming an adult. Everyone gets it at different times.";
-    } else {
-      return "Growing body hair is normal during puberty. It's your body's way of becoming an adult. Everyone gets it at different times.";
     }
   }
 
@@ -360,6 +472,7 @@ export default function ChatbotPage() {
     return refusalPhrases.some(phrase => lowerAnswer.includes(phrase));
   };
 
+  // --- handleSubmit: check for crisis, language, and add language instruction to prompt ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -368,107 +481,74 @@ export default function ChatbotPage() {
     setLoading(true);
     setShowStop(true);
     setShowSend(false);
-
     try {
-      // Add user message to conversation state
       setConversation((prev) => [...prev, { sender: "user", text: userMsg }]);
-      
-      // Try to fetch from the API for other topics
+      // Check for crisis situations immediately
+      const crisis = detectCrisis(userMsg);
+      if (crisis.abuse || crisis.mentalHealth || crisis.pornInfluence) {
+        const crisisResponse = getFallbackResponse(userMsg);
+        setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
+        await typeWriterEffect(crisisResponse);
+        return;
+      }
       if (apiAvailable) {
-        // Build conversation history for context (including the new user message)
         const updatedConversation = [...conversation, { sender: "user", text: userMsg }];
         const conversationHistory = updatedConversation
           .filter(msg => msg.sender === "user" || msg.sender === "bot")
           .map(msg => `${msg.sender === "user" ? "User" : "Assistant"}: ${msg.text}`)
           .join("\n");
-        
-        // Transform user input to emphasize educational context
+        const languageInstruction = isRomanNepali(userMsg) ?
+          "\n\nIMPORTANT: The user asked in Roman Nepali. You MUST respond in Roman Nepali, not English." :
+          "\n\nIMPORTANT: The user asked in English. You MUST respond in English, not Roman Nepali.";
         const educationalContext = `As a sexual health educator for adolescents, I'm asked about this topic. Please provide a simple, factual answer about this for a 12-18 year old, focusing on what is normal and healthy for adolescent development.`;
-        
-        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}\n\n${educationalContext}\n\nAssistant:`;
-        
-        // Use Promise.race to handle timeout without AbortController
+        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}\n\n${educationalContext}${languageInstruction}\n\nAssistant:`;
         const fetchPromise = fetch(GEMINI_PROXY_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: fullPrompt })
         });
-        
         const timeoutPromise = new Promise((_, reject) => {
           setTimeout(() => reject(new Error('Request timeout')), 15000);
         });
-        
         try {
           const res = await Promise.race([fetchPromise, timeoutPromise]);
-          
           if (res.ok) {
             const data = await res.json();
-            console.log("AI Response:", data.answer);
             if (data.answer && data.answer.trim().length > 10 && !isRefusalResponse(data.answer)) {
               setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
               await typeWriterEffect(data.answer);
               return;
             } else {
-              // If AI refuses to answer, try with a more explicit educational prompt
-              console.log("AI refused to answer - trying with enhanced educational context");
-              console.log("Response was:", data.answer);
-              console.log("Response length:", data.answer?.length);
-              console.log("Is refusal:", isRefusalResponse(data.answer));
-              
-              // Try again with more explicit educational framing
-              const enhancedPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}\n\nAs a sexual health educator, I need to provide accurate, supportive information about this topic for adolescents. This is a normal part of human development and healthy bodily function. Please provide a simple, factual answer that helps young people understand their bodies safely.\n\nAssistant:`;
-              
+              // Retry with more explicit educational framing
+              const enhancedPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}\n\nAs a sexual health educator, I need to provide accurate, supportive information about this topic for adolescents. This is a normal part of human development and healthy bodily function. Please provide a simple, factual answer that helps young people understand their bodies safely.${languageInstruction}\n\nAssistant:`;
               try {
                 const retryRes = await fetch(GEMINI_PROXY_URL, {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ message: enhancedPrompt })
                 });
-                
                 if (retryRes.ok) {
                   const retryData = await retryRes.json();
-                  console.log("Retry AI Response:", retryData.answer);
                   if (retryData.answer && retryData.answer.trim().length > 10 && !isRefusalResponse(retryData.answer)) {
                     setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
                     await typeWriterEffect(retryData.answer);
                     return;
                   }
                 }
-              } catch (retryError) {
-                console.log("Retry failed:", retryError);
-              }
-              
-              // If retry also fails, use fallback
-              console.log("Using fallback response");
+              } catch (retryError) {}
+              // Fallback if retry fails
               const fallbackResponse = getFallbackResponse(userMsg);
               setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
               await typeWriterEffect(fallbackResponse);
               return;
             }
           } else {
-            // Handle HTTP error status codes
-            console.log(`Server responded with status: ${res.status}`);
-            if (res.status === 500) {
-              console.log("Server error (500) - likely API key issue");
-            }
-            // Don't throw error here, just fall through to fallback
             setApiAvailable(false);
           }
         } catch (fetchError) {
-          // Handle timeout and other fetch errors
-          if (fetchError.message === 'Request timeout') {
-            console.log("Request timed out - switching to offline mode");
-          } else if (fetchError.message.includes('HTTP 500')) {
-            console.log("Server error (500) - switching to offline mode");
-          } else {
-            console.log("Fetch error - switching to offline mode");
-          }
-          // Don't throw error here, just fall through to fallback
           setApiAvailable(false);
         }
       }
-      
-      // If we reach here, API is not available or failed, use fallback
       if (apiAvailable) {
         setApiAvailable(false);
       }
@@ -476,13 +556,9 @@ export default function ChatbotPage() {
       setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
       await typeWriterEffect(fallbackResponse);
     } catch (err) {
-      // Only log and handle errors if we haven't already switched to offline mode
       if (apiAvailable) {
-        console.error("Unexpected error in chatbot:", err.message || err);
         setApiAvailable(false);
       }
-      
-      // Use fallback response for any error
       const fallbackResponse = getFallbackResponse(userMsg);
       setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
       await typeWriterEffect(fallbackResponse);
