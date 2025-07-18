@@ -262,21 +262,47 @@ const getFallbackResponse = (userMessage) => {
   const message = userMessage.toLowerCase();
   const crisis = detectCrisis(message);
 
+  // Suicide thoughts: answer in the same language as the question, only Nepal helplines
+  if (
+    message.includes('suicide') ||
+    message.includes('suicidal') ||
+    message.includes('kill myself') ||
+    message.includes('want to die') ||
+    message.includes('end my life') ||
+    message.includes('hurt myself') ||
+    message.includes('self harm') ||
+    message.includes('cut myself') ||
+    message.includes('harm myself') ||
+    message.includes('worthless') ||
+    message.includes('hopeless') ||
+    message.includes("can't take it") ||
+    message.includes('want to disappear') ||
+    message.includes('nobody cares') ||
+    message.includes('better off dead') ||
+    message.includes('end the pain')
+  ) {
+    if (isNepali) {
+      return `Suscide thoughts haru aayeko chha bhane, timi eklai chainau. Yasto soch aaunu common ho, ra help available chha. Timro school ko counselor, family member, or trusted adult sanga kura gara. Urgent help chahiyo bhane, 1166 (National Suicide Prevention Helpline), 1660-0133666 (Mental Health Helpline Nepal), 16600121600 (TUTH Suicide Hotline), 9813476123 (Patan Hospital Suicide Hotline), ya TPO Nepal (Text +977 9847386158, Call +977 16600102005) ma call gara. Timi important chhau.`;
+    } else {
+      return `If you are having suicide thoughts, you are not alone. It's common to feel this way, and help is available. Please talk to your school counselor, a family member, or a trusted adult. For urgent help in Nepal, call 1166 (National Suicide Prevention Helpline), 1660-0133666 (Mental Health Helpline Nepal), 16600121600 (TUTH Suicide Hotline), 9813476123 (Patan Hospital Suicide Hotline), or TPO Nepal (Text +977 9847386158, Call +977 16600102005). You are important.`;
+    }
+  }
+
   // Crisis responses with updated helplines
   if (crisis.abuse) {
     return (isNepali
       ? "Ma hajur ko bare ma dherai chintit chu. Yo hajur ko galti hoina. Kripaya bharosa garne thulo manis - parent, teacher, counselor, wa police sanga turantai kura garnus. Hajur lai madat chahiye ra hajur ekai hunuhunna." + getRelevantHelplines('abuse', 'ne')
-      : "I'm very concerned about you. This is NOT your fault. Please talk to a trusted adult - parent, teacher, counselor, or police immediately. You deserve help and you're not alone." + getRelevantHelplines('abuse', 'en'));
+      : "Ma dherai chintit chu timro barema. Yo timro galti hoina. Kripaya bharosa garne thulo manis - parent, teacher, counselor, wa police sanga turantai kura gara. Timi lai madat chahinchha ra timi eklai chainau." + getRelevantHelplines('abuse', 'ne'));
   }
   if (crisis.mentalHealth) {
     return (isNepali
       ? "Ma hajur ko bare ma dherai chintit chu. Hajur ko jindagi mahatwapurna chha. Kripaya bharosa garne manis sanga turantai kura garnus wa suicide prevention helpline ma call garnus. Hajur ekai hunuhunna ra madat paunu sakchha." + getRelevantHelplines('mentalHealth', 'ne')
-      : "I'm very worried about you. Your life is valuable and important. Please talk to someone you trust right away or call a suicide prevention helpline. You're not alone and help is available." + getRelevantHelplines('mentalHealth', 'en'));
+      : "Timi ko barema dherai chintit chu. Timi ko jindagi mahatwapurna chha. Kripaya bharosa garne manis sanga turantai kura gara wa suicide prevention helpline ma call gara. Timi eklai chainau ra madat pauna sakinchha." + getRelevantHelplines('mentalHealth', 'ne'));
   }
   if (crisis.pornInfluence) {
     return (isNepali
       ? "Online ma dekhine video haru real life jastai hudaina. Healthy relationship ma respect ra consent huncha. Kripaya bharosa garne thulo manis sanga yo kura bare ma kura garnus."
-      : "Videos online don't show what real, healthy relationships are like. Real intimacy involves respect and consent. Please talk to a trusted adult about healthy relationships.");
+      : "Online ma dekhine video haru real life jastai hudaina. Healthy relationship ma respect ra consent huncha. Kripaya bharosa garne thulo manis sanga yo kura bare ma kura gara.");
   }
 
   // Greetings
@@ -427,7 +453,7 @@ export default function ChatbotPage() {
   const [conversation, setConversation] = useState([
     {
       sender: "bot",
-      text: "Hey! I'm here to help with your body questions. Growing up can be confusing - ask me anything! Everything is private and anonymous. If you need immediate help or are in crisis, please call 1660 01 13 22 71 (for Nepal)."
+      text: "Hey! I'm here to help with your body questions. Growing up can be confusing - ask me anything!"
     }
   ]);
   const [input, setInput] = useState("");
