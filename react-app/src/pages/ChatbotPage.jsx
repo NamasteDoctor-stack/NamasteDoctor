@@ -229,26 +229,26 @@ const detectCrisis = (message) => {
   };
 };
 
-// --- FIXED: Updated Nepal helpline numbers ---
+// --- UPDATED: Nepal helpline numbers and descriptions ---
 const getRelevantHelplines = (type, lang = 'en') => {
   if (type === 'abuse') {
     return lang === 'ne'
-      ? `\n\nMahatwapurna madat ko number haru (Nepal):\n- Emergency/Police: 100, 112 (24 ghanta)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (samvedanshil sahayog)\n- Suicide Prevention: 1166 (8am-8pm)\n- Mental Health Helpline: 1660-0133666 (8am-8pm)`
-      : `\n\nImportant help numbers (Nepal):\n- Emergency/Police: 100, 112 (24hr)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (emotional support)\n- Suicide Prevention: 1166 (8am-8pm)\n- Mental Health Helpline: 1660-0133666 (8am-8pm)`;
+      ? `\n\nमहत्‍वपूर्ण सहायता नम्बरहरू (नेपाल):\n- नेपाल आपतकालीन हेल्पलाइन: 100, 112 (२४ घण्टा)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (नि:शुल्क, गोप्य, सहानुभूतिपूर्ण सहयोग)\n- आत्महत्या रोकथामको लागि राष्ट्रिय हेल्पलाइन: 1166 (८ बजे बिहानदेखि ८ बजे साँझ)\n- Mental Health Helpline Nepal: 1660-0133666 (८ बजे बिहानदेखि ८ बजे साँझ)\n- Patan Hospital Suicide Hotline: 9813476123\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`
+      : `\n\nImportant help numbers (Nepal):\n- Nepal Emergency Hotline: 100, 112 (24hr)\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005 (free, confidential, compassionate support)\n- National Suicide Prevention Helpline: 1166 (8am-8pm)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`;
   }
   if (type === 'mentalHealth') {
     return lang === 'ne'
-      ? `\n\nMahatwapurna mental health madat (Nepal):\n- आत्महत्या रोकथाम हेल्पलाइन: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24 ghanta)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005\n- Mental Health Promotion Center: +977-01-441264`
-      : `\n\nImportant mental health help (Nepal):\n- National Suicide Prevention Helpline: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24hr)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005\n- Mental Health Promotion Center: +977-01-441264`;
+      ? `\n\nमहत्‍वपूर्ण मानसिक स्वास्थ्य सहायता (नेपाल):\n- आत्महत्या रोकथामको लागि राष्ट्रिय हेल्पलाइन: 1166 (८ बजे बिहानदेखि ८ बजे साँझ)\n- TUTH Suicide Hotline: 16600121600 (२४ घण्टा)\n- Mental Health Helpline Nepal: 1660-0133666 (८ बजे बिहानदेखि ८ बजे साँझ)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)\n- CMC Hotline: 16600185080`
+      : `\n\nImportant mental health help (Nepal):\n- National Suicide Prevention Helpline: 1166 (8am-8pm)\n- TUTH Suicide Hotline: 16600121600 (24hr)\n- Mental Health Helpline Nepal: 1660-0133666 (8am-8pm)\n- Patan Hospital Suicide Hotline: 9813476123\n- TPO Nepal: Text +977 9847386158, Call +977 16600102005\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)\n- CMC Hotline: 16600185080`;
   }
   if (type === 'emergency') {
     return lang === 'ne'
-      ? `\n\nNepal Emergency Hotline: 100, 112 (24 ghanta)`
+      ? `\n\nनेपाल आपतकालीन हेल्पलाइन: 100, 112 (२४ घण्टा)`
       : `\n\nNepal Emergency Hotline: 100, 112 (24hr)`;
   }
   if (type === 'generalMental') {
     return lang === 'ne'
-      ? `\n\nManosamajik madat (Nepal):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`
+      ? `\n\nमानसिक स्वास्थ्य सहायता (नेपाल):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`
       : `\n\nPsychosocial support (Nepal):\n- CMC Hotline: 16600185080\n- Mental Health Promotion & Suicide Prevention Center: +977-01-441264 (mhpspc.org.np)`;
   }
   return '';
