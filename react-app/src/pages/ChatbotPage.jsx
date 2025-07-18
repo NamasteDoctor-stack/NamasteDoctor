@@ -301,17 +301,17 @@ const getFallbackResponse = (userMessage) => {
   if (crisis.abuse) {
     return (isNepali
       ? "Ma hajur ko bare ma dherai chintit chu. Yo hajur ko galti hoina. Kripaya bharosa garne thulo manis - parent, teacher, counselor, wa police sanga turantai kura garnus. Hajur lai madat chahiye ra hajur ekai hunuhunna." + getRelevantHelplines('abuse', 'ne')
-      : "Ma dherai chintit chu timro barema. Yo timro galti hoina. Kripaya bharosa garne thulo manis - parent, teacher, counselor, wa police sanga turantai kura gara. Timi lai madat chahinchha ra timi eklai chainau." + getRelevantHelplines('abuse', 'ne'));
+      : "I'm very concerned about you. This is NOT your fault. Please talk to a trusted adult - parent, teacher, counselor, or police immediately. You deserve help and you're not alone." + getRelevantHelplines('abuse', 'en'));
   }
   if (crisis.mentalHealth) {
     return (isNepali
       ? "Ma hajur ko bare ma dherai chintit chu. Hajur ko jindagi mahatwapurna chha. Kripaya bharosa garne manis sanga turantai kura garnus wa suicide prevention helpline ma call garnus. Hajur ekai hunuhunna ra madat paunu sakchha." + getRelevantHelplines('mentalHealth', 'ne')
-      : "Timi ko barema dherai chintit chu. Timi ko jindagi mahatwapurna chha. Kripaya bharosa garne manis sanga turantai kura gara wa suicide prevention helpline ma call gara. Timi eklai chainau ra madat pauna sakinchha." + getRelevantHelplines('mentalHealth', 'ne'));
+      : "I'm very worried about you. Your life is valuable and important. Please talk to someone you trust right away or call a suicide prevention helpline. You're not alone and help is available." + getRelevantHelplines('mentalHealth', 'en'));
   }
   if (crisis.pornInfluence) {
     return (isNepali
       ? "Online ma dekhine video haru real life jastai hudaina. Healthy relationship ma respect ra consent huncha. Kripaya bharosa garne thulo manis sanga yo kura bare ma kura garnus."
-      : "Online ma dekhine video haru real life jastai hudaina. Healthy relationship ma respect ra consent huncha. Kripaya bharosa garne thulo manis sanga yo kura bare ma kura gara.");
+      : "Videos online don't show what real, healthy relationships are like. Real intimacy involves respect and consent. Please talk to a trusted adult about healthy relationships.");
   }
 
   // Greetings
