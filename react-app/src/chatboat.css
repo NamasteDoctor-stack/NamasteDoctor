@@ -1,5 +1,63 @@
 /* ===================== NAMASTE DOCTOR CHATBOT PAGE STYLES ===================== */
 
+/* Search Status and Grounding Styles */
+.nd-search-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: linear-gradient(45deg, #e3f2fd, #f3e5f5);
+  border-left: 3px solid #4285f4;
+  border-radius: 6px;
+  font-size: 0.9em;
+  color: #1565c0;
+  margin: 8px 0;
+  animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.8; }
+  to { opacity: 1; }
+}
+
+.nd-grounding-sources {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
+  font-size: 0.85em;
+}
+
+.nd-grounding-sources h4 {
+  margin: 0 0 8px 0;
+  color: #495057;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.nd-source-item {
+  margin-bottom: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 0.8em;
+}
+
+.nd-source-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.nd-source-link {
+  color: #007bff;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.nd-source-link:hover {
+  text-decoration: underline;
+}
+
 /* Main chatbot container */
 .nd-chatbot-outer {
   width: 100vw;
