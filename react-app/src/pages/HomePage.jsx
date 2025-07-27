@@ -111,13 +111,15 @@ const HomePage = () => {
             <div className="doctor-card fade-in">
               <img src={imgDoctor1} alt="Dr. Sagar Panthi" />
               <h3>Dr. Sagar Panthi</h3>
-              <p>MBBS, BPKHS</p>
+              <p>MD</p>
+              <p>Texas Tech University Health Sciences Center</p>
               <p>Medical Content Reviewer</p>
             </div>
             <div className="doctor-card fade-in">
               <img src={imgDoctor2} alt="Dr. Rochana Acharya" />
               <h3>Dr. Rochana Acharya</h3>
-              <p>MBBS, BPKHS</p>
+              <p>MD</p>
+              <p>Cleveland Clinic Foundation Program</p>
               <p>Medical Content Reviewer</p>
             </div>
           </div>
