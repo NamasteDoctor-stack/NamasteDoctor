@@ -140,79 +140,87 @@ const FALLBACK_RESPONSES = {
   }
 };
 
-// --- FIXED: Enhanced language detection for Roman Nepali ---
+// --- FIXED: More conservative language detection for Roman Nepali ---
 const isRomanNepali = (text) => {
   const lowerText = text.toLowerCase().trim();
   
-  // If text is very short (1-2 words), be more conservative
-  if (lowerText.split(' ').length <= 2) {
-    const strongNepaliIndicators = [
-      'ke chha', 'k cha', 'k xa', 'kese chha', 'kasto chha',
-      'mero', 'mera', 'hajur', 'tapai', 'malai', 'timilai',
-      'huncha', 'hunchha', 'garchu', 'thik', 'ramro',
-      'sharir', 'prashna', 'madat', 'help garnus'
-    ];
-    return strongNepaliIndicators.some(indicator => lowerText.includes(indicator));
+  // First check for strong English indicators - if found, it's definitely English
+  const strongEnglishIndicators = [
+    // Common English words that are rarely in Roman Nepali
+    'what is', 'how do', 'can you', 'tell me', 'explain', 'define',
+    'i want', 'i need', 'help me', 'my body', 'is it', 'does it',
+    'will it', 'should i', 'when will', 'why does', 'how long',
+    'masturbation', 'periods', 'puberty', 'breast', 'penis',
+    'normal', 'healthy', 'problem', 'question', 'answer'
+  ];
+  
+  // If it contains strong English indicators, it's English
+  if (strongEnglishIndicators.some(indicator => lowerText.includes(indicator))) {
+    return false;
   }
   
-  // For longer text, use comprehensive detection
-  const nepaliPatterns = [
-    // Common phrases
+  // Now check for strong Nepali indicators
+  const strongNepaliIndicators = [
+    // Common Nepali phrases that are definitely Roman Nepali
     'ke chha', 'kese chha', 'kasto chha', 'k cha', 'k xa',
-    // Pronouns
-    'mero', 'mera', 'tapai', 'hajur', 'hami', 'hamilai',
-    'malai', 'timilai', 'uslai', 'hamlai', 'uniharu',
-    // Common words
-    'ghar', 'khana', 'pani', 'paani', 'khane', 'jaane',
-    'huncha', 'hunchha', 'garchu', 'garnu', 'garne',
-    'thik', 'ramro', 'naamro', 'sajilo', 'garo',
-    'kura', 'kaam', 'samay', 'din', 'raat', 'bihaan',
-    'cha', 'chha', 'xa', 'ho', 'hola', 'hoina', 'haina',
-    // Location words
-    'yaha', 'tyaha', 'kaha', 'kahaa', 'katai',
-    // Question words
-    'kina', 'kinaki', 'kasto', 'kati', 'kun',
-    // Possessive
-    'afno', 'afnai', 'hamro', 'timro', 'usko',
-    // Quantity
-    'dherai', 'ali', 'thorai', 'sab', 'sabai',
-    // Time
-    'aaja', 'bholi', 'hijo', 'parsi', 'ahile',
-    'paila', 'pachhi', 'agadi', 'paxadi',
-    // Health/body terms
-    'sharir', 'ang', 'samashya', 'prashna', 'jawab',
-    'normal', 'samanya', 'galat', 'badhne', 'badhdai',
-    'period', 'mahawari', 'blood', 'ragat',
-    'breast', 'stan', 'penis', 'youn', 'ling',
-    'masturbation', 'haath', 'chune', 'chhune',
-    'doctor', 'daktar', 'hospital', 'aushadhi',
-    'dukhi', 'khusi', 'dar', 'darr', 'chinta',
-    'sathi', 'sahara', 'madat'
+    'hajur ko', 'mero sharir', 'tapai lai', 'malai bhannus',
+    'huncha ki', 'thik cha ki', 'samanya ho ki',
+    'madat garnus', 'help garnus', 'bujhauna saknus',
+    
+    // Nepali pronouns and possessives
+    'mero', 'hajur', 'tapai', 'hamilai', 'timilai',
+    
+    // Common Nepali verbs
+    'huncha', 'hunchha', 'garchu', 'garchan', 'bhanchha',
+    'lagcha', 'aaucha', 'janchha', 'dinchha',
+    
+    // Nepali question words
+    'kina', 'kasto', 'kati', 'kun', 'kahile',
+    
+    // Health terms in Roman Nepali
+    'sharir', 'mahawari', 'prashna', 'jawab', 'samashya',
+    'swasthya', 'badhne', 'badhdai', 'normal cha',
+    
+    // Common Roman Nepali expressions
+    'yo samanya ho', 'thik cha', 'kei problem chaina',
+    'afno sharir', 'yo kura'
   ];
   
-  // Phonetic patterns common in Roman Nepali
-  const phoneticPatterns = [
-    /[aeiou]h/, /[iaou]i/, /au/, /ou/, /ai/, /ei/,
-    /ch/, /jh/, /th/, /dh/, /ph/, /bh/, /sh/, /gh/, /kh/,
-    /ng/, /ny/, /chh/, /jhh/, /tth/, /ddh/, /pph/, /bbh/,
-    /nch/, /ngh/, /ndh/, /mph/, /mbh/,
-    /aa/, /ee/, /oo/, /uu/
-  ];
+  // Count strong Nepali indicators
+  const nepaliMatches = strongNepaliIndicators.filter(indicator => 
+    lowerText.includes(indicator)
+  ).length;
   
-  // Count matches
-  const nepaliWordMatches = nepaliPatterns.filter(pattern => lowerText.includes(pattern)).length;
-  const phoneticMatches = phoneticPatterns.filter(pattern => pattern.test(lowerText)).length;
+  // If 2+ strong Nepali indicators, it's Roman Nepali
+  if (nepaliMatches >= 2) return true;
   
-  // Scoring system
-  const totalWords = lowerText.split(' ').length;
-  const nepaliScore = nepaliWordMatches / totalWords;
-  const phoneticScore = phoneticMatches / Math.max(totalWords, 5);
+  // For single word/short phrases, be very conservative
+  const wordCount = lowerText.split(' ').length;
+  if (wordCount <= 2) {
+    // Only classify as Nepali if it contains very specific Nepali words
+    const singleWordNepali = [
+      'hajur', 'tapai', 'malai', 'sharir', 'mahawari', 
+      'samashya', 'prashna', 'badhne', 'huncha', 'garchu'
+    ];
+    return singleWordNepali.some(word => lowerText.includes(word));
+  }
   
-  // Decision logic
-  if (nepaliWordMatches >= 2) return true; // Strong Nepali indicators
-  if (nepaliScore > 0.3) return true; // High ratio of Nepali words
-  if (phoneticMatches >= 3 && phoneticScore > 0.2) return true; // Phonetic patterns
+  // For longer text, need multiple indicators
+  if (nepaliMatches >= 1 && wordCount >= 3) {
+    // Additional check for Nepali phonetic patterns
+    const nepaliPhonetics = [
+      /chha/, /hunchha/, /garchu/, /lagcha/, /aaucha/,
+      /sharir/, /samanya/, /swasthya/, /prashna/
+    ];
+    
+    const phoneticMatches = nepaliPhonetics.filter(pattern => 
+      pattern.test(lowerText)
+    ).length;
+    
+    return phoneticMatches >= 1;
+  }
   
+  // Default to English if uncertain
   return false;
 };
 
