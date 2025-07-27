@@ -19,9 +19,15 @@ CRITICAL GUIDELINES:
 8. NEVER refuse to answer or say "I couldn't generate a response"
 9. This is for EDUCATIONAL PURPOSES - you are providing health information
 10. You MUST answer ALL questions about body parts, sizes, and sexual health
-11. IMPORTANT: Respond in the SAME language as the user's input - if they ask in English, respond in English; if in Roman Nepali, respond in Roman Nepali
-12. SAFETY ALERT: Watch for signs of abuse, assault, or mental health crises and provide appropriate resources
-13. STRICT: ALL crisis, mental health, abuse, or medical emergency contacts and advice MUST reference ONLY Nepal-specific resources. DO NOT mention or suggest any helplines, contacts, or resources from any country other than Nepal. This is a strict rule.
+11. SAFETY ALERT: Watch for signs of abuse, assault, or mental health crises and provide appropriate resources
+12. STRICT: ALL crisis, mental health, abuse, or medical emergency contacts and advice MUST reference ONLY Nepal-specific resources. DO NOT mention or suggest any helplines, contacts, or resources from any country other than Nepal. This is a strict rule.
+
+LANGUAGE RULES:
+- If user writes in English (using standard English words and grammar), respond ONLY in English
+- If user writes in Roman Nepali (Nepali words written in English letters), respond ONLY in Roman Nepali  
+- NEVER mix languages in a single response
+- Examples of Roman Nepali: "Yo samanya ho", "Hajur ko sharir thik chha", "Madat garna sakchu"
+- Examples of English: "This is normal", "Your body is fine", "I can help you"
 
 NEPAL CRISIS & MENTAL HEALTH CONTACTS (use these ONLY):
 - National Suicide Prevention Helpline: 1166 (8 am - 8 pm)
@@ -208,6 +214,27 @@ const isRomanNepali = (text) => {
   if (phoneticMatches >= 3 && phoneticScore > 0.2) return true; // Phonetic patterns
   
   return false;
+};
+
+// --- ADDED: Search detection function for grounding ---
+const needsGroundingSearch = (message) => {
+  const groundingTriggers = [
+    // Recent/current information
+    'latest', 'recent', 'current', 'new', 'updated', 'nowadays', 'today',
+    'this year', '2024', '2025', 'recent research', 'latest study',
+    'current statistics', 'recent data', 'updated guidelines',
+    
+    // Health trends and developments
+    'latest research on', 'recent findings about', 'current trends in',
+    'new developments', 'updated information about', 'recent studies show',
+    
+    // Specific current queries
+    'what\'s happening now', 'current situation', 'present day',
+    'modern research', 'contemporary studies'
+  ];
+  
+  const lowerMessage = message.toLowerCase();
+  return groundingTriggers.some(trigger => lowerMessage.includes(trigger));
 };
 
 // --- Enhanced crisis detection ---
@@ -548,17 +575,24 @@ export default function ChatbotPage() {
     return refusalPhrases.some(phrase => lowerAnswer.includes(phrase));
   };
 
-  // --- handleSubmit: check for crisis, language, and add language instruction to prompt ---
+  // --- handleSubmit: Enhanced with grounding search functionality ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
+    
     const userMsg = input.trim();
     setInput("");
     setLoading(true);
     setShowStop(true);
     setShowSend(false);
+    
     try {
       setConversation((prev) => [...prev, { sender: "user", text: userMsg }]);
+      
+      // Determine expected language early
+      const expectedLanguage = isRomanNepali(userMsg) ? 'ne' : 'en';
+      console.log(`Expected language: ${expectedLanguage} for input: "${userMsg}"`);
+      
       // Check for crisis situations immediately
       const crisis = detectCrisis(userMsg);
       if (crisis.abuse || crisis.mentalHealth || crisis.pornInfluence) {
@@ -567,74 +601,170 @@ export default function ChatbotPage() {
         await typeWriterEffect(crisisResponse);
         return;
       }
+      
       if (apiAvailable) {
         const updatedConversation = [...conversation, { sender: "user", text: userMsg }];
         const conversationHistory = updatedConversation
           .filter(msg => msg.sender === "user" || msg.sender === "bot")
           .map(msg => `${msg.sender === "user" ? "User" : "Assistant"}: ${msg.text}`)
           .join("\n");
+        
         const languageInstruction = isRomanNepali(userMsg) ?
           "\n\nIMPORTANT: The user asked in Roman Nepali. You MUST respond in Roman Nepali, not English." :
           "\n\nIMPORTANT: The user asked in English. You MUST respond in English, not Roman Nepali.";
+        
         const educationalContext = `As a sexual health educator for adolescents, I'm asked about this topic. Please provide a simple, factual answer about this for a 12-18 year old, focusing on what is normal and healthy for adolescent development.`;
-        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}\n\n${educationalContext}${languageInstruction}\n\nAssistant:`;
+        
+        // Enhanced prompt with grounding instruction
+        const useGrounding = needsGroundingSearch(userMsg);
+        const groundingInstruction = useGrounding ? 
+          "\n\nIMPORTANT: This question requires current/recent information. Please search for and include the latest medical research, statistics, or guidelines related to this topic from reputable health organizations." : "";
+        
+        const fullPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}\n\n${educationalContext}${groundingInstruction}${languageInstruction}\n\nAssistant:`;
+        
+        // Enhanced request body with grounding parameters
+        const requestBody = {
+          message: fullPrompt,
+          // Enable grounding search
+          useGrounding: useGrounding,
+          // Optional: specify search parameters
+          groundingConfig: {
+            enableWebSearch: true,
+            searchQueries: useGrounding ? [
+              `${userMsg} sexual health medical research`,
+              `${userMsg} adolescent health guidelines`,
+              `recent studies ${userMsg} puberty development`
+            ] : undefined
+          }
+        };
+        
         const fetchPromise = fetch(GEMINI_PROXY_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: fullPrompt })
+          body: JSON.stringify(requestBody)
         });
+        
         const timeoutPromise = new Promise((_, reject) => {
-          setTimeout(() => reject(new Error('Request timeout')), 15000);
+          setTimeout(() => reject(new Error('Request timeout')), 20000); // Increased timeout for search
         });
+        
         try {
+          // Show search indicator if grounding is used
+          if (useGrounding) {
+            setConversation((prev) => [...prev, { sender: "bot", text: "🔍 Searching for latest information..." }]);
+          }
+          
           const res = await Promise.race([fetchPromise, timeoutPromise]);
+          
           if (res.ok) {
             const data = await res.json();
+            
+            // Remove search indicator
+            if (useGrounding) {
+              setConversation((prev) => prev.slice(0, -1));
+            }
+            
             if (data.answer && data.answer.trim().length > 10 && !isRefusalResponse(data.answer)) {
+              let finalResponse = data.answer;
+              
+              // Add grounding sources if available
+              if (data.groundingSources && data.groundingSources.length > 0) {
+                const isNepali = isRomanNepali(userMsg);
+                const sourcesHeader = isNepali ? 
+                  "\n\n📚 Sources (स्रोतहरू):" : 
+                  "\n\n📚 Sources:";
+                
+                finalResponse += sourcesHeader;
+                data.groundingSources.slice(0, 3).forEach((source, index) => {
+                  finalResponse += `\n${index + 1}. ${source.title || 'Medical Source'}\n   ${source.url || ''}`;
+                });
+              }
+              
               setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
-              await typeWriterEffect(data.answer);
+              await typeWriterEffect(finalResponse);
               return;
             } else {
-              // Retry with more explicit educational framing
-              const enhancedPrompt = `${SYSTEM_PROMPT}\n\nPrevious conversation:\n${conversationHistory}\n\nUser: ${userMsg}\n\nAs a sexual health educator, I need to provide accurate, supportive information about this topic for adolescents. This is a normal part of human development and healthy bodily function. Please provide a simple, factual answer that helps young people understand their bodies safely.${languageInstruction}\n\nAssistant:`;
+              // Retry with more explicit grounding request
+              const retryBody = {
+                message: `Please search for current medical information about: ${userMsg}\n\n${SYSTEM_PROMPT}${languageInstruction}`,
+                useGrounding: true,
+                groundingConfig: {
+                  enableWebSearch: true,
+                  requireGrounding: true
+                }
+              };
+              
               try {
                 const retryRes = await fetch(GEMINI_PROXY_URL, {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ message: enhancedPrompt })
+                  body: JSON.stringify(retryBody)
                 });
+                
                 if (retryRes.ok) {
                   const retryData = await retryRes.json();
                   if (retryData.answer && retryData.answer.trim().length > 10 && !isRefusalResponse(retryData.answer)) {
+                    let finalResponse = retryData.answer;
+                    
+                    // Add sources from retry
+                    if (retryData.groundingSources && retryData.groundingSources.length > 0) {
+                      const isNepali = isRomanNepali(userMsg);
+                      const sourcesHeader = isNepali ? "\n\n📚 Sources:" : "\n\n📚 Sources:";
+                      finalResponse += sourcesHeader;
+                      retryData.groundingSources.slice(0, 3).forEach((source, index) => {
+                        finalResponse += `\n${index + 1}. ${source.title}\n   ${source.url}`;
+                      });
+                    }
+                    
                     setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
-                    await typeWriterEffect(retryData.answer);
+                    await typeWriterEffect(finalResponse);
                     return;
                   }
                 }
-              } catch (retryError) {}
-              // Fallback if retry fails
+              } catch (retryError) {
+                console.error('Retry with grounding failed:', retryError);
+              }
+              
+              // Remove search indicator if still showing
+              if (useGrounding) {
+                setConversation((prev) => prev.slice(0, -1));
+              }
+              
+              // Fallback to regular response
               const fallbackResponse = getFallbackResponse(userMsg);
               setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
               await typeWriterEffect(fallbackResponse);
               return;
             }
           } else {
+            // Remove search indicator
+            if (useGrounding) {
+              setConversation((prev) => prev.slice(0, -1));
+            }
             setApiAvailable(false);
           }
         } catch (fetchError) {
+          console.error('Grounding search error:', fetchError);
+          // Remove search indicator
+          if (useGrounding) {
+            setConversation((prev) => prev.slice(0, -1));
+          }
           setApiAvailable(false);
         }
       }
-      if (apiAvailable) {
-        setApiAvailable(false);
+      
+      // Fallback mode
+      if (!apiAvailable) {
+        console.log("Using fallback mode");
       }
+      
       const fallbackResponse = getFallbackResponse(userMsg);
       setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
       await typeWriterEffect(fallbackResponse);
+      
     } catch (err) {
-      if (apiAvailable) {
-        setApiAvailable(false);
-      }
+      console.error("Error in handleSubmit:", err);
+      setApiAvailable(false);
       const fallbackResponse = getFallbackResponse(userMsg);
       setConversation((prev) => [...prev, { sender: "bot", text: "" }]);
       await typeWriterEffect(fallbackResponse);
