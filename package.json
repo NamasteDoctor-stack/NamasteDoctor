@@ -1,0 +1,13 @@
+{
+  "name": "namaste-doctor",
+  "version": "1.0.0",
+  "description": "Namaste Doctor - Sexual and Reproductive Health Education Platform",
+  "scripts": {
+    "build": "cd react-app && npm run build",
+    "start": "cd react-app && npm start",
+    "install-deps": "cd react-app && npm install"
+  },
+  "keywords": ["health", "education", "adolescent", "nepal"],
+  "author": "Prabigya Acharya",
+  "license": "MIT"
+}
