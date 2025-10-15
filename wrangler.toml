@@ -1,0 +1,9 @@
+name = "namaste-doctor"
+compatibility_date = "2024-10-15"
+
+[build]
+command = "cd react-app && npm run build"
+cwd = "react-app"
+
+[pages]
+build_output_dir = "build"
