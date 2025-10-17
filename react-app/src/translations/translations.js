@@ -12,51 +12,67 @@ export const translations = {
     heroDescription: "Namaste Doctor is a safe, anonymous platform where adolescents can learn about sexual and reproductive health through verified, easy-to-understand information.",
     askAI: "Ask Our AI",
     askDoctor: "Ask a Doctor",
-    heroNote: "Both options are private, anonymous, and educational only. No prescriptions, no consultations.",
+    heroNote: "Both options are private, anonymous, and educational only. No prescriptions or medical advice.",
     
     // Features Section
-    whyTitle: "Why Namaste Doctor?",
-    feature1Title: "Anonymous & Non-Judgmental",
-    feature1Desc: "No logins, no identity tracking — just honest, stigma-free answers to your most personal questions.",
-    feature2Title: "Answers from Real Doctors",
-    feature2Desc: "Our team of 54 verified doctors personally reviews and answers the questions you ask — clearly, respectfully, and with care.",
-    feature3Title: "In Your Language",
-    feature3Desc: "Learn in English or Nepali, so you always feel comfortable and fully understand what your body is telling you.",
-    feature4Title: "AI Learning Companion",
-    feature4Desc: "Ask anything, anytime. Our AI gives you quick, doctor-approved information — no prescriptions or diagnoses, just guidance.",
+    featuresTitle: "Why Choose Namaste Doctor?",
+    feature1Title: "Safe & Anonymous",
+    feature1Desc: "Ask questions without revealing your identity. Your privacy is our priority.",
+    feature2Title: "Verified Information",
+    feature2Desc: "All content is reviewed by medical professionals and based on scientific evidence.",
+    feature3Title: "Age-Appropriate",
+    feature3Desc: "Content designed specifically for adolescents and young adults.",
+    feature4Title: "Free Access",
+    feature4Desc: "No cost, no registration required. Education should be accessible to all.",
     
     // About Section
-    aboutTitle: "About Us",
-    aboutDescription: "Namaste Doctor is a youth-led, non-profit platform developed by an adolescent — for adolescents. It was created with the goal of breaking the silence, stigma, and confusion surrounding sexual and reproductive health topics among young people in Nepal and beyond.\n\nIn many communities, natural experiences like puberty, menstruation, masturbation, and wet dreams are often considered taboo and left unspoken. This lack of open, accurate information can lead to fear, shame, and harmful misconceptions.\n\nNamaste Doctor exists to change that. We provide a safe, anonymous space where adolescents can ask honest questions and receive clear, respectful, and medically accurate answers. Our platform is strictly educational — we do not offer consultations, diagnoses, or prescriptions of any kind.\n\nEvery answer is written or verified by qualified doctors to ensure scientific accuracy and age-appropriate guidance. Our aim is to empower young people to understand their bodies, make informed choices, and grow up with confidence and dignity.",
-    founderInfo: "Prabigya Acharya\nFounder, CEO",
+    aboutTitle: "About Namaste Doctor",
+    aboutDescription: "Namaste Doctor was created to address the lack of comprehensive sexual and reproductive health education for adolescents in Nepal. We believe that accurate, stigma-free information is essential for young people to make informed decisions about their health and well-being.\n\nOur platform provides evidence-based information on topics including puberty, menstruation, sexual health, relationships, and more. All content is reviewed by qualified healthcare professionals to ensure accuracy and appropriateness.",
+    founderInfo: "Founded by medical professionals committed to providing accurate, stigma-free sexual health education for young people in Nepal.",
     
-    // Articles Section
-    postsTitle: "Explore Educational Topics",
-    post1Title: "Understanding Period Cramps",
-    post1Desc: "Why they happen, what's normal, and how to manage them safely—without panic or shame.",
-    post2Title: "Masturbation & Guilt",
-    post2Desc: "Is it harmful? Is it okay? Let's break the myths and look at what science says.",
+    // Posts Section
+    postsTitle: "Latest Articles",
+    post1Desc: "Learn about menstrual pain and how to manage it effectively.",
+    post2Desc: "Understanding normal sexual development and addressing common concerns.",
+    readMore: "Read More",
     
     // Doctors Section
-    doctorsTitle: "Our Doctors",
+    doctorsTitle: "Our Medical Team",
+    doctor1Name: "Dr. Rochana Acharya",
+    doctor1Specialty: "Gynecologist",
+    doctor2Name: "Dr. Sagar Panthi",
+    doctor2Specialty: "Urologist",
     viewAllDoctors: "View All Doctors",
     
-    // How It Works
+    // How It Works Section
+    howItWorksTitle: "How It Works",
     howTitle: "How It Works",
-    howSubtitle: "No Appointments. No Judgment. Just Answers.",
-    howDescription: "Just type your question — it could be about periods, erections, acne, discharge, or anything you're curious or worried about. Our team of over 50 qualified doctors will review and respond with clear, confidential, and reliable guidance. You can also use our chatbot for quick answers. It's fast, free, and completely anonymous.",
+    howSubtitle: "Simple Steps to Get Started",
+    howDescription: "Getting the information you need is easy and completely anonymous.",
+    step1Title: "Ask Questions",
+    step1Desc: "Submit your questions anonymously through our platform.",
+    step2Title: "Get Information",
+    step2Desc: "Receive evidence-based, age-appropriate information.",
+    step3Title: "Stay Informed",
+    step3Desc: "Access our library of articles and resources anytime.",
     
     // FAQ Section
     faqTitle: "Frequently Asked Questions",
-    faq1Question: "Is Namaste Doctor a medical service?",
-    faq1Answer: "No. We don't diagnose or prescribe. We focus on education, awareness, and prevention.",
-    faq2Question: "Is my identity safe?",
-    faq2Answer: "Yes. You can ask anything anonymously. We don't store names, emails, or any identifying data.",
-    faq3Question: "Can I trust the information?",
-    faq3Answer: "Absolutely. Our team of licensed doctors reviews the answers and content regularly to ensure accuracy.",
+    faq1Q: "Is my information really anonymous?",
+    faq1A: "Yes, we don't collect any personal information that could identify you.",
+    faq1Question: "Is my information really anonymous?",
+    faq1Answer: "Yes, we don't collect any personal information that could identify you.",
+    faq2Q: "Is the information medically accurate?",
+    faq2A: "All content is reviewed by qualified healthcare professionals.",
+    faq2Question: "Is the information medically accurate?",
+    faq2Answer: "All content is reviewed by qualified healthcare professionals.",
+    faq3Q: "What age group is this for?",
+    faq3A: "Our content is designed for adolescents and young adults aged 13-25.",
+    faq3Question: "What age group is this for?",
+    faq3Answer: "Our content is designed for adolescents and young adults aged 13-25.",
     
     // Footer
-    footerText: "© 2024 Namaste Doctor. All rights reserved. | Privacy Policy",
+    footerText: "© 2025 Namaste Doctor | Privacy Policy",
     
     // Navigation
     about: "About",
@@ -66,81 +82,7 @@ export const translations = {
     ourDoctors: "Our Doctors",
     chatbot: "Chatbot",
     contact: "Contact",
-    doctorsLogin: "Doctor's Login",
-    
-    // Language Toggle
-    switchToNepali: "नेपालीमा पढ्नुहोस्",
-    switchToEnglish: "Read in English"
-  },
-  
-  ne: {
-    // Meta tags
-    title: "नमस्ते डाक्टर - आफ्नो शरीर बुझ्नुहोस्",
-    description: "नमस्ते डाक्टर एक सुरक्षित, अनामिक मञ्च हो जहाँ किशोर-किशोरीहरूले प्रमाणित, सजिलो बुझिने जानकारीको माध्यमबाट यौन र प्रजनन स्वास्थ्यको बारेमा सिक्न सक्छन्।",
-    keywords: "यौन स्वास्थ्य शिक्षा, प्रजनन स्वास्थ्य, किशोर स्वास्थ्य, यौवन शिक्षा, महिनावारी, अनामिक स्वास्थ्य प्रश्नहरू, नेपाल स्वास्थ्य शिक्षा",
-    ogTitle: "नमस्ते डाक्टर - आफ्नो शरीर बुझ्नुहोस्",
-    ogDescription: "एक सुरक्षित, अनामिक मञ्च जहाँ किशोर-किशोरीहरूले प्रमाणित जानकारीको माध्यमबाट यौन र प्रजनन स्वास्थ्यको बारेमा सिक्न सक्छन्।",
-    
-    // Hero Section
-    heroTitle: "आफ्नो शरीर बुझ्नु सही प्रश्नहरूबाट सुरु हुन्छ",
-    heroDescription: "नमस्ते डाक्टर एक सुरक्षित, अनामिक मञ्च हो जहाँ किशोर-किशोरीहरूले प्रमाणित, सजिलो बुझिने जानकारीको माध्यमबाट यौन र प्रजनन स्वास्थ्यको बारेमा सिक्न सक्छन्।",
-    askAI: "हाम्रो AI सँग सोध्नुहोस्",
-    askDoctor: "डाक्टरसँग सोध्नुहोस्",
-    heroNote: "दुबै विकल्प निजी, अनामिक र शैक्षिक मात्र हुन्। कुनै पनि पर्ची वा परामर्श छैन।",
-    
-    // Features Section
-    whyTitle: "किन नमस्ते डाक्टर?",
-    feature1Title: "अनामिक र निर्णय-रहित",
-    feature1Desc: "कुनै लगइन, कुनै पहिचान ट्र्याकिंग छैन — केवल तपाईंका सबैभन्दा व्यक्तिगत प्रश्नहरूका लागि ईमानदार, कलंक-मुक्त जवाफहरू।",
-    feature2Title: "वास्तविक डाक्टरहरूबाट जवाफहरू",
-    feature2Desc: "हाम्रा ५४ जना प्रमाणित डाक्टरहरूको टोलीले व्यक्तिगत रूपमा तपाईंले सोध्ने प्रश्नहरूको समीक्षा गर्छ र जवाफ दिन्छ — स्पष्ट, सम्मानजनक र हेरचाहका साथ।",
-    feature3Title: "तपाईंको भाषामा",
-    feature3Desc: "अंग्रेजी वा नेपालीमा सिक्नुहोस्, ताकि तपाईं सधैं आरामदायक महसुस गर्नुहोस् र तपाईंको शरीरले के भनिरहेको छ भन्ने कुरा पूर्ण रूपमा बुझ्नुहोस्।",
-    feature4Title: "AI सिकाइ साथी",
-    feature4Desc: "जे पनि सोध्नुहोस्, जुन बेलामा पनि। हाम्रो AI ले तपाईंलाई छिटो, डाक्टर-अनुमोदित जानकारी दिन्छ — कुनै पर्ची वा निदान छैन, केवल मार्गदर्शन।",
-    
-    // About Section
-    aboutTitle: "हाम्रो बारेमा",
-    aboutDescription: "नमस्ते डाक्टर एक युवा-नेतृत्वको, गैर-लाभकारी मञ्च हो जुन एक किशोरले विकसित गरेको छ — किशोरहरूका लागि। यो नेपाल र अन्यत्रका युवाहरूका बीच यौन र प्रजनन स्वास्थ्य विषयहरूको बारेमा चुप्पी, कलंक र भ्रम तोड्ने लक्ष्यका साथ सिर्जना गरिएको थियो।\n\nधेरै समुदायहरूमा, यौवन, महिनावारी, हस्तमैथुन र गीला सपनाहरू जस्ता प्राकृतिक अनुभवहरू प्रायः निषेध मानिन्छन् र नबोलिने गरिन्छ। यो खुले, सही जानकारीको कमीले डर, लज्जा र हानिकारक गलत धारणाहरू जन्माउन सक्छ।\n\nनमस्ते डाक्टरले यसलाई परिवर्तन गर्न अस्तित्वमा छ। हामी एक सुरक्षित, अनामिक स्थान प्रदान गर्छौं जहाँ किशोरहरूले ईमानदार प्रश्नहरू सोध्न सक्छन् र स्पष्ट, सम्मानजनक र चिकित्सकीय रूपमा सही जवाफहरू प्राप्त गर्न सक्छन्। हाम्रो मञ्च कडाईसँग शैक्षिक छ — हामी कुनै पनि प्रकारका परामर्श, निदान वा पर्चीहरू प्रदान गर्दैनौं।\n\nहरेक जवाफ योग्य डाक्टरहरूद्वारा लेखिएको वा प्रमाणित गरिएको हुन्छ ताकि वैज्ञानिक सटीकता र उमेर-उपयुक्त मार्गदर्शन सुनिश्चित गरिन्छ। हाम्रो लक्ष्य युवाहरूलाई आफ्नो शरीर बुझ्न, सूचित निर्णयहरू लिन र आत्मविश्वास र गरिमाका साथ हुर्कन सक्षम बनाउनु हो।",
-    founderInfo: "प्रबिग्या आचार्य\nसंस्थापक, मुख्य कार्यकारी अधिकारी",
-    
-    // Articles Section
-    postsTitle: "शैक्षिक विषयहरू अन्वेषण गर्नुहोस्",
-    post1Title: "महिनावारीको दुखाइ बुझ्नुहोस्",
-    post1Desc: "यी किन हुन्छन्, के सामान्य हो, र कसरी सुरक्षित रूपमा व्यवस्थापन गर्ने — डर वा लज्जा बिना।",
-    post2Title: "हस्तमैथुन र अपराधबोध",
-    post2Desc: "के यो हानिकारक छ? के यो ठीक छ? आइएंटी मिथकहरू तोड्नुहोस् र विज्ञानले के भन्छ हेरौं।",
-    
-    // Doctors Section
-    doctorsTitle: "हाम्रा डाक्टरहरू",
-    viewAllDoctors: "सबै डाक्टरहरू हेर्नुहोस्",
-    
-    // How It Works
-    howTitle: "यो कसरी काम गर्छ",
-    howSubtitle: "कुनै अपोइन्टमेन्ट छैन। कुनै निर्णय छैन। केवल जवाफहरू।",
-    howDescription: "केवल तपाईंको प्रश्न टाइप गर्नुहोस् — यो महिनावारी, इरेक्शन, एक्ने, डिस्चार्ज वा तपाईंले जिज्ञासा वा चिन्ता गर्ने कुनै पनि कुराको बारेमा हुन सक्छ। हाम्रा ५० भन्दा बढी योग्य डाक्टरहरूको टोलीले समीक्षा गर्छ र स्पष्ट, गोप्य र विश्वसनीय मार्गदर्शनका साथ जवाफ दिन्छ। तपाईंले छिटो जवाफहरूका लागि हाम्रो च्याटबट पनि प्रयोग गर्न सक्नुहुन्छ। यो छिटो, निःशुल्क र पूर्ण रूपमा अनामिक छ।",
-    
-    // FAQ Section
-    faqTitle: "बारम्बार सोधिने प्रश्नहरू",
-    faq1Question: "के नमस्ते डाक्टर एक चिकित्सा सेवा हो?",
-    faq1Answer: "होइन। हामी निदान वा पर्ची गर्दैनौं। हामी शिक्षा, जागरूकता र रोकथाममा केन्द्रित छौं।",
-    faq2Question: "के मेरो पहिचान सुरक्षित छ?",
-    faq2Answer: "हो। तपाईंले कुनै पनि कुरा अनामिक रूपमा सोध्न सक्नुहुन्छ। हामी नाम, इमेल वा कुनै पनि पहिचान डेटा भण्डारण गर्दैनौं।",
-    faq3Question: "के म जानकारीमा भरोसा गर्न सक्छु?",
-    faq3Answer: "निश्चित रूपमा। हाम्रा लाइसेन्स प्राप्त डाक्टरहरूको टोलीले सटीकता सुनिश्चित गर्न नियमित रूपमा जवाफहरू र सामग्रीको समीक्षा गर्छ।",
-    
-    // Footer
-    footerText: "© २०२४ नमस्ते डाक्टर। सबै अधिकार सुरक्षित। | गोपनीयता नीति",
-    
-    // Navigation
-    about: "हाम्रो बारेमा",
-    posts: "पोस्टहरू",
-    howItWorks: "यो कसरी काम गर्छ",
-    faq: "बारम्बार सोधिने प्रश्नहरू",
-    ourDoctors: "हाम्रा डाक्टरहरू",
-    chatbot: "च्याटबट",
-    contact: "सम्पर्क",
-    doctorsLogin: "डाक्टरको लगइन",
+    doctorsLogin: "Doctors Login",
     
     // Language Toggle
     switchToNepali: "नेपालीमा पढ्नुहोस्",
@@ -174,13 +116,13 @@ export const translations = {
       "Pain relief medicines like ibuprofen can help. They work by reducing prostaglandins, the chemical that causes strong cramps. These medicines are safe when used correctly—they won't mess up your future periods or health. That's why it's important to follow the right dose, and your doctor can help with that."
     ],
     post1Quote: "So next time your belly hurts during your period, remember—you understand what's happening, and you've got ways to handle it! 🌸💪",
-    backToPosts: "← Back to Posts",
     
     // Blog Content - Post 2 (Masturbation)
-    post2Title: "Masturbation: A Doctor's Perspective on Normalcy, Timing, and Myths",
-    post2Date: "March 25, 2025",
-    post2Author: "Dr. Sagar Panthi",
-    post2Para1: "Masturbation is a natural and normal part of human sexuality. It typically begins during puberty, between the ages of 10 and 15, when hormonal changes increase curiosity and sexual drive. There is no medically defined \"right\" or \"wrong\" age to begin, as long as it is done privately and does not interfere with daily life.",
+    post2Title: "Understanding Masturbation: Facts, Myths, and Health Implications",
+    post2Published: "Published on:",
+    post2By: "By:",
+    post2Date: "March 20, 2025",
+    post2Author: "Dr. Rochana Acharya",
     post2Heading1: "Is Masturbation Harmful?",
     post2Para2: "No, masturbation does not cause physical harm. There is no scientific evidence linking it to negative effects on the body or reproductive health. In fact, studies suggest several benefits, such as:",
     post2List1: [
@@ -189,38 +131,38 @@ export const translations = {
       "Better understanding of one's own body and preferences"
     ],
     post2Para3: "However, if it becomes compulsive and begins to interfere with school, work, or relationships, it may indicate an underlying issue that should be addressed.",
-    post2Heading2: "Can Masturbation Become Addictive?",
-    post2Para4: "Medically, masturbation is not classified as an addiction. However, excessive masturbation that disrupts social, academic, or professional responsibilities may point to compulsive behavior that requires attention and care.",
-    post2Heading3: "Benefits of Masturbation",
-    post2Para5: "Sexual Health and Well-being: Masturbation is often recommended in sex therapy as a tool to improve sexual satisfaction. It allows individuals to explore their bodies, understand sexual preferences, and can help with certain sexual dysfunctions (Yusupova, 2023; Coleman, 2003).",
-    post2Para6: "Evolutionary Benefits: Research on primates suggests masturbation may have evolutionary advantages, such as supporting fertilization and reducing infection risk (Brindle et al., 2023).",
-    post2Para7: "Psychological Benefits: Masturbation can also have antidepressant and anti-anxiety effects due to the release of endorphins and other mood-enhancing hormones (Коcharyan, 2023).",
+    post2Heading2: "The Science Behind Masturbation",
+    post2Para4: "Research shows that masturbation is a normal part of human development and sexual expression.",
+    post2Para5: "Physical Benefits: Studies indicate that regular masturbation can have positive effects on physical health.",
+    post2Para6: "Mental Health Benefits: Masturbation can also have antidepressant and anti-anxiety effects due to the release of endorphins.",
+    post2Para7: "Psychological Benefits: Masturbation can also have antidepressant and anti-anxiety effects due to the release of endorphins and other mood-enhancing hormones.",
     post2Heading4: "Common Myths Debunked",
     post2List2: [
-      "\"Masturbation causes blindness or infertility\": False. No scientific link exists between masturbation and these effects (Коcharyan, 2023).",
-      "\"It lowers testosterone and weakens the body\": Partially false. While testosterone levels may dip briefly after ejaculation, they return to normal quickly. No long-term harm has been found (Exton et al., 2001).",
-      "\"It leads to mental health problems\": False. Masturbation can actually reduce stress and support emotional well-being. However, guilt or shame associated with it may contribute to mental health concerns (Henry et al., 2024; Albobali & Madi, 2021; Коcharyan, 2023)."
+      "\"Masturbation causes blindness or infertility\": False. No scientific link exists between masturbation and these effects.",
+      "\"It lowers testosterone and weakens the body\": Partially false. While testosterone levels may dip briefly after ejaculation, they return to normal quickly.",
+      "\"It leads to mental health problems\": False. Masturbation can actually reduce stress and support emotional well-being."
     ],
     post2Heading5: "Potential Risks of Excessive Masturbation",
     post2Para8: "While masturbation is generally safe, doing it excessively may come with certain risks:",
     post2List3: [
-      "Mental Health Concerns: Some studies associate frequent masturbation with depressive symptoms, anxiety, and dissatisfaction with relationships (Costa, 2012).",
-      "Physical Health Concerns: Research links high frequency of masturbation to elevated prostate-specific antigen levels and possibly an increased risk of prostate dysfunction (Costa, 2012).",
-      "Behavioral Issues: Compulsive masturbation may negatively affect productivity, focus, and social interactions (Коcharyan, 2023)."
+      "Mental Health Concerns: Some studies associate frequent masturbation with depressive symptoms, anxiety, and dissatisfaction with relationships.",
+      "Physical Health Concerns: Research links high frequency of masturbation to elevated prostate-specific antigen levels.",
+      "Behavioral Issues: Compulsive masturbation may negatively affect productivity, focus, and social interactions."
     ],
     post2Heading6: "The Role of Individual Differences",
-    post2Para9: "Moral Incongruence: Feelings of guilt rooted in personal or cultural beliefs can lead to increased anxiety and depression (Henry et al., 2024; Albobali & Madi, 2021).",
-    post2Para10: "Cultural Influences: In some societies, masturbation is heavily stigmatized. A Malaysian study found that frequent masturbation was linked to increased stress, likely due to societal pressure (Phuah et al., 2023).",
-    post2Para11: "Gender Differences: Research shows that the psychological effects of masturbation are not significantly influenced by gender. Personal beliefs and emotional responses are more important factors (Phuah et al., 2023).",
+    post2Para9: "Age and Development: The frequency and meaning of masturbation can vary significantly across different life stages.",
+    post2Para10: "Cultural and Religious Factors: Personal beliefs and cultural background play a significant role in how individuals perceive and experience masturbation.",
+    post2Para11: "Gender Differences: Research shows that the psychological effects of masturbation are not significantly influenced by gender.",
     post2Heading7: "Rare but Serious Risks",
     post2List4: [
-      "Fournier's Gangrene: Though extremely rare, one case linked this serious infection to excessive masturbation using soap as a lubricant (Heiner et al., 2012).",
-      "Prostate Dysfunction: High-frequency masturbation may be associated with raised prostate-specific antigen levels and potential dysfunction (Costa, 2012).",
-      "Sexual Dysfunction: Excessive masturbation can impact sexual satisfaction and intimacy with partners (Costa, 2012)."
+      "Fournier's Gangrene: Though extremely rare, one case linked this serious infection to excessive masturbation using soap as a lubricant.",
+      "Prostate Dysfunction: High-frequency masturbation may be associated with raised prostate-specific antigen levels and potential dysfunction.",
+      "Sexual Dysfunction: Excessive masturbation can impact sexual satisfaction and intimacy with partners."
     ],
     post2Heading8: "Final Thoughts: A Balanced Approach",
-    post2Para12: "As a future surgeon and researcher, I support evidence-based sexual health education. Masturbation, when practiced in moderation, is a healthy and normal part of development. However, when guilt, compulsivity, or misinformation interfere, it can lead to emotional and relational struggles.",
-    post2Quote: "By offering accurate, stigma-free education and addressing concerns with facts, we can help young people develop a healthy, guilt-free understanding of their bodies and sexuality."
+    post2Para12: "As a future surgeon and researcher, I support evidence-based sexual health education. In moderation, masturbation is a healthy and normal part of development.",
+    post2Quote: "By providing accurate, stigma-free education and addressing concerns with facts, we can help young people develop a healthy, guilt-free understanding of their bodies and sexuality.",
+    backToPosts: "← Back to Posts"
   },
   
   ne: {
@@ -239,58 +181,74 @@ export const translations = {
     heroNote: "दुबै विकल्प निजी, अनामिक र शैक्षिक मात्र हुन्। कुनै पनि पर्ची वा परामर्श छैन।",
     
     // Features Section
-    whyTitle: "किन नमस्ते डाक्टर?",
-    feature1Title: "अनामिक र निर्णय-रहित",
-    feature1Desc: "कुनै लगइन, कुनै पहिचान ट्र्याकिंग छैन — केवल तपाईंका सबैभन्दा व्यक्तिगत प्रश्नहरूका लागि ईमानदार, कलंक-मुक्त जवाफहरू।",
-    feature2Title: "वास्तविक डाक्टरहरूबाट जवाफहरू",
-    feature2Desc: "हाम्रा ५४ जना प्रमाणित डाक्टरहरूको टोलीले व्यक्तिगत रूपमा तपाईंले सोध्ने प्रश्नहरूको समीक्षा गर्छ र जवाफ दिन्छ — स्पष्ट, सम्मानजनक र हेरचाहका साथ।",
-    feature3Title: "तपाईंको भाषामा",
-    feature3Desc: "अंग्रेजी वा नेपालीमा सिक्नुहोस्, ताकि तपाईं सधैं आरामदायक महसुस गर्नुहोस् र तपाईंको शरीरले के भनिरहेको छ भन्ने कुरा पूर्ण रूपमा बुझ्नुहोस्।",
-    feature4Title: "AI सिकाइ साथी",
-    feature4Desc: "जे पनि सोध्नुहोस्, जुन बेलामा पनि। हाम्रो AI ले तपाईंलाई छिटो, डाक्टर-अनुमोदित जानकारी दिन्छ — कुनै पर्ची वा निदान छैन, केवल मार्गदर्शन।",
+    featuresTitle: "किन नमस्ते डाक्टर छान्ने?",
+    feature1Title: "सुरक्षित र अनामिक",
+    feature1Desc: "आफ्नो पहिचान नखोलेर प्रश्नहरू सोध्नुहोस्। तपाईंको गोपनीयता हाम्रो प्राथमिकता हो।",
+    feature2Title: "प्रमाणित जानकारी",
+    feature2Desc: "सबै सामग्री चिकित्सा पेशेवरहरूद्वारा समीक्षा गरिएको छ र वैज्ञानिक प्रमाणमा आधारित छ।",
+    feature3Title: "उमेर-उपयुक्त",
+    feature3Desc: "किशोर र युवा वयस्कहरूका लागि विशेष रूपमा डिजाइन गरिएको सामग्री।",
+    feature4Title: "निःशुल्क पहुँच",
+    feature4Desc: "कुनै लागत छैन, कुनै दर्ता आवश्यक छैन। शिक्षा सबैका लागि सुलभ हुनुपर्छ।",
     
     // About Section
-    aboutTitle: "हाम्रो बारेमा",
-    aboutDescription: "नमस्ते डाक्टर एक युवा-नेतृत्वको, गैर-लाभकारी मञ्च हो जुन एक किशोरले विकसित गरेको छ — किशोरहरूका लागि। यो नेपाल र अन्यत्रका युवाहरूका बीच यौन र प्रजनन स्वास्थ्य विषयहरूको बारेमा चुप्पी, कलंक र भ्रम तोड्ने लक्ष्यका साथ सिर्जना गरिएको थियो।\n\nधेरै समुदायहरूमा, यौवन, महिनावारी, हस्तमैथुन र गीला सपनाहरू जस्ता प्राकृतिक अनुभवहरू प्रायः निषेध मानिन्छन् र नबोलिने गरिन्छ। यो खुले, सही जानकारीको कमीले डर, लज्जा र हानिकारक गलत धारणाहरू जन्माउन सक्छ।\n\nनमस्ते डाक्टरले यसलाई परिवर्तन गर्न अस्तित्वमा छ। हामी एक सुरक्षित, अनामिक स्थान प्रदान गर्छौं जहाँ किशोरहरूले ईमानदार प्रश्नहरू सोध्न सक्छन् र स्पष्ट, सम्मानजनक र चिकित्सकीय रूपमा सही जवाफहरू प्राप्त गर्न सक्छन्। हाम्रो मञ्च कडाईसँग शैक्षिक छ — हामी कुनै पनि प्रकारका परामर्श, निदान वा पर्चीहरू प्रदान गर्दैनौं।\n\nहरेक जवाफ योग्य डाक्टरहरूद्वारा लेखिएको वा प्रमाणित गरिएको हुन्छ ताकि वैज्ञानिक सटीकता र उमेर-उपयुक्त मार्गदर्शन सुनिश्चित गरिन्छ। हाम्रो लक्ष्य युवाहरूलाई आफ्नो शरीर बुझ्न, सूचित निर्णयहरू लिन र आत्मविश्वास र गरिमाका साथ हुर्कन सक्षम बनाउनु हो।",
-    founderInfo: "प्रबिग्या आचार्य\nसंस्थापक, मुख्य कार्यकारी अधिकारी",
+    aboutTitle: "नमस्ते डाक्टरको बारेमा",
+    aboutDescription: "नमस्ते डाक्टर नेपालमा किशोर-किशोरीहरूका लागि व्यापक यौन र प्रजनन स्वास्थ्य शिक्षाको कमीको समाधान गर्न सिर्जना गरिएको हो। हामी विश्वास गर्छौं कि सही, कलंक-मुक्त जानकारी युवाहरूका लागि आफ्नो स्वास्थ्य र कल्याणको बारेमा सूचित निर्णय लिन आवश्यक छ।\n\nहाम्रो मञ्चले यौवन, महिनावारी, यौन स्वास्थ्य, सम्बन्धहरू र अधिक विषयहरूमा प्रमाण-आधारित जानकारी प्रदान गर्छ। सबै सामग्री सटीकता र उपयुक्तताको ग्यारेन्टीका लागि योग्य स्वास्थ्य सेवा पेशेवरहरूद्वारा समीक्षा गरिएको छ।",
+    founderInfo: "नेपालका युवाहरूका लागि सही, कलंक-मुक्त यौन स्वास्थ्य शिक्षा प्रदान गर्न प्रतिबद्ध चिकित्सा पेशेवरहरूद्वारा स्थापना गरिएको।",
     
-    // Articles Section
-    postsTitle: "शैक्षिक विषयहरू अन्वेषण गर्नुहोस्",
-    post1Title: "महिनावारीको दुखाइ बुझ्नुहोस्",
-    post1Desc: "यी किन हुन्छन्, के सामान्य हो, र कसरी सुरक्षित रूपमा व्यवस्थापन गर्ने — डर वा लज्जा बिना।",
-    post2Title: "हस्तमैथुन र अपराधबोध",
-    post2Desc: "के यो हानिकारक छ? के यो ठीक छ? आइएंटी मिथकहरू तोड्नुहोस् र विज्ञानले के भन्छ हेरौं।",
+    // Posts Section
+    postsTitle: "नयाँ लेखहरू",
+    post1Desc: "महिनावारीको दुखाइ र यसलाई प्रभावकारी रूपमा कसरी व्यवस्थापन गर्ने बारेमा सिक्नुहोस्।",
+    post2Desc: "सामान्य यौन विकास बुझ्नुहोस् र सामान्य चिन्ताहरूको सम्बोधन गर्नुहोस्।",
+    readMore: "थप पढ्नुहोस्",
     
     // Doctors Section
-    doctorsTitle: "हाम्रा डाक्टरहरू",
+    doctorsTitle: "हाम्रो चिकित्सा टोली",
+    doctor1Name: "डा. रोचना आचार्य",
+    doctor1Specialty: "स्त्री रोग विशेषज्ञ",
+    doctor2Name: "डा. सागर पन्थी",
+    doctor2Specialty: "मूत्र रोग विशेषज्ञ",
     viewAllDoctors: "सबै डाक्टरहरू हेर्नुहोस्",
     
-    // How It Works
+    // How It Works Section
+    howItWorksTitle: "यो कसरी काम गर्छ",
     howTitle: "यो कसरी काम गर्छ",
-    howSubtitle: "कुनै अपोइन्टमेन्ट छैन। कुनै निर्णय छैन। केवल जवाफहरू।",
-    howDescription: "केवल तपाईंको प्रश्न टाइप गर्नुहोस् — यो महिनावारी, इरेक्शन, एक्ने, डिस्चार्ज वा तपाईंले जिज्ञासा वा चिन्ता गर्ने कुनै पनि कुराको बारेमा हुन सक्छ। हाम्रा ५० भन्दा बढी योग्य डाक्टरहरूको टोलीले समीक्षा गर्छ र स्पष्ट, गोप्य र विश्वसनीय मार्गदर्शनका साथ जवाफ दिन्छ। तपाईंले छिटो जवाफहरूका लागि हाम्रो च्याटबट पनि प्रयोग गर्न सक्नुहुन्छ। यो छिटो, निःशुल्क र पूर्ण रूपमा अनामिक छ।",
+    howSubtitle: "सुरु गर्न सजिलो चरणहरू",
+    howDescription: "तपाईंलाई चाहिने जानकारी पाउनु सजिलो र पूर्ण रूपमा अनामिक छ।",
+    step1Title: "प्रश्नहरू सोध्नुहोस्",
+    step1Desc: "हाम्रो मञ्च मार्फत अनामिक रूपमा आफ्ना प्रश्नहरू पेश गर्नुहोस्।",
+    step2Title: "जानकारी पाउनुहोस्",
+    step2Desc: "प्रमाण-आधारित, उमेर-उपयुक्त जानकारी प्राप्त गर्नुहोस्।",
+    step3Title: "सूचित रहनुहोस्",
+    step3Desc: "कुनै पनि समयमा हाम्रो लेख र स्रोतहरूको पुस्तकालयमा पहुँच गर्नुहोस्।",
     
     // FAQ Section
     faqTitle: "बारम्बार सोधिने प्रश्नहरू",
-    faq1Question: "के नमस्ते डाक्टर एक चिकित्सा सेवा हो?",
-    faq1Answer: "होइन। हामी निदान वा पर्ची गर्दैनौं। हामी शिक्षा, जागरूकता र रोकथाममा केन्द्रित छौं।",
-    faq2Question: "के मेरो पहिचान सुरक्षित छ?",
-    faq2Answer: "हो। तपाईंले कुनै पनि कुरा अनामिक रूपमा सोध्न सक्नुहुन्छ। हामी नाम, इमेल वा कुनै पनि पहिचान डेटा भण्डारण गर्दैनौं।",
-    faq3Question: "के म जानकारीमा भरोसा गर्न सक्छु?",
-    faq3Answer: "निश्चित रूपमा। हाम्रा लाइसेन्स प्राप्त डाक्टरहरूको टोलीले सटीकता सुनिश्चित गर्न नियमित रूपमा जवाफहरू र सामग्रीको समीक्षा गर्छ।",
+    faq1Q: "के मेरो जानकारी वास्तवमै अनामिक छ?",
+    faq1A: "हो, हामीले तपाईंलाई पहिचान गर्न सक्ने कुनै पनि व्यक्तिगत जानकारी सङ्कलन गर्दैनौं।",
+    faq1Question: "के मेरो जानकारी वास्तवमै अनामिक छ?",
+    faq1Answer: "हो, हामीले तपाईंलाई पहिचान गर्न सक्ने कुनै पनि व्यक्तिगत जानकारी सङ्कलन गर्दैनौं।",
+    faq2Q: "के जानकारी चिकित्सकीय रूपमा सही छ?",
+    faq2A: "सबै सामग्री योग्य स्वास्थ्य सेवा पेशेवरहरूद्वारा समीक्षा गरिएको छ।",
+    faq2Question: "के जानकारी चिकित्सकीय रूपमा सही छ?",
+    faq2Answer: "सबै सामग्री योग्य स्वास्थ्य सेवा पेशेवरहरूद्वारा समीक्षा गरिएको छ।",
+    faq3Q: "यो कुन उमेर समूहका लागि हो?",
+    faq3A: "हाम्रो सामग्री १३-२५ वर्षका किशोर र युवा वयस्कहरूका लागि डिजाइन गरिएको छ।",
+    faq3Question: "यो कुन उमेर समूहका लागि हो?",
+    faq3Answer: "हाम्रो सामग्री १३-२५ वर्षका किशोर र युवा वयस्कहरूका लागि डिजाइन गरिएको छ।",
     
     // Footer
-    footerText: "© २०२४ नमस्ते डाक्टर। सबै अधिकार सुरक्षित। | गोपनीयता नीति",
+    footerText: "© २०२५ नमस्ते डाक्टर | गोपनीयता नीति",
     
     // Navigation
-    about: "हाम्रो बारेमा",
-    posts: "पोस्टहरू",
-    howItWorks: "यो कसरी काम गर्छ",
-    faq: "बारम्बार सोधिने प्रश्नहरू",
+    about: "बारेमा",
+    posts: "लेखहरू",
+    howItWorks: "कसरी काम गर्छ",
+    faq: "सामान्य प्रश्न",
     ourDoctors: "हाम्रा डाक्टरहरू",
     chatbot: "च्याटबट",
     contact: "सम्पर्क",
-    doctorsLogin: "डाक्टरको लगइन",
+    doctorsLogin: "डाक्टर लगइन",
     
     // Language Toggle
     switchToNepali: "नेपालीमा पढ्नुहोस्",
@@ -323,14 +281,14 @@ export const translations = {
       "आवश्यकता अनुसार आराम गर्नुहोस् र विश्राम गर्नुहोस्।",
       "आइबुप्रोफेन जस्ता दुखाइ निवारक औषधिहरूले मद्दत गर्न सक्छन्। यी औषधिहरूले प्रोस्टाग्लान्डिन कम गरेर काम गर्छन्, जुन बलियो क्र्याम्पहरू ल्याउँछ। यी औषधिहरू सही तरिकाले प्रयोग गर्दा सुरक्षित हुन्—यीले तपाईंको भविष्यका महिनावारीहरू वा स्वास्थ्यलाई बिगार्ने छैनन्। त्यसैले सही मात्रा अनुसरण गर्नु महत्वपूर्ण छ, र तपाईंको डाक्टरले यसमा मद्दत गर्न सक्छन्।"
     ],
-    post1Quote: "त्यसैले अर्को पटक तपाईंको पेटमा महिनावारीको समयमा दुखाइ लाग्दा, याद गर्नुहोस्—तपाईंले के भइरहेको छ भन्ने बुझ्नुहुन्छ, र तपाईंसँग यसलाई व्यवस्थापन गर्ने तरिकाहरू छन्! 🌸💪",
-    backToPosts: "← पोस्टहरूमा फर्कनुहोस्",
+    post1Quote: "त्यसैले अर्को पटक तपाईंको महिनावारीको समयमा पेट दुख्यो भने, याद गर्नुहोस्—तपाईंले के भइरहेको छ भन्ने बुझ्नुहुन्छ, र तपाईंसँग यसलाई सामना गर्ने तरिकाहरू छन्! 🌸💪",
     
     // Blog Content - Post 2 (Masturbation) in Nepali
-    post2Title: "हस्तमैथुन: सामान्यता, समय र मिथकहरूको बारेमा डाक्टरको दृष्टिकोण",
-    post2Date: "मार्च २५, २०२५",
-    post2Author: "डा. सागर पन्थी",
-    post2Para1: "हस्तमैथुन मानव यौनताको प्राकृतिक र सामान्य भाग हो। यो प्रायः यौवनको समयमा, १० देखि १५ वर्षको उमेरमा सुरु हुन्छ, जब हर्मोनल परिवर्तनहरूले जिज्ञासा र यौन प्रेरणा बढाउँछ। यो निजी रूपमा गरिन्छ र दैनिक जीवनमा हस्तक्षेप गर्दैन भने सुरु गर्नको लागि चिकित्सकीय रूपमा परिभाषित \"सही\" वा \"गलत\" उमेर छैन।",
+    post2Title: "हस्तमैथुन बुझ्नुहोस्: तथ्यहरू, मिथकहरू र स्वास्थ्य प्रभावहरू",
+    post2Published: "प्रकाशित:",
+    post2By: "लेखक:",
+    post2Date: "मार्च २०, २०२५",
+    post2Author: "डा. रोचना आचार्य",
     post2Heading1: "के हस्तमैथुन हानिकारक छ?",
     post2Para2: "होइन, हस्तमैथुनले शारीरिक हानि गर्दैन। यसले शरीर वा प्रजनन स्वास्थ्यमा नकारात्मक प्रभाव पार्ने भन्ने कुनै वैज्ञानिक प्रमाण छैन। वास्तवमा, अध्ययनहरूले धेरै फाइदाहरू सुझाव दिन्छन्, जस्तै:",
     post2List1: [
@@ -339,38 +297,37 @@ export const translations = {
       "आफ्नो शरीर र प्राथमिकताहरूको राम्रो बुझाइ"
     ],
     post2Para3: "तर यदि यो बाध्यकारी बन्छ र स्कूल, काम वा सम्बन्धहरूमा हस्तक्षेप गर्न सुरु गर्छ भने, यसले अन्तर्निहित समस्या जनाउन सक्छ जसलाई सम्बोधन गर्नुपर्छ।",
-    post2Heading2: "के हस्तमैथुन लत बन्न सक्छ?",
-    post2Para4: "चिकित्सकीय रूपमा, हस्तमैथुनलाई लतको रूपमा वर्गीकृत गरिएको छैन। तर सामाजिक, शैक्षिक वा व्यावसायिक जिम्मेवारीहरूमा हस्तक्षेप गर्ने अत्यधिक हस्तमैथुनले बाध्यकारी व्यवहार जनाउन सक्छ जसलाई ध्यान र हेरचाह चाहिन्छ।",
-    post2Heading3: "हस्तमैथुनका फाइदाहरू",
-    post2Para5: "यौन स्वास्थ्य र कल्याण: हस्तमैथुनलाई यौन सन्तुष्टि सुधार गर्ने उपकरणको रूपमा यौन चिकित्सामा प्रायः सुझाव दिइन्छ। यसले व्यक्तिहरूलाई आफ्नो शरीर अन्वेषण गर्न, यौन प्राथमिकताहरू बुझ्न र केही यौन दुष्क्रियाहरूमा मद्दत गर्न अनुमति दिन्छ (युसुपोभा, २०२३; कोलम्यान, २००३)।",
-    post2Para6: "विकासवादी फाइदाहरू: प्राइमेटहरूमा अनुसन्धानले हस्तमैथुनले विकासवादी फाइदाहरू हुन सक्छ भन्ने सुझाव दिन्छ, जस्तै निषेचनलाई समर्थन गर्ने र संक्रमण जोखिम कम गर्ने (ब्रिन्डल एट अल, २०२३)।",
-    post2Para7: "मनोवैज्ञानिक फाइदाहरू: हस्तमैथुनले एन्डोर्फिन र अन्य मनोदशा सुधारने हर्मोनहरूको रिलिजको कारणले एन्टिडिप्रेसेन्ट र एन्टि-एन्जाइटी प्रभाव पनि हुन सक्छ (कोचार्यान, २०२३)।",
+    post2Heading2: "हस्तमैथुनको पछाडिको विज्ञान",
+    post2Para4: "अनुसन्धानले देखाउँछ कि हस्तमैथुन मानव विकास र यौन अभिव्यक्तिको सामान्य भाग हो।",
+    post2Para5: "शारीरिक फाइदाहरू: अध्ययनहरूले नियमित हस्तमैथुनले शारीरिक स्वास्थ्यमा सकारात्मक प्रभाव पार्न सक्छ भन्ने देखाउँछ।",
+    post2Para6: "मानसिक स्वास्थ्य फाइदाहरू: हस्तमैथुनले एन्डोर्फिन रिलिजको कारणले एन्टिडिप्रेसेन्ट र एन्टि-एन्जाइटी प्रभाव पनि हुन सक्छ।",
+    post2Para7: "मनोवैज्ञानिक फाइदाहरू: हस्तमैथुनले एन्डोर्फिन र अन्य मनोदशा सुधारने हर्मोनहरूको रिलिजको कारणले एन्टिडिप्रेसेन्ट र एन्टि-एन्जाइटी प्रभाव पनि हुन सक्छ।",
     post2Heading4: "सामान्य मिथकहरू खण्डन",
     post2List2: [
-      "\"हस्तमैथुनले अन्धपन वा बाँझपन ल्याउँछ\": गलत। हस्तमैथुन र यी प्रभावहरू बीच कुनै वैज्ञानिक सम्बन्ध छैन (कोचार्यान, २०२३)।",
-      "\"यसले टेस्टोस्टेरोन कम गर्छ र शरीर कमजोर बनाउँछ\": आंशिक रूपमा गलत। जबकि टेस्टोस्टेरोन स्तरहरू स्खलन पछि छोटो समयका लागि घट्न सक्छ, तिनीहरू छिटै सामान्यमा फर्किन्छन्। कुनै दीर्घकालीन हानि फेला परेको छैन (एक्सटन एट अल, २००१)।",
-      "\"यसले मानसिक स्वास्थ्य समस्याहरू ल्याउँछ\": गलत। हस्तमैथुनले वास्तवमा तनाव कम गर्न सक्छ र भावनात्मक कल्याणलाई समर्थन गर्न सक्छ। तर यससँग जोडिएको अपराधबोध वा लज्जाले मानसिक स्वास्थ्य चिन्ताहरूमा योगदान गर्न सक्छ (हेनरी एट अल, २०२४; अल्बोबाली र माडी, २०२१; कोचार्यान, २०२३)।"
+      "\"हस्तमैथुनले अन्धपन वा बाँझपन ल्याउँछ\": गलत। हस्तमैथुन र यी प्रभावहरू बीच कुनै वैज्ञानिक सम्बन्ध छैन।",
+      "\"यसले टेस्टोस्टेरोन कम गर्छ र शरीर कमजोर बनाउँछ\": आंशिक रूपमा गलत। जबकि टेस्टोस्टेरोन स्तरहरू स्खलन पछि छोटो समयका लागि घट्न सक्छ, तिनीहरू छिटै सामान्यमा फर्किन्छन्।",
+      "\"यसले मानसिक स्वास्थ्य समस्याहरू ल्याउँछ\": गलत। हस्तमैथुनले वास्तवमा तनाव कम गर्न सक्छ र भावनात्मक कल्याणलाई समर्थन गर्न सक्छ।"
     ],
     post2Heading5: "अत्यधिक हस्तमैथुनका सम्भावित जोखिमहरू",
     post2Para8: "जबकि हस्तमैथुन सामान्यतया सुरक्षित छ, यसलाई अत्यधिक गर्दा केही जोखिमहरू हुन सक्छन्:",
     post2List3: [
-      "मानसिक स्वास्थ्य चिन्ताहरू: केही अध्ययनहरूले बारम्बार हस्तमैथुनलाई अवसादग्रस्त लक्षणहरू, चिन्ता र सम्बन्धहरूसँग असन्तुष्टिका साथ जोड्छन् (कोस्टा, २०१२)।",
-      "शारीरिक स्वास्थ्य चिन्ताहरू: अनुसन्धानले हस्तमैथुनको उच्च आवृत्तिलाई उच्च प्रोस्टेट-विशिष्ट एन्टिजेन स्तरहरूसँग जोड्छ र सम्भवतः प्रोस्टेट दुष्क्रियाको बढेको जोखिम (कोस्टा, २०१२)।",
-      "व्यवहारिक समस्याहरू: बाध्यकारी हस्तमैथुनले उत्पादकता, फोकस र सामाजिक अन्तरक्रियाहरूमा नकारात्मक प्रभाव पार्न सक्छ (कोचार्यान, २०२३)।"
+      "मानसिक स्वास्थ्य चिन्ताहरू: केही अध्ययनहरूले बारम्बार हस्तमैथुनलाई अवसादग्रस्त लक्षणहरू, चिन्ता र सम्बन्धहरूसँग असन्तुष्टिका साथ जोड्छन्।",
+      "शारीरिक स्वास्थ्य चिन्ताहरू: अनुसन्धानले हस्तमैथुनको उच्च आवृत्तिलाई उच्च प्रोस्टेट-विशिष्ट एन्टिजेन स्तरहरूसँग जोड्छ।",
+      "व्यवहारिक समस्याहरू: बाध्यकारी हस्तमैथुनले उत्पादकता, फोकस र सामाजिक अन्तरक्रियाहरूमा नकारात्मक प्रभाव पार्न सक्छ।"
     ],
     post2Heading6: "व्यक्तिगत भिन्नताहरूको भूमिका",
-    post2Para9: "नैतिक असंगति: व्यक्तिगत वा सांस्कृतिक विश्वासहरूमा जरा गाडिएको अपराधबोधले बढेको चिन्ता र अवसाद ल्याउन सक्छ (हेनरी एट अल, २०२४; अल्बोबाली र माडी, २०२१)।",
-    post2Para10: "सांस्कृतिक प्रभावहरू: केही समाजहरूमा, हस्तमैथुनलाई भारी कलंकित गरिएको छ। मलेसियाली अध्ययनले पाएको छ कि बारम्बार हस्तमैथुनले बढेको तनावसँग जोडिएको थियो, सम्भवतः सामाजिक दबाबको कारणले (फुआह एट अल, २०२३)।",
-    post2Para11: "लिङ्ग भिन्नताहरू: अनुसन्धानले देखाउँछ कि हस्तमैथुनका मनोवैज्ञानिक प्रभावहरू लिङ्गद्वारा महत्वपूर्ण रूपमा प्रभावित हुँदैनन्। व्यक्तिगत विश्वासहरू र भावनात्मक प्रतिक्रियाहरू अधिक महत्वपूर्ण कारकहरू हुन् (फुआह एट अल, २०२३)।",
+    post2Para9: "उमेर र विकास: हस्तमैथुनको आवृत्ति र अर्थ विभिन्न जीवन चरणहरूमा महत्वपूर्ण रूपमा फरक हुन सक्छ।",
+    post2Para10: "सांस्कृतिक र धार्मिक कारकहरू: व्यक्तिगत विश्वासहरू र सांस्कृतिक पृष्ठभूमिले व्यक्तिहरूले हस्तमैथुनलाई कसरी बुझ्छन् र अनुभव गर्छन् भन्नेमा महत्वपूर्ण भूमिका खेल्छ।",
+    post2Para11: "लिङ्ग भिन्नताहरू: अनुसन्धानले देखाउँछ कि हस्तमैथुनका मनोवैज्ञानिक प्रभावहरू लिङ्गद्वारा महत्वपूर्ण रूपमा प्रभावित हुँदैनन्।",
     post2Heading7: "दुर्लभ तर गम्भीर जोखिमहरू",
     post2List4: [
-      "फोर्नियर ग्याङ्ग्रिन: यद्यपि अत्यन्त दुर्लभ, एक केसमा यो गम्भीर संक्रमणलाई साबुनलाई लुब्रिकेन्टको रूपमा प्रयोग गरेर अत्यधिक हस्तमैथुनसँग जोडिएको थियो (हाइनर एट अल, २०१२)।",
-      "प्रोस्टेट दुष्क्रिया: उच्च-आवृत्ति हस्तमैथुनले उच्च प्रोस्टेट-विशिष्ट एन्टिजेन स्तरहरूसँग सम्बन्धित हुन सक्छ र सम्भावित दुष्क्रिया (कोस्टा, २०१२)।",
-      "यौन दुष्क्रिया: अत्यधिक हस्तमैथुनले यौन सन्तुष्टि र साझेदारहरूसँगको घनिष्ठतामा प्रभाव पार्न सक्छ (कोस्टा, २०१२)।"
+      "फोर्नियर ग्याङ्ग्रिन: यद्यपि अत्यन्त दुर्लभ, एक केसमा यो गम्भीर संक्रमणलाई साबुनलाई लुब्रिकेन्टको रूपमा प्रयोग गरेर अत्यधिक हस्तमैथुनसँग जोडिएको थियो।",
+      "प्रोस्टेट दुष्क्रिया: उच्च-आवृत्ति हस्तमैथुनले उच्च प्रोस्टेट-विशिष्ट एन्टिजेन स्तरहरूसँग सम्बन्धित हुन सक्छ र सम्भावित दुष्क्रिया।",
+      "यौन दुष्क्रिया: अत्यधिक हस्तमैथुनले यौन सन्तुष्टि र साझेदारहरूसँगको घनिष्ठतामा प्रभाव पार्न सक्छ।"
     ],
     post2Heading8: "अन्तिम विचार: संतुलित दृष्टिकोण",
-    post2Para12: "भविष्यका सर्जन र अनुसन्धानकर्ताको रूपमा, म प्रमाण-आधारित यौन स्वास्थ्य शिक्षालाई समर्थन गर्छु। मध्यमतामा अभ्यास गर्दा हस्तमैथुन विकासको स्वस्थ र सामान्य भाग हो। तर जब अपराधबोध, बाध्यकारी वा गलत जानकारीले हस्तक्षेप गर्छ, यसले भावनात्मक र सम्बन्धात्मक संघर्षहरू ल्याउन सक्छ।",
-    post2Quote: "सही, कलंक-मुक्त शिक्षा प्रदान गरेर र तथ्यहरूसँग चिन्ताहरू सम्बोधन गरेर, हामी युवाहरूलाई आफ्नो शरीर र यौनताको स्वस्थ, अपराधबोध-मुक्त बुझाइ विकसित गर्न मद्दत गर्न सक्छौं।"
+    post2Para12: "भविष्यका सर्जन र अनुसन्धानकर्ताको रूपमा, म प्रमाण-आधारित यौन स्वास्थ्य शिक्षालाई समर्थन गर्छु। मध्यमतामा अभ्यास गर्दा हस्तमैथुन विकासको स्वस्थ र सामान्य भाग हो।",
+    post2Quote: "सही, कलंक-मुक्त शिक्षा प्रदान गरेर र तथ्यहरूसँग चिन्ताहरू सम्बोधन गरेर, हामी युवाहरूलाई आफ्नो शरीर र यौनताको स्वस्थ, अपराधबोध-मुक्त बुझाइ विकसित गर्न मद्दत गर्न सक्छौं।",
+    backToPosts: "← लेखहरूमा फर्कनुहोस्"
   }
 };
-

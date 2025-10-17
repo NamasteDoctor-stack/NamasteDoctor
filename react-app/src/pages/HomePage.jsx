@@ -95,7 +95,7 @@ const HomePage = () => {
 
       {/* Features Section */}
       <section className="offers-container fade-in">
-        <h2 className="section-title">{t.whyTitle}</h2>
+        <h2 className="section-title">{t.featuresTitle}</h2>
         <section className="features">
           <article className="feature fade-in">
             <h3>{t.feature1Title}</h3>
