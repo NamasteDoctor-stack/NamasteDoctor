@@ -1,10 +1,12 @@
 import React from "react";
 import "../mainstyle.css";
 import "../chatboat.css";
+import Navbar from "../Navbar";
 
 export default function Info() {
   return (
     <>
+      <Navbar />
       <div className="nd-info-outer">
         <div className="nd-info-container">
           <h1 className="nd-info-title">About Namaste Doctor</h1>

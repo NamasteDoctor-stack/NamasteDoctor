@@ -13,9 +13,11 @@ import Post1Page from "./pages/Post1Page";
 import Post2Page from "./pages/Post2Page";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import SignupPage from "./pages/SignupPage";
+import OurDoctorsPage from "./pages/OurDoctorsPage";
 import Info from "./pages/Info";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,25 +29,28 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/chatbot" element={<ChatbotPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/contact-success" element={<ContactSuccessPage />} />
-        <Route path="/doctor-dashboard" element={<DoctorDashboardPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/patient-dashboard" element={<PatientDashboardPage />} />
-        <Route path="/pending" element={<PendingPage />} />
-        <Route path="/post-1" element={<Post1Page />} />
-        <Route path="/post-2" element={<Post2Page />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/info" element={<Info />} />
-      </Routes>
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/chatbot" element={<ChatbotPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact-success" element={<ContactSuccessPage />} />
+          <Route path="/doctor-dashboard" element={<DoctorDashboardPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/patient-dashboard" element={<PatientDashboardPage />} />
+          <Route path="/pending" element={<PendingPage />} />
+          <Route path="/post-1" element={<Post1Page />} />
+          <Route path="/post-2" element={<Post2Page />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/our-doctors" element={<OurDoctorsPage />} />
+          <Route path="/info" element={<Info />} />
+        </Routes>
+      </Router>
+    </LanguageProvider>
   );
 }
 

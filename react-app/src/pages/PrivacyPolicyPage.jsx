@@ -1,30 +1,11 @@
 import React from "react";
 import "../mainstyle.css";
 import { Link } from "react-router-dom";
+import Navbar from "../Navbar";
 
 const PrivacyPolicyPage = () => (
   <>
-    <header className="navbar">
-      <div className="navbar-container">
-        <Link to="/" className="logo" style={{ cursor: "pointer", textDecoration: "none" }}>
-          Namaste<span>Doctor</span>
-        </Link>
-        <nav>
-          <ul className="nav-links" id="navLinks">
-            <li><a href="/#about-section">About</a></li>
-            <li><a href="/#posts-section">Posts</a></li>
-            <li><a href="/#how-it-works">How It Works</a></li>
-            <li><a href="/#faq-section">FAQ</a></li>
-            <li><Link to="/login" className="login-btn">Doctor's Login</Link></li>
-          </ul>
-          <div className="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <Navbar />
     <main>
       <div className="privacy-container fade-in visible">
         <h1>Namaste Doctor Privacy Policy</h1>

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../mainstyle.css"; 
 import "../chatboat.css";
 import { marked } from "marked";
+import Navbar from "../Navbar";
 
 const GEMINI_PROXY_URL = "https://gemini-proxy.namastedoctornp.workers.dev";
 
@@ -798,7 +799,9 @@ export default function ChatbotPage() {
   };
 
   return (
-    <div className="nd-chatbot-outer">
+    <>
+      <Navbar />
+      <div className="nd-chatbot-outer">
       <div className="nd-chatbot-container">
         <div className="nd-chatbot-title">
           Sexual Health Chatbot
@@ -841,7 +844,12 @@ export default function ChatbotPage() {
         {/* Loading indicator */}
         {loading && (
           <div id="nd-chatLoading">
-            <span>{apiAvailable ? "AI is processing..." : "Processing..."}</span>
+            <div className="loading-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <span>{apiAvailable ? "AI is thinking..." : "Processing..."}</span>
           </div>
         )}
         
@@ -852,13 +860,14 @@ export default function ChatbotPage() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your message here..."
-            disabled={loading}
+            disabled={loading || !showSend}
           />
           {showSend && (
             <button
               type="submit"
-              disabled={loading || !input.trim()}
+              disabled={loading || !input.trim() || !showSend}
               title="Send message"
+              className={loading || !showSend ? "disabled" : ""}
             >
               ➤
             </button>
@@ -869,7 +878,7 @@ export default function ChatbotPage() {
               type="button"
               onClick={handleStopTypewriter}
               title="Stop generating"
-              style={{ marginLeft: showSend ? '0.5rem' : 0 }}
+              className="stop-btn"
             >
               ■
             </button>
@@ -888,5 +897,6 @@ export default function ChatbotPage() {
         </a>
       </div>
     </div>
+    </>
   );
 }

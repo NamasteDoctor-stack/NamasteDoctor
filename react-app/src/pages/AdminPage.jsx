@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../mainstyle.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Navbar from "../Navbar";
 import app from '../firebaseConfig';
 import {
   getFirestore,
@@ -33,20 +34,6 @@ const AdminPage = () => {
     emailjs.init("xO-QOM1l2Vf1lQixD");
   }, []);
 
-  const navigate = useNavigate();
-  const handleSectionNav = (sectionId) => (e) => {
-    e.preventDefault();
-    if (window.location.pathname !== "/") {
-      navigate("/", { state: { scrollTo: sectionId } });
-    } else {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        const yOffset = -80; // Adjust to your navbar height
-        const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-    }
-  };
 
   const sendApprovalEmail = async (toEmail, fullName) => {
     try {
@@ -134,20 +121,7 @@ const AdminPage = () => {
 
   return (
     <>
-      <header className="navbar">
-        <div className="navbar-container">
-          <div className="logo">Namaste<span>Doctor</span></div>
-          <nav>
-            <ul className="nav-links" id="navLinks">
-              <li><a href="#about-section" onClick={handleSectionNav('about-section')}>About</a></li>
-              <li><a href="#posts-section" onClick={handleSectionNav('posts-section')}>Posts</a></li>
-              <li><a href="#how-it-works" onClick={handleSectionNav('how-it-works')}>How It Works</a></li>
-              <li><a href="#faq-section" onClick={handleSectionNav('faq-section')}>FAQ</a></li>
-              <li><Link to="/chatbot">Chatbot</Link></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <Navbar />
       {!isLoggedIn ? (
         <div className="auth-wrapper" id="adminLoginWrapper">
           <h2>Admin Login</h2>

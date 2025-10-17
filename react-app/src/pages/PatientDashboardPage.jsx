@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "../mainstyle.css";
 import "../chat-ui.css";
 import { Link } from "react-router-dom";
+import Navbar from "../Navbar";
 import app from "../firebaseConfig";
 import { getDatabase, ref, onValue, set, off, update } from "firebase/database";
 
@@ -173,6 +174,7 @@ const PatientDashboardPage = () => {
 
   return (
     <>
+      <Navbar />
       <div className="chat-shell">
         <div className="topbar">
           <div className="brand">NamasteDoctor</div>

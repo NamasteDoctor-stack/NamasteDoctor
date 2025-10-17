@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "../mainstyle.css";
 import "../chat-ui.css";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../Navbar";
 import app from "../firebaseConfig";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -167,6 +168,7 @@ const DoctorDashboardPage = () => {
 
   return (
     <>
+      <Navbar />
       <div className="dashboard-container">
         <aside className={"sidebar" + (mobileShowChat ? " hide-mobile" : "")}>
           <div className="sidebar-header">
