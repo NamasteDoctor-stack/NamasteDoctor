@@ -40,8 +40,14 @@ export const translations = {
     doctorsTitle: "Our Medical Team",
     doctor1Name: "Dr. Rochana Acharya",
     doctor1Specialty: "Gynecologist",
+    doctor1Degree: "MD",
+    doctor1Institution: "Cleveland Clinic Foundation Program",
+    doctor1Role: "Medical Content Reviewer",
     doctor2Name: "Dr. Sagar Panthi",
     doctor2Specialty: "Urologist",
+    doctor2Degree: "MD",
+    doctor2Institution: "Texas Tech University Health Sciences Center",
+    doctor2Role: "Medical Content Reviewer",
     viewAllDoctors: "View All Doctors",
     
     // How It Works Section
@@ -55,6 +61,14 @@ export const translations = {
     step2Desc: "Receive evidence-based, age-appropriate information.",
     step3Title: "Stay Informed",
     step3Desc: "Access our library of articles and resources anytime.",
+    
+    // How It Works Steps
+    howStep1Title: "Ask Questions",
+    howStep1Desc: "Submit your questions anonymously through our platform.",
+    howStep2Title: "Get Information",
+    howStep2Desc: "Receive evidence-based, age-appropriate information.",
+    howStep3Title: "Stay Informed",
+    howStep3Desc: "Access our library of articles and resources anytime.",
     
     // FAQ Section
     faqTitle: "Frequently Asked Questions",
@@ -206,8 +220,14 @@ export const translations = {
     doctorsTitle: "हाम्रो चिकित्सा टोली",
     doctor1Name: "डा. रोचना आचार्य",
     doctor1Specialty: "स्त्री रोग विशेषज्ञ",
+    doctor1Degree: "MD",
+    doctor1Institution: "क्लीभल्याण्ड क्लिनिक फाउन्डेसन कार्यक्रम",
+    doctor1Role: "चिकित्सा सामग्री समीक्षक",
     doctor2Name: "डा. सागर पन्थी",
     doctor2Specialty: "मूत्र रोग विशेषज्ञ",
+    doctor2Degree: "MD",
+    doctor2Institution: "टेक्सास टेक विश्वविद्यालय स्वास्थ्य विज्ञान केन्द्र",
+    doctor2Role: "चिकित्सा सामग्री समीक्षक",
     viewAllDoctors: "सबै डाक्टरहरू हेर्नुहोस्",
     
     // How It Works Section
@@ -221,6 +241,14 @@ export const translations = {
     step2Desc: "प्रमाण-आधारित, उमेर-उपयुक्त जानकारी प्राप्त गर्नुहोस्।",
     step3Title: "सूचित रहनुहोस्",
     step3Desc: "कुनै पनि समयमा हाम्रो लेख र स्रोतहरूको पुस्तकालयमा पहुँच गर्नुहोस्।",
+    
+    // How It Works Steps
+    howStep1Title: "प्रश्नहरू सोध्नुहोस्",
+    howStep1Desc: "हाम्रो मञ्च मार्फत अनामिक रूपमा आफ्ना प्रश्नहरू पेश गर्नुहोस्।",
+    howStep2Title: "जानकारी पाउनुहोस्", 
+    howStep2Desc: "प्रमाण-आधारित, उमेर-उपयुक्त जानकारी प्राप्त गर्नुहोस्।",
+    howStep3Title: "सूचित रहनुहोस्",
+    howStep3Desc: "कुनै पनि समयमा हाम्रो लेख र स्रोतहरूको पुस्तकालयमा पहुँच गर्नुहोस्।",
     
     // FAQ Section
     faqTitle: "बारम्बार सोधिने प्रश्नहरू",

@@ -177,10 +177,10 @@ const HomePage = () => {
                 alt="Dr. Sagar Panthi - Medical Content Reviewer" 
                 loading="lazy"
               />
-              <h3>Dr. Sagar Panthi</h3>
-              <p>MD</p>
-              <p>Texas Tech University Health Sciences Center</p>
-              <p>Medical Content Reviewer</p>
+              <h3>{t.doctor2Name}</h3>
+              <p>{t.doctor2Degree}</p>
+              <p>{t.doctor2Institution}</p>
+              <p>{t.doctor2Role}</p>
             </article>
             <article className="doctor-card fade-in">
               <img 
@@ -188,10 +188,10 @@ const HomePage = () => {
                 alt="Dr. Rochana Acharya - Medical Content Reviewer" 
                 loading="lazy"
               />
-              <h3>Dr. Rochana Acharya</h3>
-              <p>MD</p>
-              <p>Cleveland Clinic Foundation Program</p>
-              <p>Medical Content Reviewer</p>
+              <h3>{t.doctor1Name}</h3>
+              <p>{t.doctor1Degree}</p>
+              <p>{t.doctor1Institution}</p>
+              <p>{t.doctor1Role}</p>
             </article>
           </div>
           <div className="doctors-cta">
