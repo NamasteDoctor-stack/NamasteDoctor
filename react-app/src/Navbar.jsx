@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLanguage } from "./contexts/LanguageContext";
+import { translations } from "./translations/translations";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,6 +10,8 @@ const Navbar = () => {
   const navbarRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { language, toggleLanguage } = useLanguage();
+  const t = translations[language];
 
   // Hamburger menu toggle + disable/enable scrolling
   const handleHamburgerClick = () => {
@@ -104,24 +108,22 @@ const Navbar = () => {
   return (
     <header className="navbar" ref={navbarRef} style={{ top: 0, transition: "top 0.3s" }}>
       <div className="navbar-container">
-        <Link to="/" className="logo" style={{ cursor: "pointer", textDecoration: "none" }}>
-          Namaste<span>Doctor</span>
-        </Link>
-        <nav>
-          <ul
-            className={`nav-links${menuOpen ? " active" : ""}`}
-            id="navLinks"
-            ref={navLinksRef}
+        <div className="navbar-left">
+          <Link to="/" className="logo" style={{ cursor: "pointer", textDecoration: "none" }}>
+            Namaste<span>Doctor</span>
+          </Link>
+        </div>
+        
+        <div className="navbar-right">
+          {/* Language Toggle */}
+          <button 
+            onClick={toggleLanguage}
+            className="language-toggle-btn"
           >
-            <li><a href="#about-section" onClick={handleSectionNav('about-section')}>About</a></li>
-            <li><a href="#posts-section" onClick={handleSectionNav('posts-section')}>Posts</a></li>
-            <li><a href="#how-it-works" onClick={handleSectionNav('how-it-works')}>How It Works</a></li>
-            <li><a href="#faq-section" onClick={handleSectionNav('faq-section')}>FAQ</a></li>
-            <li><Link to="/our-doctors">Our Doctors</Link></li>
-            <li><Link to="/chatbot">Chatbot</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/login" className="login-btn">Doctor's Login</Link></li>
-          </ul>
+            {language === 'en' ? 'नेपाली' : 'English'}
+          </button>
+          
+          {/* Hamburger Menu */}
           <div
             className={`hamburger${menuOpen ? " toggle" : ""}`}
             id="hamburger"
@@ -132,6 +134,24 @@ const Navbar = () => {
             <span></span>
             <span></span>
           </div>
+        </div>
+        
+        {/* Navigation Links */}
+        <nav>
+          <ul
+            className={`nav-links${menuOpen ? " active" : ""}`}
+            id="navLinks"
+            ref={navLinksRef}
+          >
+            <li><a href="#about-section" onClick={handleSectionNav('about-section')}>{t.about}</a></li>
+            <li><a href="#posts-section" onClick={handleSectionNav('posts-section')}>{t.posts}</a></li>
+            <li><a href="#how-it-works" onClick={handleSectionNav('how-it-works')}>{t.howItWorks}</a></li>
+            <li><a href="#faq-section" onClick={handleSectionNav('faq-section')}>{t.faq}</a></li>
+            <li><Link to="/our-doctors">{t.ourDoctors}</Link></li>
+            <li><Link to="/chatbot">{t.chatbot}</Link></li>
+            <li><Link to="/contact">{t.contact}</Link></li>
+            <li><Link to="/login" className="login-btn">{t.doctorsLogin}</Link></li>
+          </ul>
         </nav>
       </div>
     </header>
