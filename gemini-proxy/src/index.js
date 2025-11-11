@@ -100,16 +100,12 @@ export default {
       // Try multiple API endpoints for better reliability
       const API_ENDPOINTS = [
         {
-          name: "Gemini 1.5 Pro",
-          url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${env.GEMINI_API_KEY_V2}`
-        },
-        {
           name: "Gemini 2.0 Flash",
           url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${env.GEMINI_API_KEY_V2}`
         },
         {
-          name: "Gemini 1.5 Flash",
-          url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GEMINI_API_KEY_V2}`
+          name: "Gemini 2.0 Flash-Lite",
+          url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${env.GEMINI_API_KEY_V2}`
         }
       ];
 
