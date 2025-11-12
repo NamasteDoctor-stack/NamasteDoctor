@@ -128,9 +128,12 @@ const HomePage = () => {
           ))}
         </p>
         
+        {/* Only show founder info if it exists */}
+        {t.founderInfo && (
           <div className="founder-info">
             <p>{t.founderInfo}</p>
           </div>
+        )}
       </section>
 
       {/* Articles Section */}
@@ -221,6 +224,38 @@ const HomePage = () => {
           <div className="how-text">
             <h3>{t.howSubtitle}</h3>
             <p>{t.howDescription}</p>
+            
+            {/* Updated: 4-step process */}
+            <div className="how-steps">
+              <div className="step">
+                <div className="step-number">1</div>
+                <div className="step-content">
+                  <h4>{t.howStep1Title}</h4>
+                  <p>{t.howStep1Desc}</p>
+                </div>
+              </div>
+              <div className="step">
+                <div className="step-number">2</div>
+                <div className="step-content">
+                  <h4>{t.howStep2Title}</h4>
+                  <p>{t.howStep2Desc}</p>
+                </div>
+              </div>
+              <div className="step">
+                <div className="step-number">3</div>
+                <div className="step-content">
+                  <h4>{t.howStep3Title}</h4>
+                  <p>{t.howStep3Desc}</p>
+                </div>
+              </div>
+              <div className="step">
+                <div className="step-number">4</div>
+                <div className="step-content">
+                  <h4>{t.howStep4Title}</h4>
+                  <p>{t.howStep4Desc}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -257,5 +292,6 @@ const HomePage = () => {
     </>
   );
 };
+
 
 export default HomePage;
