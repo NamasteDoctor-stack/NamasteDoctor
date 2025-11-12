@@ -17,18 +17,18 @@ export const translations = {
     // Features Section
     featuresTitle: "Why Choose Namaste Doctor?",
     feature1Title: "Safe & Anonymous",
-    feature1Desc: "Ask questions without revealing your identity. Your privacy is our priority.",
+    feature1Desc: "Ask questions without revealing your identity. Your privacy is our priority. No registration, no tracking, no judgment—just honest answers when you need them.",
     feature2Title: "Verified Information",
-    feature2Desc: "All content is reviewed by medical professionals and based on scientific evidence.",
+    feature2Desc: "All content is reviewed by medical professionals and based on scientific evidence. We ensure every piece of information meets the highest standards of medical accuracy.",
     feature3Title: "Age-Appropriate",
-    feature3Desc: "Content designed specifically for adolescents and young adults.",
+    feature3Desc: "Content designed specifically for adolescents and young adults. Our information is tailored to your stage of life, using language that's clear, respectful, and easy to understand.",
     feature4Title: "Free Access",
-    feature4Desc: "No cost, no registration required. Education should be accessible to all.",
+    feature4Desc: "No cost, no registration required. Education should be accessible to all. We believe that accurate health information is a fundamental right, not a privilege.",
     
     // About Section
     aboutTitle: "About Namaste Doctor",
     aboutDescription: "Namaste Doctor was created to address the lack of comprehensive sexual and reproductive health education for adolescents in Nepal. We believe that accurate, stigma-free information is essential for young people to make informed decisions about their health and well-being.\n\nOur platform provides evidence-based information on topics including puberty, menstruation, sexual health, relationships, and more. All content is reviewed by qualified healthcare professionals to ensure accuracy and appropriateness.",
-    founderInfo: "Founded by medical professionals committed to providing accurate, stigma-free sexual health education for young people in Nepal.",
+    founderInfo: "",
     
     // Posts Section
     postsTitle: "Latest Articles",
@@ -54,21 +54,25 @@ export const translations = {
     howItWorksTitle: "How It Works",
     howTitle: "How It Works",
     howSubtitle: "Simple Steps to Get Started",
-    howDescription: "Getting the information you need is easy and completely anonymous.",
-    step1Title: "Ask Questions",
-    step1Desc: "Submit your questions anonymously through our platform.",
-    step2Title: "Get Information",
-    step2Desc: "Receive evidence-based, age-appropriate information.",
-    step3Title: "Stay Informed",
-    step3Desc: "Access our library of articles and resources anytime.",
+    howDescription: "Getting the information you need is easy and completely anonymous. We've designed our platform to be simple, straightforward, and accessible—no barriers, no complications.",
+    step1Title: "Choose Your Path",
+    step1Desc: "Start by selecting either our AI chatbot for instant answers or submit a question to our medical team. Both options are completely anonymous and designed to provide you with accurate, helpful information.",
+    step2Title: "Ask Freely",
+    step2Desc: "Type your questions without hesitation. There are no silly questions when it comes to your health. Our platform creates a judgment-free space where curiosity is encouraged and every question matters.",
+    step3Title: "Get Verified Answers",
+    step3Desc: "Receive clear, evidence-based responses reviewed by healthcare professionals. All information is tailored to be age-appropriate, medically accurate, and easy to understand.",
+    step4Title: "Learn and Explore",
+    step4Desc: "Browse our growing library of articles, resources, and educational content. Come back anytime—our platform is always here when you need reliable health information.",
     
     // How It Works Steps
-    howStep1Title: "Ask Questions",
-    howStep1Desc: "Submit your questions anonymously through our platform.",
-    howStep2Title: "Get Information",
-    howStep2Desc: "Receive evidence-based, age-appropriate information.",
-    howStep3Title: "Stay Informed",
-    howStep3Desc: "Access our library of articles and resources anytime.",
+    howStep1Title: "Choose Your Path",
+    howStep1Desc: "Start by selecting either our AI chatbot for instant answers or submit a question to our medical team. Both options are completely anonymous and designed to provide you with accurate, helpful information.",
+    howStep2Title: "Ask Freely",
+    howStep2Desc: "Type your questions without hesitation. There are no silly questions when it comes to your health. Our platform creates a judgment-free space where curiosity is encouraged and every question matters.",
+    howStep3Title: "Get Verified Answers",
+    howStep3Desc: "Receive clear, evidence-based responses reviewed by healthcare professionals. All information is tailored to be age-appropriate, medically accurate, and easy to understand.",
+    howStep4Title: "Learn and Explore",
+    howStep4Desc: "Browse our growing library of articles, resources, and educational content. Come back anytime—our platform is always here when you need reliable health information.",
     
     // FAQ Section
     faqTitle: "Frequently Asked Questions",
@@ -86,7 +90,7 @@ export const translations = {
     faq3Answer: "Our content is designed for adolescents and young adults aged 13-25.",
     
     // Footer
-    footerText: "© 2025 Namaste Doctor | Privacy Policy",
+    footerText: "© 2024 Namaste Doctor | Privacy Policy",
     
     // Navigation
     about: "About",
@@ -197,18 +201,18 @@ export const translations = {
     // Features Section
     featuresTitle: "किन नमस्ते डाक्टर छान्ने?",
     feature1Title: "सुरक्षित र अनामिक",
-    feature1Desc: "आफ्नो पहिचान नखोलेर प्रश्नहरू सोध्नुहोस्। तपाईंको गोपनीयता हाम्रो प्राथमिकता हो।",
+    feature1Desc: "आफ्नो पहिचान नखोलेर प्रश्नहरू सोध्नुहोस्। तपाईंको गोपनीयता हाम्रो प्राथमिकता हो। कुनै दर्ता छैन, कुनै ट्र्याकिङ छैन, कुनै निर्णय छैन—तपाईंलाई आवश्यक पर्दा केवल इमानदार जवाफहरू।",
     feature2Title: "प्रमाणित जानकारी",
-    feature2Desc: "सबै सामग्री चिकित्सा पेशेवरहरूद्वारा समीक्षा गरिएको छ र वैज्ञानिक प्रमाणमा आधारित छ।",
+    feature2Desc: "सबै सामग्री चिकित्सा पेशेवरहरूद्वारा समीक्षा गरिएको छ र वैज्ञानिक प्रमाणमा आधारित छ। हामी प्रत्येक जानकारीले चिकित्सा सटीकताको उच्चतम मापदण्ड पूरा गर्ने कुरा सुनिश्चित गर्छौं।",
     feature3Title: "उमेर-उपयुक्त",
-    feature3Desc: "किशोर र युवा वयस्कहरूका लागि विशेष रूपमा डिजाइन गरिएको सामग्री।",
+    feature3Desc: "किशोर र युवा वयस्कहरूका लागि विशेष रूपमा डिजाइन गरिएको सामग्री। हाम्रो जानकारी तपाईंको जीवन चरणको लागि अनुकूलित छ, जुन स्पष्ट, सम्मानजनक र बुझ्न सजिलो भाषा प्रयोग गर्दछ।",
     feature4Title: "निःशुल्क पहुँच",
-    feature4Desc: "कुनै लागत छैन, कुनै दर्ता आवश्यक छैन। शिक्षा सबैका लागि सुलभ हुनुपर्छ।",
+    feature4Desc: "कुनै लागत छैन, कुनै दर्ता आवश्यक छैन। शिक्षा सबैका लागि सुलभ हुनुपर्छ। हामी विश्वास गर्छौं कि सही स्वास्थ्य जानकारी मौलिक अधिकार हो, विशेषाधिकार होइन।",
     
     // About Section
     aboutTitle: "नमस्ते डाक्टरको बारेमा",
     aboutDescription: "नमस्ते डाक्टर नेपालमा किशोर-किशोरीहरूका लागि व्यापक यौन र प्रजनन स्वास्थ्य शिक्षाको कमीको समाधान गर्न सिर्जना गरिएको हो। हामी विश्वास गर्छौं कि सही, कलंक-मुक्त जानकारी युवाहरूका लागि आफ्नो स्वास्थ्य र कल्याणको बारेमा सूचित निर्णय लिन आवश्यक छ।\n\nहाम्रो मञ्चले यौवन, महिनावारी, यौन स्वास्थ्य, सम्बन्धहरू र अधिक विषयहरूमा प्रमाण-आधारित जानकारी प्रदान गर्छ। सबै सामग्री सटीकता र उपयुक्तताको ग्यारेन्टीका लागि योग्य स्वास्थ्य सेवा पेशेवरहरूद्वारा समीक्षा गरिएको छ।",
-    founderInfo: "नेपालका युवाहरूका लागि सही, कलंक-मुक्त यौन स्वास्थ्य शिक्षा प्रदान गर्न प्रतिबद्ध चिकित्सा पेशेवरहरूद्वारा स्थापना गरिएको।",
+    founderInfo: "",
     
     // Posts Section
     postsTitle: "नयाँ लेखहरू",
@@ -234,21 +238,25 @@ export const translations = {
     howItWorksTitle: "यो कसरी काम गर्छ",
     howTitle: "यो कसरी काम गर्छ",
     howSubtitle: "सुरु गर्न सजिलो चरणहरू",
-    howDescription: "तपाईंलाई चाहिने जानकारी पाउनु सजिलो र पूर्ण रूपमा अनामिक छ।",
-    step1Title: "प्रश्नहरू सोध्नुहोस्",
-    step1Desc: "हाम्रो मञ्च मार्फत अनामिक रूपमा आफ्ना प्रश्नहरू पेश गर्नुहोस्।",
-    step2Title: "जानकारी पाउनुहोस्",
-    step2Desc: "प्रमाण-आधारित, उमेर-उपयुक्त जानकारी प्राप्त गर्नुहोस्।",
-    step3Title: "सूचित रहनुहोस्",
-    step3Desc: "कुनै पनि समयमा हाम्रो लेख र स्रोतहरूको पुस्तकालयमा पहुँच गर्नुहोस्।",
+    howDescription: "तपाईंलाई चाहिने जानकारी पाउनु सजिलो र पूर्ण रूपमा अनामिक छ। हामीले हाम्रो मञ्चलाई सरल, सीधा र सुलभ हुने गरी डिजाइन गरेका छौं—कुनै बाधा छैन, कुनै जटिलता छैन।",
+    step1Title: "आफ्नो बाटो छान्नुहोस्",
+    step1Desc: "तुरुन्त जवाफको लागि हाम्रो AI च्याटबट वा हाम्रो चिकित्सा टोलीलाई प्रश्न पेश गर्नुहोस्। दुबै विकल्प पूर्ण रूपमा अनामिक छन् र तपाईंलाई सही, उपयोगी जानकारी प्रदान गर्न डिजाइन गरिएका छन्।",
+    step2Title: "स्वतन्त्र रूपमा सोध्नुहोस्",
+    step2Desc: "कुनै हिचकिचाहट बिना आफ्ना प्रश्नहरू टाइप गर्नुहोस्। तपाईंको स्वास्थ्यको कुरा आउँदा कुनै मूर्ख प्रश्नहरू छैनन्। हाम्रो मञ्चले निर्णय-मुक्त स्थान सिर्जना गर्छ जहाँ जिज्ञासालाई प्रोत्साहित गरिन्छ र प्रत्येक प्रश्न महत्वपूर्ण हुन्छ।",
+    step3Title: "प्रमाणित उत्तरहरू पाउनुहोस्",
+    step3Desc: "स्वास्थ्य सेवा पेशेवरहरूद्वारा समीक्षा गरिएका स्पष्ट, प्रमाण-आधारित प्रतिक्रियाहरू प्राप्त गर्नुहोस्। सबै जानकारी उमेर-उपयुक्त, चिकित्सकीय रूपमा सही र बुझ्न सजिलो हुने गरी अनुकूलित गरिएको छ।",
+    step4Title: "सिक्नुहोस् र अन्वेषण गर्नुहोस्",
+    step4Desc: "हाम्रो बढ्दो लेख, स्रोतहरू र शैक्षिक सामग्रीको पुस्तकालय ब्राउज गर्नुहोस्। कुनै पनि समयमा फर्कनुहोस्—तपाईंलाई भरपर्दो स्वास्थ्य जानकारी आवश्यक पर्दा हाम्रो मञ्च सधैं यहाँ छ।",
     
     // How It Works Steps
-    howStep1Title: "प्रश्नहरू सोध्नुहोस्",
-    howStep1Desc: "हाम्रो मञ्च मार्फत अनामिक रूपमा आफ्ना प्रश्नहरू पेश गर्नुहोस्।",
-    howStep2Title: "जानकारी पाउनुहोस्", 
-    howStep2Desc: "प्रमाण-आधारित, उमेर-उपयुक्त जानकारी प्राप्त गर्नुहोस्।",
-    howStep3Title: "सूचित रहनुहोस्",
-    howStep3Desc: "कुनै पनि समयमा हाम्रो लेख र स्रोतहरूको पुस्तकालयमा पहुँच गर्नुहोस्।",
+    howStep1Title: "आफ्नो बाटो छान्नुहोस्",
+    howStep1Desc: "तुरुन्त जवाफको लागि हाम्रो AI च्याटबट वा हाम्रो चिकित्सा टोलीलाई प्रश्न पेश गर्नुहोस्। दुबै विकल्प पूर्ण रूपमा अनामिक छन् र तपाईंलाई सही, उपयोगी जानकारी प्रदान गर्न डिजाइन गरिएका छन्।",
+    howStep2Title: "स्वतन्त्र रूपमा सोध्नुहोस्",
+    howStep2Desc: "कुनै हिचकिचाहट बिना आफ्ना प्रश्नहरू टाइप गर्नुहोस्। तपाईंको स्वास्थ्यको कुरा आउँदा कुनै मूर्ख प्रश्नहरू छैनन्। हाम्रो मञ्चले निर्णय-मुक्त स्थान सिर्जना गर्छ जहाँ जिज्ञासालाई प्रोत्साहित गरिन्छ र प्रत्येक प्रश्न महत्वपूर्ण हुन्छ।",
+    howStep3Title: "प्रमाणित उत्तरहरू पाउनुहोस्",
+    howStep3Desc: "स्वास्थ्य सेवा पेशेवरहरूद्वारा समीक्षा गरिएका स्पष्ट, प्रमाण-आधारित प्रतिक्रियाहरू प्राप्त गर्नुहोस्। सबै जानकारी उमेर-उपयुक्त, चिकित्सकीय रूपमा सही र बुझ्न सजिलो हुने गरी अनुकूलित गरिएको छ।",
+    howStep4Title: "सिक्नुहोस् र अन्वेषण गर्नुहोस्",
+    howStep4Desc: "हाम्रो बढ्दो लेख, स्रोतहरू र शैक्षिक सामग्रीको पुस्तकालय ब्राउज गर्नुहोस्। कुनै पनि समयमा फर्कनुहोस्—तपाईंलाई भरपर्दो स्वास्थ्य जानकारी आवश्यक पर्दा हाम्रो मञ्च सधैं यहाँ छ।",
     
     // FAQ Section
     faqTitle: "बारम्बार सोधिने प्रश्नहरू",
@@ -266,7 +274,7 @@ export const translations = {
     faq3Answer: "हाम्रो सामग्री १३-२५ वर्षका किशोर र युवा वयस्कहरूका लागि डिजाइन गरिएको छ।",
     
     // Footer
-    footerText: "© २०२५ नमस्ते डाक्टर | गोपनीयता नीति",
+    footerText: "© २०२४ नमस्ते डाक्टर | गोपनीयता नीति",
     
     // Navigation
     about: "बारेमा",
